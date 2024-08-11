@@ -1,5 +1,4 @@
 ---
-layout: '../../layouts/MarkdownPostLayout.astro'
 title: 我的第二篇博客文章
 author: 'Lee ski'
 description: "学习了一些 Astro 后，我根本停不下来！"

@@ -1,3 +1,11 @@
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: black;
+}
+
 html {
   background-color: #f1f5f9;
   font-family: sans-serif;
@@ -5,10 +13,6 @@ html {
 
 html.dark {
   background-color: #000;
-  color: #fff;
-}
-
-.dark a {
   color: #fff;
 }
 
@@ -20,11 +24,14 @@ body {
   line-height: 1.5;
 }
 
-* {
-  box-sizing: border-box;
+.dark a {
+  color: #fff;
 }
-
-h1 {
-  margin: 1rem 0;
-  font-size: 2.5rem;
+.dark li.skill {
+  color: #fff;
+}
+.dark nav .nav-links a:hover,
+.dark nav .nav-links a:focus {
+  color: #000;
+  background-color: #fff;
 }
