@@ -1,0 +1,54 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+const pageTitle = "关于我";
+
+const identity = {
+  name: "lee",
+  age: 26,
+  job: "develper",
+  hobby: "reading",
+};
+
+const skills = ["JavaScript", "TypeScript", "React", "Node.js", "HTML", "CSS"];
+
+const happy = true;
+const finished = false;
+const goal = 3;
+
+const skillColor = "navy";
+const fontWeight = "bold";
+const textCase = "uppercase";
+---
+
+<style define:vars={{ skillColor, fontWeight, textCase }}>
+  h1 {
+    color: purple;
+    font-size: 4rem;
+  }
+  .skill {
+    color: var(--skillColor);
+    font-weight: var(--fontWeight);
+    text-transform: var(--textCase);
+  }
+</style>
+
+<BaseLayout pageTitle={pageTitle}>
+  <p>这是关于页面。</p>
+  <h2>基本情况</h2>
+  <ul>
+    <li>姓名：{identity.name}</li>
+    <li>年龄：{identity.age}</li>
+    <li>职业：{identity.job}</li>
+    <li>爱好：{identity.hobby}</li>
+  </ul>
+  <h2>技能</h2>
+  <ul>
+    {
+      skills.map((skill) => {
+        return <li class="skill">{skill}</li>;
+      })
+    }
+  </ul>
+  {happy && <p>我很开心。</p>}
+  {!finished && <p>我还没完成{goal}个目标。</p>}
+</BaseLayout>

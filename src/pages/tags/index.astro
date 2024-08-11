@@ -1,0 +1,17 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Tags from "../../components/Tags.astro";
+
+const allPosts = await Astro.glob("../posts/*.md");
+const uniqueTags = [
+  ...new Set(
+    allPosts
+      .map((post) => {
+        return post.frontmatter.tags;
+      })
+      .flat()
+  ),
+];
+---
+
+<BaseLayout pageTitle="Tags"> <Tags tags={uniqueTags} /></BaseLayout>
