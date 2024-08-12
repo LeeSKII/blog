@@ -29,11 +29,19 @@ const filteredPosts = posts.filter((post) => post.data.tags.includes(tag));
 
 <BaseLayout pageTitle={tag}>
   <p>包含{tag}标签的文章：</p>
-  <ul>
+  <div class="posts">
     {
       filteredPosts.map((post) => {
         return <BlogPost url={`/posts/${post.slug}`} title={post.data.title} />;
       })
     }
-  </ul>
+  </div>
 </BaseLayout>
+
+<style>
+  .posts {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+  }
+</style>

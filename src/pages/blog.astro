@@ -8,16 +8,19 @@ const pageTitle = "我的Astro博客";
 
 <BaseLayout pageTitle={pageTitle}>
   <p>这是我的学习笔记</p>
-  <ul>
+  <div class="posts">
     {
       allPosts.map((post) => {
-        return (
-          <BlogPost
-            url={`/posts/${post.slug}`}
-            title={post.data.title}
-          />
-        );
+        return <BlogPost url={`/posts/${post.slug}`} title={post.data.title} />;
       })
     }
-  </ul>
+  </div>
 </BaseLayout>
+
+<style>
+  .posts {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+  }
+</style>

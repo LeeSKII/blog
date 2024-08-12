@@ -2,12 +2,20 @@
 const { url, title } = Astro.props;
 ---
 
-<li class="blog-post">
-  <a href={url}>{title}</a>
-</li>
+<a class="blog-post" href={url}><div>{title}</div></a>
 
 <style>
-  :global(.dark) .blog-post > a {
+  div {
+    list-style: none;
+    padding: 1rem;
+    border: solid 1px #ccc;
+    border-radius: 0.5rem;
+  }
+  div {
+    font-weight: 700;
+    font-size: large;
+  }
+  :global(.dark) .blog-post {
     color: #fff;
   }
 </style>
