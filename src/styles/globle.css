@@ -17,6 +17,10 @@ html.dark {
   color: #fff;
 }
 
+.dark a {
+  color: #aaa;
+}
+
 body {
   margin: 0 auto;
   width: 100%;
@@ -40,7 +44,7 @@ body {
 /* 注册你的自定义字体并告诉浏览器它在哪里 */
 @font-face {
   font-family: "AlimamaAgileVF-Thin";
-  src: url("/fonts/AlimamaAgileVF-Thin.woff") format("woff");
+  src: url("/blog/fonts/AlimamaAgileVF-Thin.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
