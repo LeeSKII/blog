@@ -9,7 +9,7 @@ a {
 
 html {
   background-color: #f1f5f9;
-  font-family: sans-serif;
+  font-family: "AlimamaAgileVF-Thin";
 }
 
 html.dark {
@@ -20,7 +20,28 @@ html.dark {
 body {
   margin: 0 auto;
   width: 100%;
-  max-width: 60vw;
+
   padding: 1rem;
   line-height: 1.5;
+}
+
+@media (min-width: 768px) {
+  body {
+    width: 700px;
+  }
+}
+
+@media (min-width: 992px) {
+  body {
+    width: 900px;
+  }
+}
+
+/* 注册你的自定义字体并告诉浏览器它在哪里 */
+@font-face {
+  font-family: "AlimamaAgileVF-Thin";
+  src: url("/fonts/AlimamaAgileVF-Thin.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
