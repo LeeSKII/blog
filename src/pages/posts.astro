@@ -11,7 +11,9 @@ const pageTitle = "我的Astro博客";
   <div class="posts">
     {
       allPosts.map((post) => {
-        return <BlogPost url={`/posts/${post.slug}`} title={post.data.title} />;
+        return (
+          <BlogPost url={`/blog/posts/${post.slug}`} title={post.data.title} />
+        );
       })
     }
   </div>
