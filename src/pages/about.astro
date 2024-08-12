@@ -20,18 +20,6 @@ const fontWeight = "bold";
 const textCase = "uppercase";
 ---
 
-<style define:vars={{ skillColor, fontWeight, textCase }}>
-  h1 {
-    color: purple;
-    font-size: 4rem;
-  }
-  .skill {
-    color: var(--skillColor);
-    font-weight: var(--fontWeight);
-    text-transform: var(--textCase);
-  }
-</style>
-
 <BaseLayout pageTitle={pageTitle}>
   <p>这是关于页面。</p>
   <h2>基本情况</h2>
@@ -52,3 +40,18 @@ const textCase = "uppercase";
   {happy && <p>我很开心。</p>}
   {!finished && <p>我还没完成{goal}个目标。</p>}
 </BaseLayout>
+
+<style define:vars={{ skillColor, fontWeight, textCase }}>
+  h1 {
+    color: purple;
+    font-size: 4rem;
+  }
+  .skill {
+    color: var(--skillColor);
+    font-weight: var(--fontWeight);
+    text-transform: var(--textCase);
+  }
+  :global(.dark) li.skill {
+    color: #fff;
+  }
+</style>

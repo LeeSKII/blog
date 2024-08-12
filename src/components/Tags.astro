@@ -17,7 +17,10 @@ const { tags } = Astro.props;
 
 <style>
   a {
-    color: #00539f;
+    color: #eff3f6;
+  }
+  :global(.dark) a {
+    color: #111;
   }
 
   .tags {
@@ -31,6 +34,9 @@ const { tags } = Astro.props;
     border-radius: 0.5em;
     padding: 0.5em 1em;
     font-size: 1.15em;
-    background-color: #f8fcfd;
+    background-color: #111;
+  }
+  :global(.dark) .tag {
+    background-color: #eee;
   }
 </style>

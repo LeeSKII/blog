@@ -2,6 +2,12 @@
 const { url, title } = Astro.props;
 ---
 
-<li>
+<li class="blog-post">
   <a href={url}>{title}</a>
 </li>
+
+<style>
+  :global(.dark) .blog-post > a {
+    color: #fff;
+  }
+</style>

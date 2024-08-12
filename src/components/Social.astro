@@ -6,13 +6,20 @@ interface Props {
 const { platform, username } = Astro.props;
 ---
 
-<a href=`https://www.${platform}.com/${username}`>{platform}</a>
+<a class="socail-link" href=`https://www.${platform}.com/${username}`
+  >{platform}</a
+>
 
 <style>
-  a {
+  .socail-link {
     padding: 0.5rem 1rem;
     color: white;
     background-color: #4c1d95;
     text-decoration: none;
+  }
+  :global(.dark) .socail-link {
+    background-color: #666;
+
+    color: white;
   }
 </style>
