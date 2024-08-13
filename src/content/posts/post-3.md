@@ -1,9 +1,9 @@
 ---
-title: 我的第三篇博客文章
-author: Astro 学习者
-description: "我遇到了一些问题，但是在社区里面提问真的很有帮助！"
+title: How to use git
+author: Lee Ski
+description: "The common use cases of git."
 image:
-    url: "https://docs.astro.build/assets/rays.webp"
+    url: "../../assets//images/posts/post-3/1.jpg"
     alt: "The Astro logo on a dark background with rainbow rays."
 pubDate: 2022-07-15
 tags: ["astro", "learning in public", "setbacks", "community"]

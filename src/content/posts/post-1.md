@@ -4,7 +4,7 @@ pubDate: 2024-08-13
 description: '这是我 Astro 博客的第一篇文章。'
 author: 'Lee Ski'
 image:
-    url: '/blog/images/posts/post-1/1.jpg'
+    url: '../../assets//images/posts/post-1/1.jpg'
     alt: 'A stone in the island of lake.'
 tags: ["astro", "blogging", "learning in public"]
 ---

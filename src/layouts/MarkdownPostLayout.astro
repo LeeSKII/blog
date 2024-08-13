@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 import Tags from "../components/Tags.astro";
+import { Image } from "astro:assets";
 import { fade } from "astro:transitions";
 const { frontmatter } = Astro.props;
 ---
@@ -13,7 +14,7 @@ const { frontmatter } = Astro.props;
       <em>description: {frontmatter.description}</em>
     </p>
     <p>Written by <a href="/blog/about/">{frontmatter.author}</a>.</p>
-    <img src={frontmatter.image.url} alt={frontmatter.image.alt} />
+    <Image src={frontmatter.image.url} alt={frontmatter.image.alt} />
     <slot />
   </div>
 </BaseLayout>
@@ -28,9 +29,8 @@ const { frontmatter } = Astro.props;
     color: #eee;
   }
   img {
-    max-width: 100%;
-    max-height: 300px;
-    cover: center;
+    width: 100%;
+    height: auto;
   }
   .post-container {
     padding: 2px;
