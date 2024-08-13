@@ -7,6 +7,13 @@ a {
   text-decoration: none;
 }
 
+/* 注册你的自定义字体并告诉浏览器它在哪里 */
+@font-face {
+  font-family: "AlimamaAgileVF-Thin";
+  src: url("/blog/fonts/AlimamaAgileVF-Thin.woff") format("woff");
+  font-display: swap;
+}
+
 html {
   background-color: #f1f5f9;
   font-family: "AlimamaAgileVF-Thin";
@@ -24,9 +31,10 @@ html.dark {
 body {
   margin: 0 auto;
   width: 100%;
-
   padding: 1rem;
   line-height: 1.5;
+  position: relative;
+  min-height: 100vh;
 }
 
 @media (min-width: 768px) {
@@ -39,13 +47,4 @@ body {
   body {
     width: 900px;
   }
-}
-
-/* 注册你的自定义字体并告诉浏览器它在哪里 */
-@font-face {
-  font-family: "AlimamaAgileVF-Thin";
-  src: url("/blog/fonts/AlimamaAgileVF-Thin.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
 }

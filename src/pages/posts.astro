@@ -2,12 +2,13 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BlogPost from "../components/BlogPost.astro";
 import { getCollection } from "astro:content";
-const allPosts = await getCollection("posts");
-const pageTitle = "我的Astro博客";
+const allPosts = (await getCollection("posts")).sort(
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
+);
+const pageTitle = "博客";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-  <p>这是我的学习笔记</p>
   <div class="posts">
     {
       allPosts.map((post) => {

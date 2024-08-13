@@ -6,12 +6,38 @@ const { frontmatter } = Astro.props;
 ---
 
 <BaseLayout pageTitle={frontmatter.title}>
-  <Tags tags={frontmatter.tags} />
-  <p>Pulished on {frontmatter.pubDate.toString().slice(0, 10)}</p>
-  <p transition:animate={fade({ duration: 1000 })}>
-    <em>description: {frontmatter.description}</em>
-  </p>
-  <p>Written by <a href="/about/">{frontmatter.author}</a></p>
-  <img src={frontmatter.image.url} width="300" alt={frontmatter.image.alt} />
-  <slot />
+  <div class="post-container">
+    <Tags tags={frontmatter.tags} />
+    <p>Pulished on {frontmatter.pubDate.toString().slice(0, 10)}</p>
+    <p transition:animate={fade({ duration: 1000 })}>
+      <em>description: {frontmatter.description}</em>
+    </p>
+    <p>Written by <a href="/blog/about/">{frontmatter.author}</a>.</p>
+    <img src={frontmatter.image.url} alt={frontmatter.image.alt} />
+    <slot />
+  </div>
 </BaseLayout>
+
+<style>
+  a {
+    color: blue;
+    font-weight: 600;
+    font-variation-settings: "slnt" 12;
+  }
+  :global(.dark) a {
+    color: #eee;
+  }
+  img {
+    max-width: 100%;
+    max-height: 300px;
+    cover: center;
+  }
+  .post-container {
+    padding: 2px;
+  }
+  @media screen and (min-width: 636px) {
+    .post-container {
+      padding: 20px;
+    }
+  }
+</style>

@@ -1,0 +1,31 @@
+---
+interface Props {
+  url: string;
+  name: string;
+}
+const { url, name } = Astro.props;
+---
+
+<a href={url}><div class="tag">{name}</div></a>
+
+<style>
+  :global(.dark) a {
+    color: #111;
+  }
+  a {
+    color: #eff3f6;
+  }
+  .tag {
+    display: inline-block;
+    margin: 5px;
+    border: dotted 1px #a1a1a1;
+    border-radius: 25px;
+    padding: 5px;
+    font-size: 16px;
+    font-weight: 700;
+    background-color: #111;
+  }
+  :global(.dark) .tag {
+    background-color: #eee;
+  }
+</style>

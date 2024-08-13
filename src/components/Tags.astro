@@ -1,4 +1,5 @@
 ---
+import Tag from "./Tag.astro";
 interface Props {
   tags: string[];
 }
@@ -6,38 +7,12 @@ const { tags } = Astro.props;
 ---
 
 <div class="tags">
-  {
-    tags.map((tag) => (
-      <p class="tag">
-        <a href={`/blog/tags/${tag}`}>{tag}</a>
-      </p>
-    ))
-  }
+  {tags.map((tag) => <Tag url={`/blog/tags/${tag}`} name={tag} />)}
 </div>
 
 <style>
-  a {
-    color: #eff3f6;
-  }
-  :global(.dark) a {
-    color: #111;
-  }
-
   .tags {
     display: flex;
     flex-wrap: wrap;
-  }
-
-  .tag {
-    margin: 5px;
-    border: dotted 1px #a1a1a1;
-    border-radius: 25px;
-    padding: 5px;
-    font-size: 16px;
-    font-weight: 700;
-    background-color: #111;
-  }
-  :global(.dark) .tag {
-    background-color: #eee;
   }
 </style>

@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import BlogPost from "../../components/BlogPost.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import TagComponent from "../../components/Tag.astro";
 
 export async function getStaticPaths() {
   const allPosts = await getCollection("posts");
@@ -27,7 +28,9 @@ const filteredPosts = posts.filter((post) => post.data.tags.includes(tag));
 ---
 
 <BaseLayout pageTitle={tag}>
-  <p>包含{tag}标签的文章：</p>
+  <div>
+    包含<TagComponent url={`/blog/tags/${tag}`} name={tag} />标签的文章：
+  </div>
   <div class="posts">
     {
       filteredPosts.map((post) => {

@@ -1,19 +1,35 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-const pageTitle = "关于我";
+const pageTitle = "关于";
 
 const identity = {
   name: "lee",
-  age: 26,
+  age: 31,
   job: "develper",
-  hobby: "reading",
+  hobby: "exploring cuting-edge technologies",
 };
 
-const skills = ["JavaScript", "TypeScript", "React", "Node.js", "HTML", "CSS"];
+const skills = [
+  "HTML",
+  "CSS",
+  "JavaScript",
+  "TypeScript",
+  "React",
+  "Vue",
+  "Next.js",
+  "Astro",
+  "Node.js",
+  "Koa",
+  "express",
+  "CSharp",
+  "Python",
+  "Java",
+  "MySQL",
+  "MongoDB",
+];
 
 const happy = true;
 const finished = false;
-const goal = 3;
 
 const skillColor = "navy";
 const fontWeight = "bold";
@@ -21,15 +37,14 @@ const textCase = "uppercase";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-  <p>这是关于页面。</p>
-  <h2>基本情况</h2>
+  <h2>Basis</h2>
   <ul>
     <li>姓名：{identity.name}</li>
     <li>年龄：{identity.age}</li>
     <li>职业：{identity.job}</li>
     <li>爱好：{identity.hobby}</li>
   </ul>
-  <h2>技能</h2>
+  <h2>Skills</h2>
   <ul>
     {
       skills.map((skill) => {
@@ -37,15 +52,11 @@ const textCase = "uppercase";
       })
     }
   </ul>
-  {happy && <p>我很开心。</p>}
-  {!finished && <p>我还没完成{goal}个目标。</p>}
+  {happy && <p>I'm happy to know you!</p>}
+  {!finished && <p>I'm still on road to explore new technologies.</p>}
 </BaseLayout>
 
 <style define:vars={{ skillColor, fontWeight, textCase }}>
-  h1 {
-    color: purple;
-    font-size: 4rem;
-  }
   .skill {
     color: var(--skillColor);
     font-weight: var(--fontWeight);

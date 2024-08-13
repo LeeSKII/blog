@@ -1,10 +1,18 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Greeting from "../components/Greeting";
-const pageTitle = "首页";
 ---
 
-<BaseLayout pageTitle={pageTitle}>
-  <h2>my blog subtitle</h2>
-  <Greeting client:load messages={["Hi", "Hello", "Howdy", "Hey there"]} />
+<BaseLayout>
+  <h2>Climb without fear</h2>
+  <img src="blog/images/index.jpg" alt="astronaut" />
+  <!-- <Greeting client:load messages={["Hi", "Hello", "Howdy", "Hey there"]} /> -->
 </BaseLayout>
+
+<style>
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+</style>

@@ -1,15 +1,13 @@
 ---
-title: '我的第一篇博客文章'
-pubDate: 2022-07-01
+title: 'Astro 博客的起点'
+pubDate: 2024-08-13
 description: '这是我 Astro 博客的第一篇文章。'
-author: 'Lee ski'
+author: 'Lee Ski'
 image:
-    url: 'https://docs.astro.build/assets/rose.webp'
-    alt: 'The Astro logo on a dark background with a pink glow.'
+    url: '/blog/images/posts/post-1/1.jpg'
+    alt: 'A stone in the island of lake.'
 tags: ["astro", "blogging", "learning in public"]
 ---
-
-发表于：2022-07-01
 
 欢迎来到我学习关于 Astro 的新博客！在这里，我将分享我建立新网站的学习历程。
 
