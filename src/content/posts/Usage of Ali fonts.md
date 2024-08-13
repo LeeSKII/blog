@@ -6,7 +6,7 @@ image:
     url: "../../assets//images/posts/post-2/1.jpg"
     alt: "The Astro logo on a dark background with a purple gradient arc."
 pubDate: 2024-08-13
-tags: ["CSS", "blogging", "learning in public", "fonts"]
+tags: ["css", "fonts"]
 ---
 
 ## How to use Alibaba Fonts

@@ -6,7 +6,7 @@ author: 'Lee Ski'
 image:
     url: '../../assets//images/posts/post-1/1.jpg'
     alt: 'A stone in the island of lake.'
-tags: ["astro", "blogging", "learning in public"]
+tags: ["astro", "blogging"]
 ---
 
 欢迎来到我学习关于 Astro 的新博客！在这里，我将分享我建立新网站的学习历程。
