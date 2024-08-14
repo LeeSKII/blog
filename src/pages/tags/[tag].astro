@@ -35,7 +35,11 @@ const filteredPosts = posts.filter((post) => post.data.tags.includes(tag));
     {
       filteredPosts.map((post) => {
         return (
-          <BlogPost url={`/blog/posts/${post.slug}`} title={post.data.title} />
+          <BlogPost
+            url={`/blog/posts/${post.slug}`}
+            title={post.data.title}
+            pubDate={post.data.pubDate}
+          />
         );
       })
     }
