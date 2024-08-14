@@ -29,8 +29,12 @@ const { frontmatter } = Astro.props;
     color: #eee;
   }
   img {
-    width: 100%;
+    width: auto;
     height: auto;
+    max-height: 300px;
+    max-width: 100%;
+
+    display: block;
   }
   .post-container {
     padding: 2px;
