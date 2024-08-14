@@ -26,3 +26,11 @@ git config --global http.proxy http://127.0.0.1:7890
 git config --global https.proxy http://127.0.0.1:7890
 # 我的clash在7890上系统代理
 ```
+
+使用 V2ray 的情况：
+
+```bash
+git config --global http.proxy http://127.0.0.1:10808 
+git config --global https.proxy http://127.0.0.1:10808
+# 我的v2ray在10808上系统代理
+```
