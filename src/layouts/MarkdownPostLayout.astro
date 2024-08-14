@@ -20,20 +20,20 @@ const { frontmatter } = Astro.props;
 </BaseLayout>
 
 <style>
-  a {
+  :global(.post-container p > a) {
     color: blue;
     font-weight: 600;
     font-variation-settings: "slnt" 12;
+    text-decoration: underline;
   }
-  :global(.dark) a {
-    color: #eee;
+  :global(.dark .post-container p > a) {
+    color: #999;
   }
   img {
     width: auto;
     height: auto;
     max-height: 300px;
     max-width: 100%;
-
     display: block;
   }
   .post-container {
