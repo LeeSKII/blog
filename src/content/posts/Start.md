@@ -1,6 +1,6 @@
 ---
 title: 'Astro 博客的起点'
-pubDate: 2024-08-13
+pubDate: 2024-08-12
 description: '这是我 Astro 博客的第一篇文章。'
 author: 'Lee Ski'
 image:
@@ -19,7 +19,7 @@ tags: ["astro", "blogging"]
 
  3. **发表博客文章**：这是我的第一篇博客文章！我现在有用 Astro 编写的页面和用 Markdown 写的文章了！
 
- 4. **部署网站**：我部署了网站到 Github Pages。
+ 4. **部署网站**：部署了网站到 Github Pages, 部署方式参照官方文档， 就是注意设置了 site 后， 引用路径都需要增加对应的 site 前缀。
 
 ## 2. 图像的处理
 
