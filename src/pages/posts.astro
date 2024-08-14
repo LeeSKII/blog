@@ -5,7 +5,7 @@ import { getCollection } from "astro:content";
 const allPosts = (await getCollection("posts")).sort(
   (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
 );
-const pageTitle = "博客";
+const pageTitle = "Posts";
 ---
 
 <BaseLayout pageTitle={pageTitle}>

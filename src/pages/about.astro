@@ -1,10 +1,10 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-const pageTitle = "关于";
+const pageTitle = "About";
 
 const identity = {
-  name: "lee",
-  age: 31,
+  name: "Lee Ski",
+  birth: 1993,
   job: "develper",
   hobby: "exploring cuting-edge technologies",
 };
@@ -39,10 +39,10 @@ const textCase = "uppercase";
 <BaseLayout pageTitle={pageTitle}>
   <h2>Basis</h2>
   <ul>
-    <li>姓名：{identity.name}</li>
-    <li>年龄：{identity.age}</li>
-    <li>职业：{identity.job}</li>
-    <li>爱好：{identity.hobby}</li>
+    <li>name:{identity.name}</li>
+    <li>birth:{identity.birth}</li>
+    <li>career:{identity.job}</li>
+    <li>hobby:{identity.hobby}</li>
   </ul>
   <h2>Skills</h2>
   <ul>
