@@ -26,7 +26,7 @@ tags: ["astro", "blogging"]
 
 ### 2.1 Build websites with a modern stack
 
-在使用 Astro 之前，我一直使用 Next.js 来建立网站，但是 Next.js 对 Markdown 处理能力不太好，我使用了一个 Markdown 编辑器来实现页面上写文章 ，但是在真正撰写 Markdown 的时候，编辑器的体验感远不如使用本地编辑器，例如 Visual Studio Code。
+在使用 Astro 之前，我一直使用 Next.js 来建立网站，但是 Next.js 对 Markdown 处理能力不太好，我使用了一个 Markdown 编辑器来实现在网页上写文章 ，但是在真正撰写 Markdown 的时候，编辑器的体验感远不如使用本地编辑器，例如 Visual Studio Code。
 
 而且如果仅仅是构建个人网站，Next.js 不免给人一种牛刀小用的感觉，因此我一直在寻找到底有哪样的框架适合构建个人网站🤔。
 

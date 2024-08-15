@@ -10,9 +10,9 @@ const { frontmatter } = Astro.props;
 
 dayjs.extend(utc);
 
-const lastModified = dayjs()
-  .utc(Astro.props.frontmatter.lastModified)
-  .format("HH:mm:ss DD MMMM YYYY UTC");
+const lastModified = dayjs(Astro.props.frontmatter.lastModified).format(
+  "HH:mm:ss DD MMMM YYYY"
+);
 ---
 
 <BaseLayout pageTitle={frontmatter.title}>
