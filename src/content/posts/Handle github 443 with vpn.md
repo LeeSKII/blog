@@ -4,8 +4,9 @@ author: 'Ski Lee'
 description: "Even use Vpn, still get 443 errors."
 image:
   url: "../../assets//images/posts/post-4/1.jpg"
-  alt: "The word astro against an illustration of planets and stars."
+  alt: "The man's hand holding a laptop"
 pubDate: 2024-08-13
+isPublished: true
 tags: ["github", "clash","error","git"]
 ---
 

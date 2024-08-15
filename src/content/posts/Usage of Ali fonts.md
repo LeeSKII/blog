@@ -6,6 +6,7 @@ image:
     url: "../../assets//images/posts/post-2/1.jpg"
     alt: "The Astro logo on a dark background with a purple gradient arc."
 pubDate: 2024-08-13
+isPublished: true
 tags: ["css", "fonts"]
 ---
 
@@ -47,9 +48,9 @@ html {
 斜体样式示例：
 
 ```css
-  a {
-    color: blue;
-    font-weight: 600;
-    font-variation-settings: "slnt" 12;
-  }
+a {
+  color: blue;
+  font-weight: 600;
+  font-variation-settings: "slnt" 12;
+}
 ```

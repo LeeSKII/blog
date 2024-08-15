@@ -2,9 +2,9 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BlogPost from "../components/BlogPost.astro";
 import { getCollection } from "astro:content";
-const allPosts = (await getCollection("posts")).sort(
-  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
-);
+const allPosts = (await getCollection("posts"))
+  .filter((entry) => entry.data.isPublished)
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 const pageTitle = "Posts";
 ---
 
