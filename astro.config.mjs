@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import { remarkModifiedTime } from './src/utils/remark-modified-time.mjs';
 
 import preact from "@astrojs/preact";
 import rehypeExternalLinks from 'rehype-external-links';
@@ -9,6 +10,7 @@ export default defineConfig({
   base: '/blog',
   integrations: [preact()],
   markdown: {
+    remarkPlugins: [remarkModifiedTime],
     rehypePlugins: [
       [
         rehypeExternalLinks,
