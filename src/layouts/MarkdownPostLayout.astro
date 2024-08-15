@@ -3,23 +3,15 @@ import BaseLayout from "./BaseLayout.astro";
 import Tags from "../components/Tags.astro";
 import { Image } from "astro:assets";
 import { fade } from "astro:transitions";
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
 
 const { frontmatter } = Astro.props;
-
-dayjs.extend(utc);
-
-const lastModified = dayjs(Astro.props.frontmatter.lastModified).format(
-  "HH:mm:ss DD MMMM YYYY"
-);
 ---
 
 <BaseLayout pageTitle={frontmatter.title}>
   <div class="post-container">
     <Tags tags={frontmatter.tags} />
     <p>Pulished on {frontmatter.pubDate.toString().slice(0, 10)}</p>
-    <p>Last modified: {lastModified}</p>
+    <p>Last modified: {frontmatter.lastModified}</p>
     <p transition:animate={fade({ duration: 1000 })}>
       <em>description: {frontmatter.description}</em>
     </p>
