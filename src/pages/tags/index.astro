@@ -1,9 +1,9 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Tags from "../../components/Tags.astro";
-import { getCollection } from "astro:content";
+import { getAllPublishedPosts } from "../../utils/posts";
 
-const allPosts = await getCollection("posts");
+const allPosts = await getAllPublishedPosts();
 const uniqueTags = [
   ...new Set(
     allPosts
