@@ -14,7 +14,11 @@ const { frontmatter } = Astro.props;
       <em>description: {frontmatter.description}</em>
     </p>
     <p>Written by <a href="/blog/about/">{frontmatter.author}</a>.</p>
-    <Image src={frontmatter.image.url} alt={frontmatter.image.alt} />
+    <Image
+      src={frontmatter.image.url}
+      alt={frontmatter.image.alt}
+      loading="eager"
+    />
     <slot />
   </div>
 </BaseLayout>
@@ -24,7 +28,6 @@ const { frontmatter } = Astro.props;
     color: blue;
     font-weight: 600;
     font-variation-settings: "slnt" 12;
-    text-decoration: underline;
   }
   :global(.dark .post-container p > a) {
     color: #999;
