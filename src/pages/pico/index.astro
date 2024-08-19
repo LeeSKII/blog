@@ -1,21 +1,11 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import ThemeIcon from "../../components/ThemeIcon.astro";
+import Navigation from "../../components/pico/Navigation.astro";
 ---
 
 <BaseLayout pageTitle="Pico">
   <header>
-    <nav>
-      <ul>
-        <li><strong><a href="/blog">Home</a> </strong></li>
-      </ul>
-      <ul>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Services</a></li>
-        <li><a href="#">Products</a></li>
-        <li><ThemeIcon /></li>
-      </ul>
-    </nav>
+    <Navigation />
   </header>
   <main>
     <h1>Heading 1</h1>

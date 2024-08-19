@@ -1,6 +1,6 @@
 ---
 import BlogPost from "../../components/BlogPost.astro";
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import BlogLayout from "../../layouts/BlogLayout.astro";
 import TagComponent from "../../components/Tag.astro";
 import { getAllPublishedPosts } from "../../utils/posts";
 
@@ -27,7 +27,7 @@ const { posts } = Astro.props;
 const filteredPosts = posts.filter((post) => post.data.tags.includes(tag));
 ---
 
-<BaseLayout pageTitle={tag}>
+<BlogLayout pageTitle={tag}>
   <div>
     包含<TagComponent url={`/blog/tags/${tag}`} name={tag} />标签的文章：
   </div>
@@ -44,7 +44,7 @@ const filteredPosts = posts.filter((post) => post.data.tags.includes(tag));
       })
     }
   </div>
-</BaseLayout>
+</BlogLayout>
 
 <style>
   .posts {
