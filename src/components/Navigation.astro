@@ -8,11 +8,11 @@
   <a href="/blog/about/">关于</a>
   <a href="/blog/posts">博客</a>
   <a href="/blog/tags">标签</a>
+  <a href="/blog/pico">Pico</a>
 </div>
 
 <style>
   /* 导航样式 */
-
   .nav-links {
     width: 100%;
     top: 5rem;
@@ -23,12 +23,17 @@
 
   .nav-links a {
     display: block;
+    color: #000;
     text-align: center;
     padding: 5px 0;
     text-decoration: none;
     font-size: 1.2rem;
     font-weight: bold;
     text-transform: uppercase;
+  }
+
+  :global(.dark) .nav-links a {
+    color: #fff;
   }
 
   :global(.dark) .nav-links a:hover,

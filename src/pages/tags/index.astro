@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import BlogLayout from "../../layouts/BlogLayout.astro";
 import Tags from "../../components/Tags.astro";
 import { getAllPublishedPosts } from "../../utils/posts";
 
@@ -16,4 +16,4 @@ const uniqueTags = [
 ];
 ---
 
-<BaseLayout pageTitle="Tags"> <Tags tags={uniqueTags} /></BaseLayout>
+<BlogLayout pageTitle="Tags"> <Tags tags={uniqueTags} /></BlogLayout>

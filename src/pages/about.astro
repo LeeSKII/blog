@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import BlogLayout from "../layouts/BlogLayout.astro";
 const pageTitle = "About";
 
 const identity = {
@@ -36,7 +36,7 @@ const fontWeight = "bold";
 const textCase = "uppercase";
 ---
 
-<BaseLayout pageTitle={pageTitle}>
+<BlogLayout pageTitle={pageTitle}>
   <h2>Basis</h2>
   <ul>
     <li>name:{identity.name}</li>
@@ -54,7 +54,7 @@ const textCase = "uppercase";
   </ul>
   {happy && <p>I'm happy to know you!</p>}
   {!finished && <p>I'm still on road to explore new technologies.</p>}
-</BaseLayout>
+</BlogLayout>
 
 <style define:vars={{ skillColor, fontWeight, textCase }}>
   .skill {

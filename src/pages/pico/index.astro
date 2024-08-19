@@ -1,0 +1,44 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ThemeIcon from "../../components/ThemeIcon.astro";
+---
+
+<BaseLayout pageTitle="Pico">
+  <header>
+    <nav>
+      <ul>
+        <li><strong><a href="/blog">Home</a> </strong></li>
+      </ul>
+      <ul>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Products</a></li>
+        <li><ThemeIcon /></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <h1>Heading 1</h1>
+    <h2>Heading 2</h2>
+    <h3>Heading 3</h3>
+    <h4>Heading 4</h4>
+    <h5>Heading 5</h5>
+    <h6>Heading 6</h6>
+    <hgroup>
+      <h2>Get inspired with CSS</h2>
+      <p>How to use CSS to add glam to your Website?</p>
+    </hgroup>
+    <h2>Get inspired with CSS</h2>
+    <p>How to use CSS to add glam to your Website?</p>
+    <blockquote>
+      “Design is a funny word. Some people think design means how it looks. But
+      of course, if you dig deeper, it's really how it works.”
+      <footer>
+        <cite>— Steve Jobs</cite>
+      </footer>
+    </blockquote>
+  </main>
+  <footer>foot</footer>
+</BaseLayout>
+
+<style></style>

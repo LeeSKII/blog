@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import BlogLayout from "../layouts/BlogLayout.astro";
 import BlogPost from "../components/BlogPost.astro";
 import { getAllPublishedPosts } from "../utils/posts";
 const allPosts = (await getAllPublishedPosts())
@@ -8,7 +8,7 @@ const allPosts = (await getAllPublishedPosts())
 const pageTitle = "Posts";
 ---
 
-<BaseLayout pageTitle={pageTitle}>
+<BlogLayout pageTitle={pageTitle}>
   <div class="posts">
     {
       allPosts.map((post) => {
@@ -22,7 +22,7 @@ const pageTitle = "Posts";
       })
     }
   </div>
-</BaseLayout>
+</BlogLayout>
 
 <style>
   .posts {

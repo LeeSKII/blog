@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "./BaseLayout.astro";
+import BlogLayout from "./BlogLayout.astro";
 import Tags from "../components/Tags.astro";
 import { Image } from "astro:assets";
 import { fade } from "astro:transitions";
@@ -7,7 +7,7 @@ import { fade } from "astro:transitions";
 const { frontmatter } = Astro.props;
 ---
 
-<BaseLayout pageTitle={frontmatter.title}>
+<BlogLayout pageTitle={frontmatter.title}>
   <div class="post-container">
     <Tags tags={frontmatter.tags} />
     <p>Pulished on {frontmatter.pubDate.toString().slice(0, 10)}</p>
@@ -23,7 +23,7 @@ const { frontmatter } = Astro.props;
     />
     <slot />
   </div>
-</BaseLayout>
+</BlogLayout>
 
 <style>
   :global(.post-container p > a) {

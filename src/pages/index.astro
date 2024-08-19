@@ -1,15 +1,15 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import BlogLayout from "../layouts/BlogLayout.astro";
 import Greeting from "../components/Greeting";
 import { Image } from "astro:assets";
 import mountainImage from "../assets/images/index.jpg";
 ---
 
-<BaseLayout>
+<BlogLayout>
   <h2>Climb without fear</h2>
   <Image src={mountainImage} alt="moutain with snow" />
   <!-- <Greeting client:load messages={["Hi", "Hello", "Howdy", "Hey there"]} /> -->
-</BaseLayout>
+</BlogLayout>
 
 <style>
   img {
