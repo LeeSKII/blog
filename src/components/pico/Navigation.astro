@@ -43,8 +43,10 @@ import ThemeIcon from "../../components/ThemeIcon.astro";
 </nav>
 
 <script>
-  document.querySelector(".nav-toggle")?.addEventListener("click", () => {
-    document.querySelector(".pico-navigation")?.classList.toggle("expanded");
+  document.addEventListener("astro:page-load", () => {
+    document.querySelector(".nav-toggle")?.addEventListener("click", () => {
+      document.querySelector(".pico-navigation")?.classList.toggle("expanded");
+    });
   });
 </script>
 
