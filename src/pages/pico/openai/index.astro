@@ -1,8 +1,10 @@
 ---
 import PicoLayout from "../../../components/pico/PicoLayout.astro";
 import StoreApiKey from "../../../components/vue/StoreApiKey.vue";
+import TestToast from "../../../components/react/TestToast";
 ---
 
 <PicoLayout pageTitle="OpenAI">
   <StoreApiKey client:only />
+  <TestToast client:load />
 </PicoLayout>
