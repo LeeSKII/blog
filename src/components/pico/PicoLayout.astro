@@ -1,0 +1,11 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PicoNavigation from "./PicoNavigation.astro";
+
+const { pageTitle } = Astro.props;
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <PicoNavigation />
+  <slot />
+</BaseLayout>
