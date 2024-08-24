@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="chart-container">
     <div v-for="message in messages" :key="message.content">
       <div v-if="message.role === 'user'">user:{{ message.content }}</div>
       <div v-if="message.role === 'assistant'">assistant:{{ message.content }}</div>
     </div>
   </div>
-  <form role="group" @submit="sendPrompt">
+  <form class="chart-form" role="group" @submit="sendPrompt">
     <input type="text" v-model="prompt">
     <button type="submit" :disabled="isLoading">{{ isLoading ? 'Loading...' : 'Send' }}</button>
   </form>
@@ -69,3 +69,10 @@ function sendPrompt(e: Event) {
 }
 
 </script>
+
+
+<style>
+.chart-container {}
+
+.chart-form {}
+</style>
