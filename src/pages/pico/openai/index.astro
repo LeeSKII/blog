@@ -2,9 +2,10 @@
 import PicoLayout from "../../../components/pico/PicoLayout.astro";
 import StoreApiKey from "../../../components/vue/StoreApiKey.vue";
 import TestToast from "../../../components/react/TestToast";
+import ChartGpt from "../../../components/vue/ChartGpt.vue"
 ---
 
 <PicoLayout pageTitle="OpenAI">
-  <StoreApiKey client:only />
-  <TestToast client:load />
+  <StoreApiKey client:only="vue" />
+  <ChartGpt client:only="vue" />
 </PicoLayout>
