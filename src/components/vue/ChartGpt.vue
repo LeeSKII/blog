@@ -3,7 +3,9 @@
     <div v-for="message in messages" :key="message.content">
       <div v-if="message.role === 'user'">
         User
-        <div class="user-message-content">{{ message.content }}</div>
+        <div class="user-message-content">
+          <p>{{ message.content }}</p>
+        </div>
       </div>
       <div v-if="message.role === 'assistant'">
         AI <MarkdownRender :content="message.content" />
