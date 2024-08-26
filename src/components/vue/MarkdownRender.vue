@@ -5,6 +5,8 @@
 import { Marked } from "marked";
 import hljs from "highlight.js";
 import { markedHighlight } from "marked-highlight";
+import katex from "katex"; // KaTeX库
+import "katex/dist/katex.min.css"; // KaTeX的CSS
 import { computed } from "vue";
 
 const props = defineProps({
@@ -22,7 +24,20 @@ const marked = new Marked(
 );
 
 const compiledMarkdown = computed(() => {
-  return marked.parse(props.content);
+  const html = marked.parse(props.content, { async: false });
+
+  const htmlWithKaTeX = html.replace(/\[([^\[]+?)\]/g, (match) => {
+    return (
+      match +
+      "<p><strong>LaTeX:</strong></p>" +
+      katex.renderToString(String.raw`${match}`, {
+        throwOnError: false,
+        displayMode: true,
+      })
+    );
+  });
+
+  return htmlWithKaTeX;
 });
 </script>
 
