@@ -1,4 +1,5 @@
 <template>
+  <div></div>
   <div class="chart-container">
     <div v-for="message in messages" :key="message.content">
       <div v-if="message.role === 'user'">
@@ -21,20 +22,35 @@
 </template>
 <script setup lang="ts">
 import axios from "axios";
-import { ref } from "vue";
+import { ref, watch, onMounted } from "vue";
 import MarkdownRender from "./MarkdownRender.vue";
+type ChartCompletion = {
+  id: string;
+  messages: Message[];
+};
 type Message = {
   role: string;
   content: string;
 };
+
 const key = ref<string | null>(null);
 const prompt = ref<string>("");
+const chartCompletion: ChartCompletion = {
+  id: "",
+  messages: [
+    {
+      role: "system",
+      content: "You are a helpful assistant.",
+    },
+  ],
+};
 const messages = ref<Message[]>([
   {
     role: "system",
     content: "You are a helpful assistant.",
   },
 ]);
+const chartHistory: ChartCompletion[] = [];
 const isLoading = ref(false);
 
 function sendPrompt(e: Event) {
@@ -70,6 +86,8 @@ function sendPrompt(e: Event) {
       };
       messages.value.push(responseMsg);
       prompt.value = "";
+      chartCompletion.id = response.data.id;
+      chartCompletion.messages = messages.value;
     })
     .catch((error) => {
       if (error instanceof Error) {
@@ -83,6 +101,35 @@ function sendPrompt(e: Event) {
       isLoading.value = false;
     });
 }
+
+watch(
+  messages,
+  () => {
+    const completion = chartHistory.find((c) => c.id === chartCompletion.id);
+    if (completion) {
+      completion.messages = messages.value;
+    } else {
+      if (chartCompletion.id) chartHistory.push(chartCompletion);
+    }
+    window.localStorage.setItem("messages", JSON.stringify(messages.value));
+    const history = window.localStorage.getItem("history");
+    if (!history)
+      window.localStorage.setItem("history", JSON.stringify(chartHistory));
+    else {
+      const parsedHistory = JSON.parse(history);
+      parsedHistory.push(chartCompletion);
+      window.localStorage.setItem("history", JSON.stringify(parsedHistory));
+    }
+  },
+  { deep: true }
+);
+
+onMounted(() => {
+  // const msg = window.localStorage.getItem("messages");
+  // if (msg) {
+  //   messages.value = JSON.parse(msg);
+  // }
+});
 </script>
 
 <style scoped>
