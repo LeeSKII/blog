@@ -1,21 +1,30 @@
 <template>
-  <ChartHistory :setCompletion="setCompletion" />
+  <details>
+    <summary role="button" class="outline contrast">ChartHistory</summary>
+    <ChartHistory :key="chartCompletion.id" :setCompletion="setCompletion" />
+  </details>
+
   <div class="chart-container">
     <div v-for="message in chartCompletion.messages" :key="message.content">
-      <div v-if="message.role === 'user'">
-        User
-        <div class="user-message-content">
+      <article v-if="message.role === 'user'">
+        <div class="user-message-header">
+          <span class="user-avatar">User</span>
+        </div>
+        <div>
           <p>{{ message.content }}</p>
         </div>
-      </div>
-      <div v-if="message.role === 'assistant'">
-        AI <MarkdownRender :content="message.content" />
-      </div>
+      </article>
+      <article v-if="message.role === 'assistant'">
+        <div>
+          <span class="assistant-avatar">AI</span>
+        </div>
+        <MarkdownRender :content="message.content" />
+      </article>
     </div>
   </div>
   <form class="chart-form" role="group" @submit="sendPrompt">
     <input type="text" v-model="prompt" />
-    <button type="submit" :disabled="isLoading">
+    <button type="submit" :aria-busy="isLoading" :disabled="isLoading">
       {{ isLoading ? "Loading..." : "Send" }}
     </button>
   </form>
@@ -175,14 +184,42 @@ watch(
 
 <style scoped>
 .chart-container {
+  margin-top: 10px;
+}
+
+.user-avatar {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: #333;
+  color: #fff;
   margin: 10px;
 }
-.user-message-content {
-  line-height: 1.5;
-  color: #333;
-  padding: 6px;
-  background-color: #f2f2f2;
-  border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+.assistant-avatar {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: #333;
+  color: #fff;
+  margin: 10px;
+}
+.user-message-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.dark .assistant-avatar {
+  background-color: #ccc;
+  color: black;
+}
+.dark .user-avatar {
+  background-color: #ccc;
+  color: black;
 }
 </style>

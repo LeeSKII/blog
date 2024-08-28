@@ -1,7 +1,12 @@
 <template>
   <article v-for="chart in chartCompletions" :key="chart.id">
-    <div @click="setChartCompletion(chart.id)">
-      {{ chart.messages[1].content }}
+    <div @click="setChartCompletion(chart.id)" class="chart-completion">
+      <div>{{ chart.messages[1].content }}</div>
+      <div>
+        <button @click.stop="deleteChartCompletion(chart.id)" class="contrast">
+          Delete
+        </button>
+      </div>
     </div>
   </article>
   <button @click="setChartCompletion()">New Chart</button>
@@ -27,6 +32,17 @@ function setChartCompletion(id?: string) {
 
 const chartCompletions = ref<ChartCompletion[]>([]);
 
+function deleteChartCompletion(id: string) {
+  chartCompletions.value.splice(
+    chartCompletions.value.findIndex((c) => c.id === id),
+    1
+  );
+  window.localStorage.setItem(
+    "history",
+    JSON.stringify(chartCompletions.value)
+  );
+}
+
 onMounted(() => {
   const historyStore = window.localStorage.getItem("history");
   if (historyStore) {
@@ -36,3 +52,12 @@ onMounted(() => {
   }
 });
 </script>
+
+<style scoped>
+.chart-completion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+</style>

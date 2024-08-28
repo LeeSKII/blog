@@ -1,5 +1,5 @@
 <template>
-  <div class="ai-message-content" v-html="compiledMarkdown"></div>
+  <div v-html="compiledMarkdown"></div>
 </template>
 <script setup lang="ts">
 import { Marked } from "marked";
@@ -41,14 +41,3 @@ const compiledMarkdown = computed(() => {
   return html;
 });
 </script>
-
-<style scoped>
-.ai-message-content {
-  line-height: 1.5;
-  color: #333;
-  padding: 6px;
-  background-color: #fff;
-  border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-}
-</style>
