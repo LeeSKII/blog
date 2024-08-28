@@ -26,18 +26,19 @@ const marked = new Marked(
 const compiledMarkdown = computed(() => {
   const html = marked.parse(props.content, { async: false });
 
-  const htmlWithKaTeX = html.replace(/\[([^\[]+?)\]/g, (match) => {
-    return (
-      match +
-      "<p><strong>LaTeX:</strong></p>" +
-      katex.renderToString(String.raw`${match}`, {
-        throwOnError: false,
-        displayMode: true,
-      })
-    );
-  });
+  //TODO: BUGFIX: KaTeX渲染，会将代码块中的[]包围的代码替换
+  // const htmlWithKaTeX = html.replace(/\[([^\[]+?)\]/g, (match) => {
+  //   return (
+  //     match +
+  //     "<p><strong>LaTeX:</strong></p>" +
+  //     katex.renderToString(String.raw`${match}`, {
+  //       throwOnError: false,
+  //       displayMode: true,
+  //     })
+  //   );
+  // });
 
-  return htmlWithKaTeX;
+  return html;
 });
 </script>
 

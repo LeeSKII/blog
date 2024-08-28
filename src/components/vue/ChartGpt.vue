@@ -1,7 +1,7 @@
 <template>
-  <div></div>
+  <ChartHistory :setCompletion="setCompletion" />
   <div class="chart-container">
-    <div v-for="message in messages" :key="message.content">
+    <div v-for="message in chartCompletion.messages" :key="message.content">
       <div v-if="message.role === 'user'">
         User
         <div class="user-message-content">
@@ -23,7 +23,14 @@
 <script setup lang="ts">
 import axios from "axios";
 import { ref, watch, onMounted } from "vue";
+import { nanoid } from "nanoid";
 import MarkdownRender from "./MarkdownRender.vue";
+import ChartHistory from "./ChartHistory.vue";
+
+const props = defineProps<{
+  completionId?: string;
+}>();
+
 type ChartCompletion = {
   id: string;
   messages: Message[];
@@ -35,23 +42,53 @@ type Message = {
 
 const key = ref<string | null>(null);
 const prompt = ref<string>("");
-const chartCompletion: ChartCompletion = {
-  id: "",
+const chartCompletion = ref<ChartCompletion>({
+  id: nanoid(),
   messages: [
     {
       role: "system",
       content: "You are a helpful assistant.",
     },
   ],
-};
-const messages = ref<Message[]>([
-  {
-    role: "system",
-    content: "You are a helpful assistant.",
-  },
-]);
-const chartHistory: ChartCompletion[] = [];
+});
+
 const isLoading = ref(false);
+
+const historyC = window.localStorage.getItem("history");
+if (historyC) {
+  const history = JSON.parse(historyC) as ChartCompletion[];
+  if (history.findIndex((c) => c.id === props.completionId) !== -1) {
+    chartCompletion.value = history.find(
+      (c) => c.id === props.completionId
+    ) as ChartCompletion;
+  }
+}
+
+function setCompletion(completionId: string | null) {
+  if (!completionId) {
+    chartCompletion.value = {
+      id: nanoid(),
+      messages: [
+        {
+          role: "system",
+          content: "You are a helpful assistant.",
+        },
+      ],
+    };
+  }
+  const history = window.localStorage.getItem("history");
+  if (history) {
+    const parsedHistory = JSON.parse(history) as ChartCompletion[];
+    if (parsedHistory) {
+      const completion = parsedHistory.find(
+        (c) => c.id === completionId
+      ) as ChartCompletion;
+      if (completion) {
+        chartCompletion.value = completion;
+      }
+    }
+  }
+}
 
 function sendPrompt(e: Event) {
   e.preventDefault();
@@ -60,7 +97,7 @@ function sendPrompt(e: Event) {
     return;
   }
   isLoading.value = true;
-  messages.value.push({
+  chartCompletion.value.messages.push({
     role: "user",
     content: prompt.value,
   });
@@ -70,7 +107,7 @@ function sendPrompt(e: Event) {
       "https://api.gptapi.us/v1/chat/completions",
       {
         model: "gpt-4o",
-        messages: messages.value,
+        messages: chartCompletion.value.messages,
       },
       {
         headers: {
@@ -84,15 +121,13 @@ function sendPrompt(e: Event) {
         role: "assistant",
         content: response.data.choices[0].message.content,
       };
-      messages.value.push(responseMsg);
+      chartCompletion.value.messages.push(responseMsg);
       prompt.value = "";
-      chartCompletion.id = response.data.id;
-      chartCompletion.messages = messages.value;
     })
     .catch((error) => {
       if (error instanceof Error) {
         console.error("Error sending prompt", error.message);
-        messages.value.pop();
+        //chartCompletion.value.messages.pop();
       } else {
         console.error(error);
       }
@@ -103,33 +138,33 @@ function sendPrompt(e: Event) {
 }
 
 watch(
-  messages,
-  () => {
-    const completion = chartHistory.find((c) => c.id === chartCompletion.id);
-    if (completion) {
-      completion.messages = messages.value;
-    } else {
-      if (chartCompletion.id) chartHistory.push(chartCompletion);
-    }
-    window.localStorage.setItem("messages", JSON.stringify(messages.value));
+  chartCompletion,
+  (completion) => {
+    window.localStorage.setItem(
+      "messages",
+      JSON.stringify(chartCompletion.value.messages)
+    );
+
     const history = window.localStorage.getItem("history");
-    if (!history)
-      window.localStorage.setItem("history", JSON.stringify(chartHistory));
-    else {
-      const parsedHistory = JSON.parse(history);
-      parsedHistory.push(chartCompletion);
-      window.localStorage.setItem("history", JSON.stringify(parsedHistory));
+    if (history) {
+      const parsedHistory = JSON.parse(history) as ChartCompletion[];
+      if (parsedHistory) {
+        if (parsedHistory.findIndex((c) => c.id === completion.id) === -1) {
+          parsedHistory.push(completion);
+          window.localStorage.setItem("history", JSON.stringify(parsedHistory));
+        } else {
+          const index = parsedHistory.findIndex((c) => c.id === completion.id);
+          parsedHistory.splice(index, 1, completion);
+          window.localStorage.setItem("history", JSON.stringify(parsedHistory));
+        }
+      }
+    } else {
+      if (completion.messages.length > 1)
+        window.localStorage.setItem("history", JSON.stringify([completion]));
     }
   },
   { deep: true }
 );
-
-onMounted(() => {
-  // const msg = window.localStorage.getItem("messages");
-  // if (msg) {
-  //   messages.value = JSON.parse(msg);
-  // }
-});
 </script>
 
 <style scoped>
