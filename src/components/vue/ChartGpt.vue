@@ -99,7 +99,7 @@ function setCompletion(completionId: string | null) {
   }
 }
 
-function sendPrompt(e: Event) {
+async function sendPrompt(e: Event) {
   e.preventDefault();
   key.value = window.localStorage.getItem("key");
   if (!key.value) {
@@ -144,6 +144,60 @@ function sendPrompt(e: Event) {
     .finally(() => {
       isLoading.value = false;
     });
+
+  // TODO:Fetch API
+  //   fetch("https://api.gptapi.us/v1/chat/completions", {
+  //     method: "POST",
+  //     headers: {
+  //       Authorization: `Bearer ${key.value}`,
+  //       "Content-Type": "application/json",
+  //       responseType: "stream",
+  //     },
+  //     body: JSON.stringify({
+  //       model: "gpt-4o",
+  //       messages: chartCompletion.value.messages,
+  //       stream: true,
+  //     }),
+  //   }).then(async (response) => {
+  //     const reader = response.body!.getReader();
+  //     const textDecoder = new TextDecoder();
+  //     let result = true;
+  //     const responseMsg: Message = {
+  //       role: "assistant",
+  //       content: "",
+  //     };
+  //     chartCompletion.value.messages.push(responseMsg);
+
+  //     while (result) {
+  //       const { done, value } = await reader.read();
+
+  //       if (done) {
+  //         console.log("Stream ended");
+  //         result = false;
+  //         break;
+  //       }
+
+  //       const chunkText = textDecoder.decode(value);
+  //       // console.log("chunkText", chunkText);
+  //       chunkText.split("data: ").forEach((line) => {
+  //         if (line.trim() === "[DONE]") {
+  //           result = false;
+  //         } else if (line) {
+  //           console.log(line);
+  //           const chunkResult = JSON.parse(line);
+  //           // console.log("content:", chunkResult.choices[0].delta.content);
+  //           const chunkContent = chunkResult.choices[0].delta.content;
+  //           if (chunkContent) {
+  //             responseMsg.content += chunkContent;
+  //           }
+  //         }
+  //       });
+
+  //       // console.log("content:", chunkResult.choices[0].delta.content);
+  //     }
+  //     prompt.value = "";
+  //     isLoading.value = false;
+  //   });
 }
 
 watch(
