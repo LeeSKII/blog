@@ -145,6 +145,12 @@ watch(
       JSON.stringify(chartCompletion.value.messages)
     );
 
+    if (completion.messages.length <= 1) {
+      return;
+    }
+
+    // Store the completion in local storage
+
     const history = window.localStorage.getItem("history");
     if (history) {
       const parsedHistory = JSON.parse(history) as ChartCompletion[];
