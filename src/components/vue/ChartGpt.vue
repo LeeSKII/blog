@@ -22,11 +22,13 @@
       </article>
     </div>
   </div>
-  <form class="chart-form" role="group" @submit="sendPrompt">
-    <input type="text" v-model="prompt" />
-    <button type="submit" :aria-busy="isLoading" :disabled="isLoading">
-      {{ isLoading ? "Loading..." : "Send" }}
-    </button>
+  <form class="chart-form" @submit="sendPrompt">
+    <data role="group" class="form-group">
+      <input type="text" v-model="prompt" />
+      <button type="submit" :aria-busy="isLoading" :disabled="isLoading">
+        {{ isLoading ? "Loading..." : "Send" }}
+      </button></data
+    >
   </form>
 </template>
 <script setup lang="ts">
@@ -239,12 +241,27 @@ watch(
 <style scoped>
 .chart-container {
   margin-top: 10px;
+  margin-bottom: 100px;
+  overflow-y: scroll;
 }
 
 .chart-form {
-  /* position: fixed;
-  max-width: 100%;
-  bottom: 0; */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form-group {
+  width: 80%;
+}
+@media screen and (max-width: 768px) {
+  .form-group {
+    width: 90%;
+  }
 }
 
 .user-avatar {
