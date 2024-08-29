@@ -241,6 +241,12 @@ watch(
   margin-top: 10px;
 }
 
+.chart-form {
+  /* position: fixed;
+  max-width: 100%;
+  bottom: 0; */
+}
+
 .user-avatar {
   width: 50px;
   height: 50px;
