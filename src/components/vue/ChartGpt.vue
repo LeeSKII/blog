@@ -1,5 +1,5 @@
 <template>
-  <details>
+  <details ref="chartHistoryPanel">
     <summary role="button" class="outline contrast">ChartHistory</summary>
     <ChartHistory :key="chartCompletion.id" :setCompletion="setCompletion" />
   </details>
@@ -53,6 +53,7 @@ type Message = {
 
 const key = ref<string | null>(null);
 const prompt = ref<string>("");
+const chartHistoryPanel = ref<HTMLDetailsElement>();
 const chartCompletion = ref<ChartCompletion>({
   id: nanoid(),
   messages: [
@@ -86,6 +87,8 @@ function setCompletion(completionId: string | null) {
         },
       ],
     };
+    chartHistoryPanel.value?.removeAttribute("open");
+    return;
   }
   const history = window.localStorage.getItem("history");
   if (history) {
@@ -242,7 +245,7 @@ watch(
 .chart-container {
   margin-top: 10px;
   margin-bottom: 100px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .chart-form {
