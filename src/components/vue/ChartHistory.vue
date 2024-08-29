@@ -3,13 +3,15 @@
     <div @click="setChartCompletion(chart.id)" class="chart-completion">
       <div>{{ chart.messages[1].content }}</div>
       <div>
-        <button @click.stop="deleteChartCompletion(chart.id)" class="contrast">
+        <button class="contrast" @click.stop="deleteChartCompletion(chart.id)">
           Delete
         </button>
       </div>
     </div>
   </article>
-  <button @click="setChartCompletion()">New Chart</button>
+  <button class="contrast outline" @click="setChartCompletion()">
+    New Chart
+  </button>
 </template>
 
 <script setup lang="ts">

@@ -9,9 +9,18 @@ const { completionId } = Astro.props;
 ---
 
 <PicoLayout pageTitle="OpenAI">
-  <!-- <Latex /> -->
-  <StoreApiKey client:only="vue" />
-  <ChartGpt client:only="vue" />
+  <article>
+    <header>Setings</header>
+    <StoreApiKey client:only="vue" />
+  </article>
+  <article>
+    <header>Functions</header>
+    <ul>
+      <li>
+        <a href="/blog/pico/openai/chart">Chart</a>
+      </li>
+    </ul>
+  </article>
 </PicoLayout>
 
 <style>

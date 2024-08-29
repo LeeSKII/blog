@@ -1,5 +1,5 @@
 <template>
-  <details ref="chartHistoryPanel">
+  <details ref="chartHistoryPanel" class="chart-history-panel">
     <summary role="button" class="outline contrast">ChartHistory</summary>
     <ChartHistory :key="chartCompletion.id" :setCompletion="setCompletion" />
   </details>
@@ -25,10 +25,15 @@
   <form class="chart-form" @submit="sendPrompt">
     <data role="group" class="form-group">
       <input type="text" v-model="prompt" />
-      <button type="submit" :aria-busy="isLoading" :disabled="isLoading">
+      <button
+        class="contrast"
+        type="submit"
+        :aria-busy="isLoading"
+        :disabled="isLoading"
+      >
         {{ isLoading ? "Loading..." : "Send" }}
-      </button></data
-    >
+      </button>
+    </data>
   </form>
 </template>
 <script setup lang="ts">
@@ -246,6 +251,10 @@ watch(
   margin-top: 10px;
   margin-bottom: 100px;
   overflow-y: auto;
+}
+
+.chart-history-panel {
+  margin-top: 10px;
 }
 
 .chart-form {

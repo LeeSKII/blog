@@ -22,7 +22,3 @@ html.dark {
 .dark a {
   color: #aaa;
 }
-
-body {
-  min-height: 100vh;
-}
