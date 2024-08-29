@@ -1,17 +1,14 @@
 ---
 import PicoLayout from "../../../components/pico/PicoLayout.astro";
 import StoreApiKey from "../../../components/vue/StoreApiKey.vue";
-import TestToast from "../../../components/react/TestToast";
-import ChartGpt from "../../../components/vue/ChartGpt.vue";
-import Latex from "../../../components/vue/Latex.vue";
-
-const { completionId } = Astro.props;
+import OpenaiModels from "../../../components/vue/OpenaiModels.vue";
 ---
 
 <PicoLayout pageTitle="OpenAI">
   <article>
     <header>Setings</header>
     <StoreApiKey client:only="vue" />
+    <OpenaiModels client:only="vue" />
   </article>
   <article>
     <header>Functions</header>

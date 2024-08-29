@@ -15,8 +15,9 @@
         </div>
       </article>
       <article v-if="message.role === 'assistant'">
-        <div>
+        <div class="assistant-message-header">
           <span class="assistant-avatar">AI</span>
+          <span class="assistant-model">{{ model }}</span>
         </div>
         <MarkdownRender :content="message.content" />
       </article>
@@ -109,6 +110,8 @@ function setCompletion(completionId: string | null) {
   }
 }
 
+const model = window.localStorage.getItem("model") || "gpt-4o";
+
 async function sendPrompt(e: Event) {
   e.preventDefault();
   key.value = window.localStorage.getItem("key");
@@ -125,7 +128,7 @@ async function sendPrompt(e: Event) {
     .post(
       "https://api.gptapi.us/v1/chat/completions",
       {
-        model: "gpt-4o",
+        model,
         messages: chartCompletion.value.messages,
       },
       {
@@ -287,6 +290,11 @@ watch(
   color: #fff;
   margin: 10px;
 }
+.assistant-message-header {
+  display: flex;
+  align-items: center;
+}
+
 .assistant-avatar {
   width: 50px;
   height: 50px;
@@ -297,6 +305,10 @@ watch(
   background-color: #333;
   color: #fff;
   margin: 10px;
+}
+.assistant-model {
+  font-size: 14px;
+  font-weight: 300;
 }
 .user-message-header {
   display: flex;
