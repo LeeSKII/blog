@@ -11,7 +11,7 @@
       </button>
     </div>
     <div class="tab-content" ref="tabContent">
-      <TransitionGroup
+      <Transition
         name="fade"
         mode="out-in"
         @before-leave="beforeLeave"
@@ -26,13 +26,13 @@
             :isActive="true"
           ></slot>
         </div>
-      </TransitionGroup>
+      </Transition>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, nextTick } from "vue";
 
 const props = defineProps({
   tabs: {
@@ -45,7 +45,6 @@ const props = defineProps({
 });
 
 const activeTab = ref(0);
-const tabList = ref(null);
 const tabContent = ref(null);
 let prevHeight = 0;
 
@@ -55,29 +54,23 @@ const setActiveTab = (index) => {
 
 const beforeLeave = (el) => {
   prevHeight = el.offsetHeight;
-  el.style.height = prevHeight + "px";
-  el.style.position = "absolute";
-  el.style.width = "100%";
-  el.style.top = "0";
+  el.style.height = `${prevHeight}px`;
 };
 
 const enter = (el) => {
   el.style.height = "auto";
   const endHeight = el.offsetHeight;
-  el.style.height = prevHeight + "px";
+  el.style.height = `${prevHeight}px`;
   el.offsetHeight; // force reflow
-  el.style.height = endHeight + "px";
+  el.style.height = `${endHeight}px`;
 };
 
 const afterEnter = (el) => {
   el.style.height = "auto";
-  el.style.position = "";
-  el.style.width = "";
-  el.style.top = "";
 };
 
 const leave = (el) => {
-  el.style.height = "0";
+  el.style.height = `${prevHeight}px`;
 };
 </script>
 
