@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-import { ref, nextTick } from "vue";
+import { ref } from "vue";
 
 const props = defineProps({
   tabs: {
@@ -157,5 +157,39 @@ const leave = (el) => {
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+/* Dark mode styles */
+.dark .tabs {
+  background-color: #1a1a1a;
+}
+
+.dark .tab-list {
+  background-color: #1a1a1a;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.dark .tab-button {
+  background-color: #2a2a2a;
+  color: #bbb;
+  box-shadow:
+    2px 2px 5px rgba(0, 0, 0, 0.2),
+    -2px -2px 5px rgba(255, 255, 255, 0.1);
+}
+
+.dark .tab-button:hover {
+  background-color: #3a3a3a;
+}
+
+.dark .tab-button.is-active {
+  color: #fff;
+  background-color: #1a1a1a;
+  box-shadow:
+    4px 4px 8px rgba(0, 0, 0, 0.2),
+    -4px -4px 8px rgba(255, 255, 255, 0.1);
+}
+
+.dark .tab-content {
+  background-color: #1a1a1a;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 </style>
