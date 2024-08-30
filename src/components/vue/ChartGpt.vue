@@ -1,7 +1,7 @@
 <template>
   <details ref="chartHistoryPanel" class="chart-history-panel">
     <summary role="button" class="outline contrast">ChartHistory</summary>
-    <ChartHistory :key="chartCompletion.id" :setCompletion="setCompletion" />
+    <ChartHistory :key="chartCompletion.id" @setCompletion="setCompletion" />
   </details>
 
   <div class="chart-container">
@@ -82,7 +82,7 @@ if (historyC) {
   }
 }
 
-function setCompletion(completionId: string | null) {
+function setCompletion(completionId: string | undefined) {
   if (!completionId) {
     chartCompletion.value = {
       id: nanoid(),

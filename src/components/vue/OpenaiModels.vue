@@ -60,7 +60,14 @@ const fetchModels = async () => {
 
 const initialModel = window.localStorage.getItem("model") || "gpt-4o";
 
-const models = ref<Model[] | null>(null);
+const models = ref<Model[]>([
+  {
+    id: "gpt-4o",
+    object: "model",
+    created: 1636531200,
+    owned_by: "openai",
+  },
+]);
 const model = ref<string>(initialModel);
 
 fetchModels();

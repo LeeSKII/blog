@@ -26,10 +26,12 @@ type Message = {
   content: string;
 };
 
-const props = defineProps<{ setCompletion: (id: string | null) => void }>();
+const emit = defineEmits<{
+  (e: "set-completion", id: string | undefined): void;
+}>();
 
 function setChartCompletion(id?: string) {
-  props.setCompletion(id || null);
+  emit("set-completion", id);
 }
 
 const chartCompletions = ref<ChartCompletion[]>([]);
