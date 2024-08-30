@@ -1,6 +1,5 @@
 import { defineConfig } from "astro/config";
 import { remarkModifiedTime } from "./src/utils/remark-modified-time.mjs";
-import preact from "@astrojs/preact";
 import rehypeExternalLinks from "rehype-external-links";
 import react from "@astrojs/react";
 import vue from "@astrojs/vue";

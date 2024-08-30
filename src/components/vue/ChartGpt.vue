@@ -17,7 +17,7 @@
       <article v-if="message.role === 'assistant'">
         <div class="assistant-message-header">
           <span class="assistant-avatar">AI</span>
-          <span class="assistant-model">{{ model }}</span>
+          <span class="assistant-model">{{ message.model }}</span>
         </div>
         <MarkdownRender :content="message.content" />
       </article>
@@ -32,30 +32,24 @@
         :aria-busy="isLoading"
         :disabled="isLoading"
       >
-        {{ isLoading ? "Loading..." : "Send" }}
+        {{ isLoading ? "" : "Send" }}
       </button>
     </data>
   </form>
 </template>
 <script setup lang="ts">
 import axios from "axios";
-import { ref, watch, onMounted } from "vue";
+import { ref, watch } from "vue";
 import { nanoid } from "nanoid";
 import MarkdownRender from "./MarkdownRender.vue";
 import ChartHistory from "./ChartHistory.vue";
+import type { ChartCompletion, Message } from "./types.ts";
 
 const props = defineProps<{
   completionId?: string;
 }>();
 
-type ChartCompletion = {
-  id: string;
-  messages: Message[];
-};
-type Message = {
-  role: string;
-  content: string;
-};
+const model = window.localStorage.getItem("model") || "gpt-4o";
 
 const key = ref<string | null>(null);
 const prompt = ref<string>("");
@@ -65,6 +59,7 @@ const chartCompletion = ref<ChartCompletion>({
   messages: [
     {
       role: "system",
+      model,
       content: "You are a helpful assistant.",
     },
   ],
@@ -89,6 +84,7 @@ function setCompletion(completionId: string | undefined) {
       messages: [
         {
           role: "system",
+          model,
           content: "You are a helpful assistant.",
         },
       ],
@@ -110,8 +106,6 @@ function setCompletion(completionId: string | undefined) {
   }
 }
 
-const model = window.localStorage.getItem("model") || "gpt-4o";
-
 async function sendPrompt(e: Event) {
   e.preventDefault();
   key.value = window.localStorage.getItem("key");
@@ -121,6 +115,7 @@ async function sendPrompt(e: Event) {
   isLoading.value = true;
   chartCompletion.value.messages.push({
     role: "user",
+    model,
     content: prompt.value,
   });
 
@@ -141,6 +136,7 @@ async function sendPrompt(e: Event) {
     .then((response) => {
       const responseMsg: Message = {
         role: "assistant",
+        model: response.data.model,
         content: response.data.choices[0].message.content,
       };
       chartCompletion.value.messages.push(responseMsg);

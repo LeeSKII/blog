@@ -16,15 +16,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-
-type ChartCompletion = {
-  id: string;
-  messages: Message[];
-};
-type Message = {
-  role: string;
-  content: string;
-};
+import type { ChartCompletion, Message } from "./types.ts";
 
 const emit = defineEmits<{
   (e: "set-completion", id: string | undefined): void;
