@@ -131,7 +131,8 @@ export default {
   border-radius: 4px;
   font-size: 14px;
   z-index: 10000;
-  max-width: 200px;
+  max-width: 200px; /* max width of the tooltip */
+  /*text-align: justify; /* 文本占满整个宽度 */
   /* white-space: nowrap; */
 }
 

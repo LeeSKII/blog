@@ -42,8 +42,12 @@
           placeholder="0"
           aria-label="Number"
         />
+        <ToolTip
+          content="How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."
+        >
+          <div>n:</div>
+        </ToolTip>
 
-        <div>n:</div>
         <input type="number" name="n" placeholder="1" aria-label="Number" />
       </div>
     </div>
@@ -73,6 +77,9 @@ const closeModal = () => {
 .icon {
   display: inline-block;
   cursor: pointer;
+}
+.dark .icon path {
+  fill: #fff;
 }
 input {
   margin-bottom: 0;
