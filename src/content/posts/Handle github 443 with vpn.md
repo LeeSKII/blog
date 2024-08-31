@@ -3,7 +3,7 @@ title: 'Github with 443 errors'
 author: 'Ski Lee'
 description: "Even use Vpn, still get 443 errors."
 image:
-  url: "@assets//images/posts/used/4.jpg"
+  url: "@postImages/4.jpg"
   alt: "The man's hand holding a laptop"
 pubDate: 2024-08-13
 isPublished: true

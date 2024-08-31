@@ -1,5 +1,5 @@
 ---
-title: A Small case for ToolTip
+title: Alias in typescript and astro
 author: Lee Ski
 description: "How to add last modify time in post."
 image:

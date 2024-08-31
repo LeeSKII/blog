@@ -3,7 +3,7 @@ title: Alibaba fonts 的用法
 author: 'Lee Ski'
 description: "Ali icon fonts 的用法。"
 image:
-    url: "@assets//images/posts/used/2.jpg"
+    url: "@postImages/2.jpg"
     alt: "The Astro logo on a dark background with a purple gradient arc."
 pubDate: 2024-08-13
 isPublished: true
