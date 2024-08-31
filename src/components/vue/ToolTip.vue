@@ -4,6 +4,9 @@
     ref="triggerRef"
     @mouseenter="showTooltip"
     @mouseleave="hideTooltip"
+    @focus="showTooltip"
+    @blur="hideTooltip"
+    tabindex="0"
   >
     <slot></slot>
   </div>
@@ -23,6 +26,7 @@
 
 <script>
 import { ref, onMounted, onBeforeUnmount, nextTick } from "vue";
+import { debounce } from "lodash"; // 或者实现一个简单的debounce函数
 
 export default {
   name: "Tooltip",
@@ -45,9 +49,7 @@ export default {
 
     const showTooltip = () => {
       isVisible.value = true;
-      nextTick(() => {
-        updatePosition();
-      });
+      nextTick(updatePosition);
     };
 
     const hideTooltip = () => {
@@ -65,23 +67,19 @@ export default {
       switch (props.position) {
         case "bottom":
           top = triggerRect.bottom;
-          left =
-            triggerRect.left + triggerRect.width / 2 - tooltipRect.width / 2;
+          left = triggerRect.left + (triggerRect.width - tooltipRect.width) / 2;
           break;
         case "left":
-          top =
-            triggerRect.top + triggerRect.height / 2 - tooltipRect.height / 2;
+          top = triggerRect.top + (triggerRect.height - tooltipRect.height) / 2;
           left = triggerRect.left - tooltipRect.width;
           break;
         case "right":
-          top =
-            triggerRect.top + triggerRect.height / 2 - tooltipRect.height / 2;
+          top = triggerRect.top + (triggerRect.height - tooltipRect.height) / 2;
           left = triggerRect.right;
           break;
-        default: // top
+        default: // "top"
           top = triggerRect.top - tooltipRect.height;
-          left =
-            triggerRect.left + triggerRect.width / 2 - tooltipRect.width / 2;
+          left = triggerRect.left + (triggerRect.width - tooltipRect.width) / 2;
       }
 
       tooltipStyle.value = {
@@ -91,11 +89,11 @@ export default {
       };
     };
 
-    const handleScroll = () => {
+    const handleScroll = debounce(() => {
       if (isVisible.value) {
         updatePosition();
       }
-    };
+    }, 100);
 
     onMounted(() => {
       window.addEventListener("resize", updatePosition);
@@ -132,8 +130,6 @@ export default {
   font-size: 14px;
   z-index: 10000;
   max-width: 200px; /* max width of the tooltip */
-  /*text-align: justify; /* 文本占满整个宽度 */
-  /* white-space: nowrap; */
 }
 
 .fade-enter-active,
