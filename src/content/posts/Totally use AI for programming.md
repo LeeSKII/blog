@@ -3,10 +3,10 @@ title: Totally use AI for programming
 author: Lee Ski
 description: "How to add last modify time in post."
 image:
-    url: "../../assets//images/posts/daniel-sessler.jpg"
+    url: "../../assets/images/posts/kostya-mikryukov-iX3fVzLgOB8-unsplash.jpg"
     alt: "A small island in the middle of the ocean."
 pubDate: 2024-08-31
-isPublished: false
+isPublished: true
 tags: ["ai", "programming"]
 ---
 
