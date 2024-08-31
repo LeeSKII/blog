@@ -3,7 +3,7 @@
     <div v-if="isOpen" class="modal-overlay" @click="closeModal">
       <div class="modal-content" @click.stop>
         <slot></slot>
-        <div class="modal-actions">
+        <div v-if="isShowActions" class="modal-actions">
           <button @click="closeModal">确认</button>
           <button class="contrast" @click="closeModal">关闭</button>
         </div>
@@ -14,8 +14,9 @@
 
 <script setup lang="ts">
 const emits = defineEmits(["close"]);
-const { isOpen } = defineProps<{
+const { isOpen, isShowActions } = defineProps<{
   isOpen: boolean;
+  isShowActions?: boolean;
 }>();
 
 const closeModal = () => {
@@ -34,13 +35,15 @@ const closeModal = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999;
+  z-index: 9000;
 }
 
 .modal-content {
   background-color: white;
   padding: 20px;
   border-radius: 5px;
+  min-width: 200px;
+  min-height: 200px;
   max-width: 80vw;
   max-height: 80vh;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);

@@ -32,12 +32,18 @@
       </div>
     </template>
   </TabsComponent>
+  <div>
+    <Tooltip content="This is a tooltip">
+      <p>Hover me</p>
+    </Tooltip>
+  </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
 import TabsComponent from "./TabsComponent.vue";
 import Modal from "./Modal.vue";
+import Tooltip from "./ToolTip.vue";
 
 const isModalOpen = ref(false);
 

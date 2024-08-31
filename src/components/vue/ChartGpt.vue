@@ -1,8 +1,11 @@
 <template>
-  <details ref="chartHistoryPanel" class="chart-history-panel">
-    <summary role="button" class="outline contrast">ChartHistory</summary>
-    <ChartHistory :key="chartCompletion.id" @setCompletion="setCompletion" />
-  </details>
+  <div class="chart-header">
+    <details ref="chartHistoryPanel" class="chart-history-panel">
+      <summary role="button" class="outline contrast">ChartHistory</summary>
+      <ChartHistory :key="chartCompletion.id" @setCompletion="setCompletion" />
+    </details>
+    <ChartSetting />
+  </div>
 
   <div class="chart-container">
     <div v-for="message in chartCompletion.messages" :key="message.content">
@@ -43,6 +46,7 @@ import { ref, watch } from "vue";
 import { nanoid } from "nanoid";
 import MarkdownRender from "./MarkdownRender.vue";
 import ChartHistory from "./ChartHistory.vue";
+import ChartSetting from "./ChartSetting.vue";
 import type { ChartCompletion, Message } from "./types.ts";
 
 const props = defineProps<{
@@ -245,6 +249,12 @@ watch(
 </script>
 
 <style scoped>
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
 .chart-container {
   margin-top: 10px;
   margin-bottom: 100px;
@@ -252,6 +262,7 @@ watch(
 }
 
 .chart-history-panel {
+  flex: 1;
   margin-top: 10px;
 }
 
