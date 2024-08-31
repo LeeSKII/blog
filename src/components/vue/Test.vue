@@ -1,4 +1,17 @@
 <template>
+  <div>
+    <button @click="openModal">打开Modal</button>
+    <Modal :isOpen="isModalOpen" @close="closeModal">
+      <h2>Modal 标题</h2>
+      <p>这是 Modal 的内容。</p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat incidunt
+        quas illum reiciendis quae debitis maxime odio excepturi rerum? Maiores
+        et exercitationem voluptatibus maxime ratione veritatis mollitia
+        suscipit illum sunt?
+      </p>
+    </Modal>
+  </div>
   <TabsComponent :tabs="tabs">
     <template v-slot="{ tab, isActive }">
       <div v-show="isActive">
@@ -24,6 +37,17 @@
 <script setup>
 import { ref } from "vue";
 import TabsComponent from "./TabsComponent.vue";
+import Modal from "./Modal.vue";
+
+const isModalOpen = ref(false);
+
+const openModal = () => {
+  isModalOpen.value = true;
+};
+
+const closeModal = () => {
+  isModalOpen.value = false;
+};
 
 const tabs = ref([
   { title: "文本标签", type: "text", content: "这是一些文本内容。" },

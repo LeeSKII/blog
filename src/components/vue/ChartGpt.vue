@@ -23,9 +23,9 @@
       </article>
     </div>
   </div>
-  <form class="chart-form" @submit="sendPrompt">
+  <form class="chart-form" @submit.prevent="sendPrompt">
     <data role="group" class="form-group">
-      <input type="text" v-model="prompt" />
+      <input type="text" required v-model="prompt" />
       <button
         class="contrast"
         type="submit"
@@ -106,8 +106,7 @@ function setCompletion(completionId: string | undefined) {
   }
 }
 
-async function sendPrompt(e: Event) {
-  e.preventDefault();
+async function sendPrompt() {
   key.value = window.localStorage.getItem("key");
   if (!key.value) {
     return;
