@@ -8,7 +8,7 @@
       v-model="model"
     >
       <option selected disabled value="">Select which model to use</option>
-      <option v-for="model in models" :key="model.id">
+      <option v-for="(model, index) in models" :key="`${model.id}-${index}`">
         {{ model.id }}
       </option>
     </select>
@@ -17,6 +17,7 @@
 
 <script setup lang="ts">
 import { ref, watch } from "vue";
+import useModel from "@/utils/vue/useModel";
 
 type Model = {
   id: string;
@@ -26,6 +27,21 @@ type Model = {
 };
 
 const apiUrl = "https://api.gptapi.us/v1/models";
+const localStorageModels = window.localStorage.getItem("models");
+const initModels = localStorageModels
+  ? (JSON.parse(localStorageModels) as Model[])
+  : ([
+      {
+        id: "gpt-4o",
+        object: "model",
+        created: 1636531200,
+        owned_by: "openai",
+      },
+    ] as Model[]);
+
+const models = ref<Model[]>(initModels);
+
+const model = useModel();
 
 const getModels = async () => {
   const response = await fetch(apiUrl, {
@@ -58,22 +74,13 @@ const fetchModels = async () => {
   }
 };
 
-const initialModel = window.localStorage.getItem("model") || "gpt-4o";
-
-const models = ref<Model[]>([
-  {
-    id: "gpt-4o",
-    object: "model",
-    created: 1636531200,
-    owned_by: "openai",
-  },
-]);
-const model = ref<string>(initialModel);
-
 fetchModels();
 
 watch(model, (newVal, oldVal) => {
   window.localStorage.setItem("model", newVal);
+});
+watch(models, (newVal, oldVal) => {
+  window.localStorage.setItem("models", JSON.stringify(newVal));
 });
 </script>
 
