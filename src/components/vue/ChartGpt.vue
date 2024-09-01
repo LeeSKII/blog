@@ -43,12 +43,13 @@ import MarkdownRender from "./MarkdownRender.vue";
 import ChartHistory from "./ChartHistory.vue";
 import ChartSetting from "./ChartSetting.vue";
 import type { ChartCompletion, Message } from "./types.ts";
+import useModel from "@/utils/vue/useModel.ts";
 
 const props = defineProps<{
   completionId?: string;
 }>();
 
-const model = window.localStorage.getItem("model") || "gpt-4o";
+const model = useModel();
 
 const key = ref<string | null>(null);
 const prompt = ref<string>("");
@@ -58,7 +59,7 @@ const chartCompletion = ref<ChartCompletion>({
   messages: [
     {
       role: "system",
-      model,
+      model: model.value,
       content: "You are a helpful assistant.",
     },
   ],
@@ -83,7 +84,7 @@ function setCompletion(completionId: string | undefined) {
       messages: [
         {
           role: "system",
-          model,
+          model: model.value,
           content: "You are a helpful assistant.",
         },
       ],
@@ -113,7 +114,7 @@ async function sendPrompt() {
   isLoading.value = true;
   chartCompletion.value.messages.push({
     role: "user",
-    model,
+    model: model.value,
     content: prompt.value,
   });
 
@@ -121,7 +122,7 @@ async function sendPrompt() {
     .post(
       "https://api.gptapi.us/v1/chat/completions",
       {
-        model,
+        model: model.value,
         messages: chartCompletion.value.messages.map((message) => { return { role: message.role, content: message.content } }),
       },
       {
