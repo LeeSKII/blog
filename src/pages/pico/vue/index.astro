@@ -1,9 +1,11 @@
 ---
 import PicoLayout from "../../../components/pico/PicoLayout.astro";
 import JsonPlaceHolder from "../../../components/vue/JsonPlaceHolder.vue";
+import IndexComponent from "@/components/vue/Index.vue";
 ---
 
 <PicoLayout pageTitle="Vue">
   <h2>Vue</h2>
   <JsonPlaceHolder client:load />
+  <IndexComponent client:load />
 </PicoLayout>
