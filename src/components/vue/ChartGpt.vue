@@ -29,12 +29,7 @@
   <form class="chart-form" @submit.prevent="sendPrompt">
     <data role="group" class="form-group">
       <input type="text" required v-model="prompt" />
-      <button
-        class="contrast"
-        type="submit"
-        :aria-busy="isLoading"
-        :disabled="isLoading"
-      >
+      <button class="contrast" type="submit" :aria-busy="isLoading" :disabled="isLoading">
         {{ isLoading ? "" : "Send" }}
       </button>
     </data>
@@ -127,7 +122,7 @@ async function sendPrompt() {
       "https://api.gptapi.us/v1/chat/completions",
       {
         model,
-        messages: chartCompletion.value.messages,
+        messages: chartCompletion.value.messages.map((message) => { return { role: message.role, content: message.content } }),
       },
       {
         headers: {
@@ -255,6 +250,7 @@ watch(
   align-items: center;
   gap: 20px;
 }
+
 .chart-container {
   margin-top: 10px;
   margin-bottom: 100px;
@@ -276,9 +272,11 @@ watch(
   justify-content: center;
   align-items: center;
 }
+
 .form-group {
   width: 80%;
 }
+
 @media screen and (max-width: 768px) {
   .form-group {
     width: 90%;
@@ -296,6 +294,7 @@ watch(
   color: #fff;
   margin: 10px;
 }
+
 .assistant-message-header {
   display: flex;
   align-items: center;
@@ -312,19 +311,23 @@ watch(
   color: #fff;
   margin: 10px;
 }
+
 .assistant-model {
   font-size: 14px;
   font-weight: 300;
 }
+
 .user-message-header {
   display: flex;
   justify-content: flex-end;
   align-items: center;
 }
+
 .dark .assistant-avatar {
   background-color: #ccc;
   color: black;
 }
+
 .dark .user-avatar {
   background-color: #ccc;
   color: black;
