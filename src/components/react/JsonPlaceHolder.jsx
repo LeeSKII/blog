@@ -7,6 +7,8 @@ export default function JsonPlaceHolder({ count, event }) {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const a = Math.pow(10, 12); //simulate long running process
+  console.log(a);
   useEffect(() => {
     async function fetchData() {
       try {
