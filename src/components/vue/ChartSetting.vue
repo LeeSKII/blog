@@ -28,6 +28,7 @@
   >
     <div>
       <h4>Chart Setting</h4>
+      <StoreApiKey />
       <OpenaiModels />
       <div class="form-grid">
         <ToolTip
@@ -58,6 +59,7 @@
 import Modal from "./Modal.vue";
 import OpenaiModels from "./OpenaiModels.vue";
 import ToolTip from "./ToolTip.vue";
+import StoreApiKey from "./StoreApiKey.vue";
 
 import { ref } from "vue";
 
