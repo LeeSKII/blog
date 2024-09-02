@@ -53,3 +53,15 @@ React中的useEffect则需要深刻理解其依赖数组的概念，以及useEff
 通过比较后的理解来看，React和Vue实际使用的心智模型不同，在精通React后更容易因为其简洁的API和函数式编程思想而加深理解，但Vue的开发思想更符合直觉和同步的思想，Proxy的响应式机制使其更细粒度，但是组合式API和React Hooks一样，需要对代码的组织能力有相当的控制和逻辑思维，否则更容易写出难以维护的代码。
 
 参考Vue官方文档的[链接](https://cn.vuejs.org/guide/extras/composition-api-faq.html#comparison-with-react-hooks)
+
+### 3.同步更新状态机制
+
+1. Vue3
+
+   - Vue3的响应式系统是基于Proxy的，可以实现同步更新状态，这意味着修改状态之后，可以立即获取到更新后的状态值。
+
+2. React
+
+   - React的状态更新是异步的，setState用来触发更新，但是不会将最新的state立即应用到组件上，而是会在下一次渲染时应用。
+
+从这个角度来看，Vue3的响应式系统更加符合直觉，React如果需要用到同步更新状态，要么直接使用最新传递过来的变量，要么使用ref同步更新状态。
