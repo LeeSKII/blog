@@ -1,11 +1,9 @@
 ---
 import PicoLayout from "../../../components/pico/PicoLayout.astro";
-import JsonPlaceHolder from "../../../components/react/JsonPlaceHolder";
 import IndexComponent from "@/components/react/Index";
 ---
 
 <PicoLayout pageTitle="React">
   <h2>React</h2>
   <IndexComponent client:only="react" />
-  <JsonPlaceHolder client:load />
 </PicoLayout>

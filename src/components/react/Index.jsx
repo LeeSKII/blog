@@ -14,9 +14,9 @@ export default function Index() {
       </div>
       <div>count: {count}</div>
       <button onClick={() => setCount(count + 1)}>Click me</button>
-      <JsonPlaceHolder />
-      <JsonPlaceHolder />
-      <JsonPlaceHolder />
+      <JsonPlaceHolder count={count} event={testEvent} />
+      <JsonPlaceHolder count={count} event={testEvent} />
+      <JsonPlaceHolder count={count} event={testEvent} />
     </>
   );
 }
