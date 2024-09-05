@@ -89,3 +89,15 @@ React中的useEffect则需要深刻理解其依赖数组的概念，以及useEff
    - React的状态更新是异步的，setState用来触发更新，但是不会将最新的state立即应用到组件上，而是会在下一次渲染时应用。
 
 从这个角度来看，Vue3的响应式系统更加符合直觉，React如果需要用到同步更新状态，要么直接使用最新传递过来的变量，要么使用ref同步更新状态。
+
+### 4.响应式机制的对比
+
+看到 YOUTUBE 上的一个[Video](https://www.youtube.com/watch?v=zROpI35swtg&ab_channel=LachlanMiller)，讲解了 Vue3 和 React 的一些区别，其中最有意思的点是： Vue 中的响应式是 opt-in 的，而 React 中的响应式是 opt-out 的。
+
+这个是什么意思呢， opt-in 表示如果某个变量需要响应式，需要我们主动将其用 ref 或者 reactive 包装成响应式对象，当响应式对象被修改的时候，触发 re-render 重新渲染,对所有订阅了该变量的部分进行 DOM 更新。
+
+为什么说 React 中的响应式是 opt-out 的呢？因为当 React 组件中的状态通过 setState 进行更新时， React 的响应式系统会告诉 React 组件需要重新渲染，但是并不会告诉 React 需要渲染 DOM 中的哪一部分，整个 React 函数式组件就像是函数被重新运行了一次一样，重新渲染了整个 DOM ，这就意味着 React 中所有的变量都会根据函数的重新运行而重新计算，相当于所有的变量默认都是响应式变化的，需要手动去 opt-out 。
+
+而 React 中手动 opt-out 的方式就是通过 useMemo 或者 useCallback 等 hooks 来缓存计算结果和函数引用，避免在每次渲染时都重新计算。
+
+这个视频下的评论也很有深度，从程序视觉上其实 React 的响应式逻辑更符合程序执行思想，状态修改后触发函数运行，然后整体重新渲染，这就是为什么 React 中当父组件的状态变化后会强制触发所有子组件的更新；而 Vue3 的响应式逻辑更符合直觉，状态变化后触发更新，然后只有订阅了该变量的部分进行更新操作，如果订阅的部分为 template ，则更新 DOM 。
