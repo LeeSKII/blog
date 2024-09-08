@@ -33,7 +33,7 @@
     </template>
   </TabsComponent>
   <div>
-    <Tooltip content="This is a tooltip">
+    <Tooltip content="This">
       <p>Hover me</p>
     </Tooltip>
   </div>

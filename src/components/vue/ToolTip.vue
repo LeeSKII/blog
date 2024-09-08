@@ -60,6 +60,21 @@ export default {
       if (!triggerRef.value || !tooltipRef.value) return;
 
       const triggerRect = triggerRef.value.getBoundingClientRect();
+
+      // Create a temporary, invisible element to measure the content width
+      const tempElement = document.createElement("div");
+      tempElement.style.visibility = "hidden";
+      tempElement.style.position = "absolute";
+      tempElement.style.whiteSpace = "nowrap";
+      tempElement.innerHTML = props.content;
+      document.body.appendChild(tempElement);
+
+      const contentWidth = tempElement.offsetWidth;
+      document.body.removeChild(tempElement);
+
+      // Set the tooltip width based on the content, with a maximum of 200px
+      tooltipRef.value.style.width = `${Math.min(contentWidth + 20, 200)}px`; // Add 20px for padding
+
       const tooltipRect = tooltipRef.value.getBoundingClientRect();
 
       let top, left;
@@ -86,6 +101,7 @@ export default {
         position: "fixed",
         top: `${top}px`,
         left: `${left}px`,
+        width: tooltipRef.value.style.width,
       };
     };
 
@@ -129,7 +145,8 @@ export default {
   border-radius: 4px;
   font-size: 14px;
   z-index: 9999;
-  max-width: 200px; /* max width of the tooltip */
+  width: max-content;
+  /*max-width: 200px; /* max width of the tooltip */
 }
 
 .fade-enter-active,
