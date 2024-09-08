@@ -1,7 +1,7 @@
 <template>
   <article v-for="chart in chartCompletions" :key="chart.id">
     <div @click="setChartCompletion(chart.id)" class="chart-completion">
-      <div>{{ chart.messages[1].content }}</div>
+      <div class="chart-name">{{ chart.messages[1].content }}</div>
       <div>
         <button class="contrast" @click.stop="deleteChartCompletion(chart.id)">
           Delete
@@ -50,6 +50,19 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.chart-name {
+  max-width: 80ch;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 768px) {
+  .chart-name {
+    max-width: 20ch;
+  }
+}
+
 .chart-completion {
   display: flex;
   justify-content: space-between;

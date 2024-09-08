@@ -128,7 +128,7 @@ export default {
   padding: 5px 10px;
   border-radius: 4px;
   font-size: 14px;
-  z-index: 10000;
+  z-index: 9999;
   max-width: 200px; /* max width of the tooltip */
 }
 
