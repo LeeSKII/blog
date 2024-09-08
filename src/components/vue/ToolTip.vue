@@ -25,8 +25,8 @@
 </template>
 
 <script>
-import { ref, onMounted, onBeforeUnmount, nextTick } from "vue";
-import { debounce } from "lodash"; // 或者实现一个简单的debounce函数
+import { ref, onMounted, onBeforeUnmount } from "vue";
+import { debounce } from "lodash";
 
 export default {
   name: "Tooltip",
@@ -47,62 +47,88 @@ export default {
     const tooltipRef = ref(null);
     const tooltipStyle = ref({});
 
-    const showTooltip = () => {
-      isVisible.value = true;
-      nextTick(updatePosition);
-    };
-
-    const hideTooltip = () => {
-      isVisible.value = false;
-    };
-
-    const updatePosition = () => {
-      if (!triggerRef.value || !tooltipRef.value) return;
-
-      const triggerRect = triggerRef.value.getBoundingClientRect();
-
-      // Create a temporary, invisible element to measure the content width
+    const measureContent = () => {
       const tempElement = document.createElement("div");
       tempElement.style.visibility = "hidden";
       tempElement.style.position = "absolute";
-      tempElement.style.whiteSpace = "nowrap";
+      tempElement.style.padding = "5px 10px";
+      tempElement.style.maxWidth = "200px";
+      tempElement.style.whiteSpace = "normal";
+      tempElement.style.wordWrap = "break-word";
+      tempElement.style.fontSize = "14px";
       tempElement.innerHTML = props.content;
       document.body.appendChild(tempElement);
 
       const contentWidth = tempElement.offsetWidth;
+      const contentHeight = tempElement.offsetHeight;
+
       document.body.removeChild(tempElement);
 
-      // Set the tooltip width based on the content, with a maximum of 200px
-      tooltipRef.value.style.width = `${Math.min(contentWidth + 20, 200)}px`; // Add 20px for padding
+      return {
+        width: contentWidth,
+        height: contentHeight,
+      };
+    };
 
-      const tooltipRect = tooltipRef.value.getBoundingClientRect();
-
+    const calculatePosition = (triggerRect, contentSize) => {
       let top, left;
 
       switch (props.position) {
         case "bottom":
-          top = triggerRect.bottom;
-          left = triggerRect.left + (triggerRect.width - tooltipRect.width) / 2;
+          top = triggerRect.bottom + window.scrollY;
+          left =
+            triggerRect.left +
+            (triggerRect.width - contentSize.width) / 2 +
+            window.scrollX;
           break;
         case "left":
-          top = triggerRect.top + (triggerRect.height - tooltipRect.height) / 2;
-          left = triggerRect.left - tooltipRect.width;
+          top =
+            triggerRect.top +
+            (triggerRect.height - contentSize.height) / 2 +
+            window.scrollY;
+          left = triggerRect.left - contentSize.width + window.scrollX;
           break;
         case "right":
-          top = triggerRect.top + (triggerRect.height - tooltipRect.height) / 2;
-          left = triggerRect.right;
+          top =
+            triggerRect.top +
+            (triggerRect.height - contentSize.height) / 2 +
+            window.scrollY;
+          left = triggerRect.right + window.scrollX;
           break;
         default: // "top"
-          top = triggerRect.top - tooltipRect.height;
-          left = triggerRect.left + (triggerRect.width - tooltipRect.width) / 2;
+          top = triggerRect.top - contentSize.height + window.scrollY;
+          left =
+            triggerRect.left +
+            (triggerRect.width - contentSize.width) / 2 +
+            window.scrollX;
       }
 
+      return { top, left };
+    };
+
+    const updatePosition = () => {
+      if (!triggerRef.value) return;
+
+      const triggerRect = triggerRef.value.getBoundingClientRect();
+      const contentSize = measureContent();
+      const position = calculatePosition(triggerRect, contentSize);
+
       tooltipStyle.value = {
-        position: "fixed",
-        top: `${top}px`,
-        left: `${left}px`,
-        width: tooltipRef.value.style.width,
+        position: "absolute",
+        top: `${position.top}px`,
+        left: `${position.left}px`,
+        width: `${contentSize.width}px`,
+        maxWidth: "200px",
       };
+    };
+
+    const showTooltip = () => {
+      updatePosition();
+      isVisible.value = true;
+    };
+
+    const hideTooltip = () => {
+      isVisible.value = false;
     };
 
     const handleScroll = debounce(() => {
@@ -145,8 +171,9 @@ export default {
   border-radius: 4px;
   font-size: 14px;
   z-index: 9999;
-  width: max-content;
-  /*max-width: 200px; /* max width of the tooltip */
+  max-width: 200px;
+  word-wrap: break-word;
+  white-space: normal;
 }
 
 .fade-enter-active,

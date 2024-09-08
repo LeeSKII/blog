@@ -1,14 +1,16 @@
 <template>
   <teleport to="body">
-    <div v-if="isOpen" class="modal-overlay" @click="closeModal">
-      <div class="modal-content" @click.stop>
-        <slot></slot>
-        <div v-if="isShowActions" class="modal-actions">
-          <button @click="closeModal">确认</button>
-          <button class="contrast" @click="closeModal">关闭</button>
+    <transition name="fade">
+      <div v-if="isOpen" class="modal-overlay" @click="closeModal">
+        <div class="modal-content" @click.stop>
+          <slot></slot>
+          <div v-if="isShowActions" class="modal-actions">
+            <button @click="closeModal">确认</button>
+            <button class="contrast" @click="closeModal">关闭</button>
+          </div>
         </div>
       </div>
-    </div>
+    </transition>
   </teleport>
 </template>
 
@@ -54,6 +56,16 @@ const closeModal = () => {
   justify-content: flex-end;
   gap: 10px;
   margin-top: 10px;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 
 .dark .modal-content {
