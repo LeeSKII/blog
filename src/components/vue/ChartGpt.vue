@@ -29,12 +29,7 @@
   <form class="chart-form" @submit.prevent="sendPrompt">
     <data role="group" class="form-group">
       <input type="text" required v-model="prompt" />
-      <button
-        class="contrast"
-        type="submit"
-        :aria-busy="isLoading"
-        :disabled="isLoading"
-      >
+      <button class="contrast" type="submit" :aria-busy="isLoading" :disabled="isLoading">
         {{ isLoading ? "" : "Send" }}
       </button>
     </data>
@@ -48,12 +43,13 @@ import MarkdownRender from "./MarkdownRender.vue";
 import ChartHistory from "./ChartHistory.vue";
 import ChartSetting from "./ChartSetting.vue";
 import type { ChartCompletion, Message } from "./types.ts";
+import useModel from "@/utils/vue/useModel.ts";
 
 const props = defineProps<{
   completionId?: string;
 }>();
 
-const model = window.localStorage.getItem("model") || "gpt-4o";
+const model = useModel();
 
 const key = ref<string | null>(null);
 const prompt = ref<string>("");
@@ -63,7 +59,7 @@ const chartCompletion = ref<ChartCompletion>({
   messages: [
     {
       role: "system",
-      model,
+      model: model.value,
       content: "You are a helpful assistant.",
     },
   ],
@@ -88,7 +84,7 @@ function setCompletion(completionId: string | undefined) {
       messages: [
         {
           role: "system",
-          model,
+          model: model.value,
           content: "You are a helpful assistant.",
         },
       ],
@@ -118,7 +114,7 @@ async function sendPrompt() {
   isLoading.value = true;
   chartCompletion.value.messages.push({
     role: "user",
-    model,
+    model: model.value,
     content: prompt.value,
   });
 
@@ -126,8 +122,8 @@ async function sendPrompt() {
     .post(
       "https://api.gptapi.us/v1/chat/completions",
       {
-        model,
-        messages: chartCompletion.value.messages,
+        model: model.value,
+        messages: chartCompletion.value.messages.map((message) => { return { role: message.role, content: message.content } }),
       },
       {
         headers: {
@@ -255,6 +251,7 @@ watch(
   align-items: center;
   gap: 20px;
 }
+
 .chart-container {
   margin-top: 10px;
   margin-bottom: 100px;
@@ -276,9 +273,11 @@ watch(
   justify-content: center;
   align-items: center;
 }
+
 .form-group {
   width: 80%;
 }
+
 @media screen and (max-width: 768px) {
   .form-group {
     width: 90%;
@@ -296,6 +295,7 @@ watch(
   color: #fff;
   margin: 10px;
 }
+
 .assistant-message-header {
   display: flex;
   align-items: center;
@@ -312,19 +312,23 @@ watch(
   color: #fff;
   margin: 10px;
 }
+
 .assistant-model {
   font-size: 14px;
   font-weight: 300;
 }
+
 .user-message-header {
   display: flex;
   justify-content: flex-end;
   align-items: center;
 }
+
 .dark .assistant-avatar {
   background-color: #ccc;
   color: black;
 }
+
 .dark .user-avatar {
   background-color: #ccc;
   color: black;

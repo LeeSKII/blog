@@ -2,10 +2,13 @@ import { useState, useEffect } from "react";
 import PicoSkeleton from "../pico/PicoSkeleton";
 import axios from "axios";
 
-export default function JsonPlaceHolder() {
+export default function JsonPlaceHolder({ count, event }) {
+  console.log("renderJsonPlaceHolder");
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const a = Math.pow(10, 12); //simulate long running process
+  console.log(a);
   useEffect(() => {
     async function fetchData() {
       try {
@@ -29,6 +32,7 @@ export default function JsonPlaceHolder() {
   }, []);
   return (
     <>
+      {count}
       {loading && <PicoSkeleton />}
       {error && <p>Error: {error}</p>}
       {data && (

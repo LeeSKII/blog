@@ -3,8 +3,8 @@ title: Totally use AI for programming
 author: Lee Ski
 description: "How to add last modify time in post."
 image:
-    url: "@postImages/kostya-mikryukov-iX3fVzLgOB8-unsplash.jpg"
-    alt: "A small island in the middle of the ocean."
+  url: "@postImages/kostya-mikryukov-iX3fVzLgOB8-unsplash.jpg"
+  alt: "A small island in the middle of the ocean."
 pubDate: 2024-08-31
 isPublished: true
 tags: ["ai", "programming"]
@@ -24,6 +24,10 @@ But for other fields, it is still in its infancy.
 
 I notice that the key to achieve success in other fields is data.
 
-The success of AI in programming is not only about the architecture of the model, but also about the quality of the data. 
+The success of AI in programming is not only about the architecture of the model, but also about the quality of the data.
 
 There are must have a lots of hight quality data for AI use to train the model.
+
+## Conclusion
+
+1. 技术大爆炸和大失业时代。
