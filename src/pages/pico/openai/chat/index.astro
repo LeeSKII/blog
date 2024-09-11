@@ -1,0 +1,15 @@
+---
+import ChatGpt from "@/components/vue/ChatGpt.vue";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout pageTitle="Chat">
+  <ChatGpt client:only="vue" />
+</BaseLayout>
+
+<style>
+  :global(.dark) p {
+    background-color: #222;
+    color: white;
+  }
+</style>

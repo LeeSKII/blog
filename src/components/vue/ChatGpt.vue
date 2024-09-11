@@ -1,14 +1,14 @@
 <template>
-  <div class="chart-header">
-    <details ref="chartHistoryPanel" class="chart-history-panel">
-      <summary role="button" class="outline contrast">ChartHistory</summary>
-      <ChartHistory :key="chartCompletion.id" @setCompletion="setCompletion" />
+  <div class="chat-header">
+    <details ref="chatHistoryPanel" class="chat-history-panel">
+      <summary role="button" class="outline contrast">ChatHistory</summary>
+      <ChatHistory :key="chatCompletion.id" @setCompletion="setCompletion" />
     </details>
-    <ChartSetting />
+    <ChatSetting />
   </div>
 
-  <div class="chart-container">
-    <div v-for="message in chartCompletion.messages" :key="message.content">
+  <div class="chat-container">
+    <div v-for="message in chatCompletion.messages" :key="message.content">
       <article v-if="message.role === 'user'">
         <div class="user-message-header">
           <span class="user-avatar">User</span>
@@ -26,7 +26,7 @@
       </article>
     </div>
   </div>
-  <form class="chart-form" @submit.prevent="sendPrompt">
+  <form class="chat-form" @submit.prevent="sendPrompt">
     <data role="group" class="form-group">
       <input type="text" required v-model="prompt" />
       <button class="contrast" type="submit" :aria-busy="isLoading" :disabled="isLoading">
@@ -40,9 +40,9 @@ import axios from "axios";
 import { ref, watch } from "vue";
 import { nanoid } from "nanoid";
 import MarkdownRender from "./MarkdownRender.vue";
-import ChartHistory from "./ChartHistory.vue";
-import ChartSetting from "./ChartSetting.vue";
-import type { ChartCompletion, Message } from "./types.ts";
+import ChatHistory from "./ChatHistory.vue";
+import ChatSetting from "./ChatSetting.vue";
+import type { ChatCompletion, Message } from "./types.ts";
 import useModel from "@/utils/vue/useModel.ts";
 
 const props = defineProps<{
@@ -53,8 +53,8 @@ const model = useModel();
 
 const key = ref<string | null>(null);
 const prompt = ref<string>("");
-const chartHistoryPanel = ref<HTMLDetailsElement>();
-const chartCompletion = ref<ChartCompletion>({
+const chatHistoryPanel = ref<HTMLDetailsElement>();
+const chatCompletion = ref<ChatCompletion>({
   id: nanoid(),
   messages: [
     {
@@ -69,17 +69,17 @@ const isLoading = ref(false);
 
 const historyC = window.localStorage.getItem("history");
 if (historyC) {
-  const history = JSON.parse(historyC) as ChartCompletion[];
+  const history = JSON.parse(historyC) as ChatCompletion[];
   if (history.findIndex((c) => c.id === props.completionId) !== -1) {
-    chartCompletion.value = history.find(
+    chatCompletion.value = history.find(
       (c) => c.id === props.completionId
-    ) as ChartCompletion;
+    ) as ChatCompletion;
   }
 }
 
 function setCompletion(completionId: string | undefined) {
   if (!completionId) {
-    chartCompletion.value = {
+    chatCompletion.value = {
       id: nanoid(),
       messages: [
         {
@@ -89,18 +89,18 @@ function setCompletion(completionId: string | undefined) {
         },
       ],
     };
-    chartHistoryPanel.value?.removeAttribute("open");
+    chatHistoryPanel.value?.removeAttribute("open");
     return;
   }
   const history = window.localStorage.getItem("history");
   if (history) {
-    const parsedHistory = JSON.parse(history) as ChartCompletion[];
+    const parsedHistory = JSON.parse(history) as ChatCompletion[];
     if (parsedHistory) {
       const completion = parsedHistory.find(
         (c) => c.id === completionId
-      ) as ChartCompletion;
+      ) as ChatCompletion;
       if (completion) {
-        chartCompletion.value = completion;
+        chatCompletion.value = completion;
       }
     }
   }
@@ -112,7 +112,7 @@ async function sendPrompt() {
     return;
   }
   isLoading.value = true;
-  chartCompletion.value.messages.push({
+  chatCompletion.value.messages.push({
     role: "user",
     model: model.value,
     content: prompt.value,
@@ -123,7 +123,7 @@ async function sendPrompt() {
       "https://api.gptapi.us/v1/chat/completions",
       {
         model: model.value,
-        messages: chartCompletion.value.messages.map((message) => { return { role: message.role, content: message.content } }),
+        messages: chatCompletion.value.messages.map((message) => { return { role: message.role, content: message.content } }),
       },
       {
         headers: {
@@ -138,13 +138,13 @@ async function sendPrompt() {
         model: response.data.model,
         content: response.data.choices[0].message.content,
       };
-      chartCompletion.value.messages.push(responseMsg);
+      chatCompletion.value.messages.push(responseMsg);
       prompt.value = "";
     })
     .catch((error) => {
       if (error instanceof Error) {
         console.error("Error sending prompt", error.message);
-        //chartCompletion.value.messages.pop();
+        //chatCompletion.value.messages.pop();
       } else {
         console.error(error);
       }
@@ -163,7 +163,7 @@ async function sendPrompt() {
   //     },
   //     body: JSON.stringify({
   //       model: "gpt-4o",
-  //       messages: chartCompletion.value.messages,
+  //       messages: chatCompletion.value.messages,
   //       stream: true,
   //     }),
   //   }).then(async (response) => {
@@ -174,7 +174,7 @@ async function sendPrompt() {
   //       role: "assistant",
   //       content: "",
   //     };
-  //     chartCompletion.value.messages.push(responseMsg);
+  //     chatCompletion.value.messages.push(responseMsg);
 
   //     while (result) {
   //       const { done, value } = await reader.read();
@@ -209,11 +209,11 @@ async function sendPrompt() {
 }
 
 watch(
-  chartCompletion,
+  chatCompletion,
   (completion) => {
     window.localStorage.setItem(
       "messages",
-      JSON.stringify(chartCompletion.value.messages)
+      JSON.stringify(chatCompletion.value.messages)
     );
 
     if (completion.messages.length <= 1) {
@@ -224,7 +224,7 @@ watch(
 
     const history = window.localStorage.getItem("history");
     if (history) {
-      const parsedHistory = JSON.parse(history) as ChartCompletion[];
+      const parsedHistory = JSON.parse(history) as ChatCompletion[];
       if (parsedHistory) {
         if (parsedHistory.findIndex((c) => c.id === completion.id) === -1) {
           parsedHistory.push(completion);
@@ -245,25 +245,25 @@ watch(
 </script>
 
 <style scoped>
-.chart-header {
+.chat-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 20px;
 }
 
-.chart-container {
+.chat-container {
   margin-top: 10px;
   margin-bottom: 100px;
   overflow-y: auto;
 }
 
-.chart-history-panel {
+.chat-history-panel {
   flex: 1;
   margin-top: 10px;
 }
 
-.chart-form {
+.chat-form {
   position: fixed;
   bottom: 0;
   left: 0;

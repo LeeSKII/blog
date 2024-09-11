@@ -27,7 +27,7 @@
     :is-show-actions="isShowActions"
   >
     <div>
-      <h4>Chart Setting</h4>
+      <h4>Chat Setting</h4>
       <StoreApiKey />
       <OpenaiModels />
       <div class="form-grid">

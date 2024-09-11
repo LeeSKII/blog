@@ -1,4 +1,4 @@
-export type ChartCompletion = {
+export type ChatCompletion = {
   id: string;
   messages: Message[];
 };
