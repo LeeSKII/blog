@@ -1,15 +1,27 @@
 <template>
-  <article v-for="chat in chatCompletions" :key="chat.id">
-    <div @click="setChatCompletion(chat.id)" class="chat-completion">
-      <div class="chat-name">{{ chat.messages[1].content }}</div>
-      <div>
-        <button class="contrast" @click.stop="deleteChatCompletion(chat.id)">
+  <div class="flex flex-col gap-1 justify-between">
+    <article
+      class="border border-zinc-300 rounded-md p-3"
+      v-for="chat in chatCompletions"
+      :key="chat.id"
+    >
+      <div @click="setChatCompletion(chat.id)" class="chat-completion">
+        <div class="chat-name">{{ chat.messages[1].content }}</div>
+
+        <button
+          class="bg-zinc-900 text-white rounded-md p-1"
+          @click.stop="deleteChatCompletion(chat.id)"
+        >
           Delete
         </button>
       </div>
-    </div>
-  </article>
-  <button class="contrast outline" @click="setChatCompletion()">
+    </article>
+  </div>
+
+  <button
+    class="bg-zinc-900 text-white rounded-md p-1 mt-3"
+    @click="setChatCompletion()"
+  >
     New Chat
   </button>
 </template>
@@ -33,10 +45,7 @@ function deleteChatCompletion(id: string) {
     chatCompletions.value.findIndex((c) => c.id === id),
     1
   );
-  window.localStorage.setItem(
-    "history",
-    JSON.stringify(chatCompletions.value)
-  );
+  window.localStorage.setItem("history", JSON.stringify(chatCompletions.value));
 }
 
 onMounted(() => {

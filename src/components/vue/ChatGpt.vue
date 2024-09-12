@@ -1,7 +1,10 @@
 <template>
   <div class="chat-header">
-    <details ref="chatHistoryPanel" class="chat-history-panel">
-      <summary role="button" class="outline contrast">ChatHistory</summary>
+    <details
+      ref="chatHistoryPanel"
+      class="border border-gray-300 rounded-md w-full p-3"
+    >
+      <summary class="cursor-pointer md:mb-3">ChatHistory</summary>
       <ChatHistory :key="chatCompletion.id" @setCompletion="setCompletion" />
     </details>
     <ChatSetting />
@@ -9,7 +12,10 @@
 
   <div class="chat-container">
     <div v-for="message in chatCompletion.messages" :key="message.content">
-      <article v-if="message.role === 'user'">
+      <article
+        class="border border-gray-300 rounded-md p-2 my-2"
+        v-if="message.role === 'user'"
+      >
         <div class="user-message-header">
           <span class="user-avatar">User</span>
         </div>
@@ -17,7 +23,10 @@
           <p>{{ message.content }}</p>
         </div>
       </article>
-      <article v-if="message.role === 'assistant'">
+      <article
+        class="border border-gray-300 rounded-md p-2 my-2 prose dark:prose-invert max-w-none"
+        v-if="message.role === 'assistant'"
+      >
         <div class="assistant-message-header">
           <span class="assistant-avatar">AI</span>
           <span class="assistant-model">{{ message.model }}</span>
@@ -27,17 +36,20 @@
     </div>
   </div>
   <form class="chat-form" @submit.prevent="sendPrompt">
-    <data role="group" class="form-group">
-      <input type="text" required v-model="prompt" />
-      <button
-        class="contrast"
-        type="submit"
-        :aria-busy="isLoading"
-        :disabled="isLoading"
-      >
-        {{ isLoading ? "" : "Send" }}
-      </button>
-    </data>
+    <input
+      class="w-full max-w-7xl p-2 border-2 border-gray-300 rounded-md dark:bg-zinc-900 dark:text-white"
+      type="text"
+      required
+      v-model="prompt"
+    />
+    <button
+      class="bg-zinc-800 hover:bg-zinc-700 text-white font-bold py-2 px-4 rounded-md dark:bg-zinc-700"
+      type="submit"
+      :aria-busy="isLoading"
+      :disabled="isLoading"
+    >
+      {{ isLoading ? "" : "Send" }}
+    </button>
   </form>
 </template>
 <script setup lang="ts">
@@ -261,13 +273,8 @@ watch(
 
 .chat-container {
   margin-top: 10px;
-  margin-bottom: 100px;
+  margin-bottom: 50px;
   overflow-y: auto;
-}
-
-.chat-history-panel {
-  flex: 1;
-  margin-top: 10px;
 }
 
 .chat-form {
@@ -278,6 +285,7 @@ watch(
   width: 100%;
   display: flex;
   justify-content: center;
+  gap: 5px;
   align-items: center;
 }
 
@@ -288,6 +296,10 @@ watch(
 @media screen and (max-width: 768px) {
   .form-group {
     width: 90%;
+  }
+  .chat-form {
+    gap: 0;
+    padding: 0 5px;
   }
 }
 
