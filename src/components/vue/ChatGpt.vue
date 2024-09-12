@@ -29,7 +29,12 @@
   <form class="chat-form" @submit.prevent="sendPrompt">
     <data role="group" class="form-group">
       <input type="text" required v-model="prompt" />
-      <button class="contrast" type="submit" :aria-busy="isLoading" :disabled="isLoading">
+      <button
+        class="contrast"
+        type="submit"
+        :aria-busy="isLoading"
+        :disabled="isLoading"
+      >
         {{ isLoading ? "" : "Send" }}
       </button>
     </data>
@@ -123,7 +128,9 @@ async function sendPrompt() {
       "https://api.gptapi.us/v1/chat/completions",
       {
         model: model.value,
-        messages: chatCompletion.value.messages.map((message) => { return { role: message.role, content: message.content } }),
+        messages: chatCompletion.value.messages.map((message) => {
+          return { role: message.role, content: message.content };
+        }),
       },
       {
         headers: {

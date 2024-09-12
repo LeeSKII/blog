@@ -3,6 +3,7 @@ import BlogLayout from "@layouts/BlogLayout.astro";
 import Tags from "@components/Tags.astro";
 import { Image } from "astro:assets";
 import { fade } from "astro:transitions";
+import TypographyP from "@/components/TypographyP.astro";
 
 const { frontmatter } = Astro.props;
 ---
@@ -10,18 +11,29 @@ const { frontmatter } = Astro.props;
 <BlogLayout pageTitle={frontmatter.title}>
   <div class="post-container">
     <Tags tags={frontmatter.tags} />
-    <p>Pulished on {frontmatter.pubDate.toString().slice(0, 10)}</p>
-    <p>Last modified: {frontmatter.lastModified}</p>
-    <p transition:animate={fade({ duration: 1000 })}>
+    <TypographyP>
+      Pulished on {frontmatter.pubDate.toString().slice(0, 10)}
+    </TypographyP>
+    <TypographyP>
+      Last modified: {frontmatter.lastModified}
+    </TypographyP>
+    <TypographyP>
       <em>description: {frontmatter.description}</em>
-    </p>
-    <p>Written by <a href="/blog/about/">{frontmatter.author}</a>.</p>
+    </TypographyP>
+    <TypographyP>
+      Written by
+      <a transition:animate="fade" href="/blog/about/">{frontmatter.author}</a>.
+    </TypographyP>
     <Image
       src={frontmatter.image.url}
       alt={frontmatter.image.alt}
       loading="eager"
     />
-    <slot />
+    <div
+      class="prose max-w-7xl mt-3 md:mt-9 prose:list-disc prose:list-decimal prose: md:prose-xl dark:prose-invert"
+    >
+      <slot />
+    </div>
   </div>
 </BlogLayout>
 
