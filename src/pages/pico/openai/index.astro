@@ -6,15 +6,11 @@ import Test from "../../../components/vue/Test.vue";
 ---
 
 <PicoLayout pageTitle="OpenAI">
-  <article>
+  <article class="flex flex-col gap-4">
     <header>Settings</header>
     <StoreApiKey client:only="vue" />
     <OpenaiModels client:only="vue" />
-  </article>
-  <article>
     <Test client:only="vue" />
-  </article>
-  <article>
     <header>Functions</header>
     <ul>
       <li>

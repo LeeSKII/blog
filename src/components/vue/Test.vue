@@ -1,6 +1,11 @@
 <template>
   <div>
-    <button @click="openModal">打开Modal</button>
+    <button
+      class="border bg-zinc-800 text-white dark:bg-zinc-900 dark:text-zinc-100 border-zinc-500 rounded-md px-4 py-2"
+      @click="openModal"
+    >
+      打开Modal
+    </button>
     <Modal :isOpen="isModalOpen" @close="closeModal">
       <h2>Modal 标题</h2>
       <p>这是 Modal 的内容。</p>
