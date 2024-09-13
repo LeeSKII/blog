@@ -1,0 +1,7 @@
+---
+import type {IAnimateProps as Props} from '@/types'
+const {animate='fade'} = Astro.props
+---
+<code transition:animate={animate} class="text-lg font-semibold">
+  <slot />
+</code>

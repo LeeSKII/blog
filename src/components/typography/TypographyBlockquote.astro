@@ -1,0 +1,7 @@
+---
+import type {IAnimateProps as Props} from '@/types'
+const {animate='fade'} = Astro.props
+---
+<blockquote  transition:animate={animate} class="mt-6 border-l-2 pl-6 italic">
+  <slot />
+</blockquote>

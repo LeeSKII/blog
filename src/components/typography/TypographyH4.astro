@@ -1,0 +1,7 @@
+---
+import type {IAnimateProps as Props} from '@/types'
+const {animate='fade'} = Astro.props
+---
+<h1 transition:animate={animate} class="scroll-m-20 text-xl font-semibold tracking-tight">
+  <slot />
+</h1>

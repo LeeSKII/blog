@@ -1,16 +1,18 @@
 ---
+import Social from "@components/blog/Social.astro";
+import TypographyLarge from "@components/typography/TypographyLarge.astro";
+
 const platform = "github";
 const username = "LeeSKII";
-import Social from "./Social.astro";
 ---
 
 <footer>
-  <p class="text-xl leading-7 [&:not(:first-child)]:mt-6">
+  <TypographyLarge >
     Learn more about my projects on <Social
       platform={platform}
       username={username}
     />
-  </p>
+  </TypographyLarge>
 </footer>
 
 <style>

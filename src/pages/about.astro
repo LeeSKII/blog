@@ -1,5 +1,8 @@
 ---
 import BlogLayout from "@layouts/BlogLayout.astro";
+import TypographyH2 from "@/components/typography/TypographyH2.astro";
+
+
 const pageTitle = "About";
 
 const identity = {
@@ -37,7 +40,7 @@ const textCase = "uppercase";
 ---
 
 <BlogLayout pageTitle={pageTitle}>
-  <h2>Basis</h2>
+  <TypographyH2>Basis</TypographyH2>
   <ul>
     <li>name:{identity.name}</li>
     <li>birth:{identity.birth}</li>

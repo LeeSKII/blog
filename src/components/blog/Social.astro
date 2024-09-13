@@ -6,9 +6,9 @@ interface Props {
 const { platform, username } = Astro.props;
 ---
 
-<a class="socail-link" href=`https://www.${platform}.com/${username}`
-  >{platform}</a
->
+<a class="socail-link" href=`https://www.${platform}.com/${username}` target="_blank">
+  {platform}
+</a>
 
 <style>
   .socail-link {
