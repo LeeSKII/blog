@@ -45,10 +45,9 @@
     <button
       class="bg-zinc-800 hover:bg-zinc-700 text-white font-bold py-2 px-4 rounded-md dark:bg-zinc-700"
       type="submit"
-      :aria-busy="isLoading"
       :disabled="isLoading"
     >
-      {{ isLoading ? "" : "Send" }}
+      {{ isLoading ? "Loading..." : "Send" }}
     </button>
   </form>
 </template>
