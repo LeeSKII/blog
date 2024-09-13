@@ -1,3 +1,15 @@
-<p class="leading-7 [&:not(:first-child)]:mt-6">
+---
+import type { IAnimateProps, IClassNameProps } from "@/types";
+
+type Props = IAnimateProps & IClassNameProps;
+const { animate = "fade", className, style } = Astro.props;
+import { cn } from "@/lib/utils";
+---
+
+<p
+  transition:animate={animate}
+  style={style}
+  class={cn("leading-7 [&:not(:first-child)]:mt-6", className)}
+>
   <slot />
 </p>

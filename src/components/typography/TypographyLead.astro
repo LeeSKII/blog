@@ -1,7 +1,14 @@
 ---
-import type {IAnimateProps as Props} from '@/types'
-const {animate='fade'} = Astro.props
+import type { IAnimateProps, IClassNameProps } from "@/types";
+
+type Props = IAnimateProps & IClassNameProps;
+const { animate = "fade", className } = Astro.props;
+import { cn } from "@/lib/utils";
 ---
-<code transition:animate={animate} class="text-xl text-muted-foreground">
+
+<code
+  transition:animate={animate}
+  class={cn("text-xl text-muted-foreground", className)}
+>
   <slot />
 </code>

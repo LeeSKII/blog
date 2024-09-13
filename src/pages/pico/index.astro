@@ -1,29 +1,46 @@
 ---
 import PicoLayout from "@components/pico/PicoLayout.astro";
+import TypographyH1 from "@/components/typography/TypographyH1.astro";
+import TypographyH2 from "@/components/typography/TypographyH2.astro";
+import TypographyP from "@/components/typography/TypographyP.astro";
+import TypographyLead from "@/components/typography/TypographyLead.astro";
+import TypographyBlockquote from "@/components/typography/TypographyBlockquote.astro";
 ---
 
 <PicoLayout pageTitle="Fairyland">
-  <main>
-    <h1>Fairyland</h1>
-    <p>Why is called Fairyland?</p>
-    <h2>1.Base land</h2>
-    <p>
-      The whole website style is based on <code>Pico.css</code>, so I don't have
-      to focus on the base style of the website.
-    </p>
-    <h2>2.Fairy</h2>
-    <p>Fairy means something new, something waiting to be discovered.</p>
-    <h2>3.Land</h2>
-    <p>Land means this is a content website.</p>
-  </main>
-  <hr />
-  <footer>
-    <blockquote>
-      “Design is a funny word. Some people think design means how it looks. But
-      of course, if you dig deeper, it's really how it works.”
-      <footer>
-        <cite>— Steve Jobs</cite>
-      </footer>
-    </blockquote>
-  </footer>
+  <TypographyH1 className="my-2">Fairyland</TypographyH1>
+  <TypographyLead className="inline-block my-3">
+    Why is called Fairyland?
+  </TypographyLead>
+  <TypographyH2>1.Intro</TypographyH2>
+  <TypographyP>
+    <del
+      >The whole website style is based on <code>Pico.css</code>, so I don't
+      have to focus on the base style of the website.</del
+    >
+  </TypographyP>
+  <TypographyP
+    >Now the website is been reconstructed using Tailwind CSS.</TypographyP
+  >
+  <TypographyP
+    >And the base components used from <code>shadcn</code><div class="">
+    </div></TypographyP
+  >
+  <TypographyH2 id="fairy">2.Fairy</TypographyH2>
+  <TypographyP>
+    Fairy means something new, something waiting to be discovered.
+  </TypographyP>
+  <TypographyH2>3.Land</TypographyH2>
+  <TypographyP
+    >Land means this is not only a content website, but also a place where I
+    used to make some artworks.</TypographyP
+  >
+  <TypographyBlockquote>
+    “Design is a funny word. Some people think design means how it looks. But of
+    course, if you dig deeper, it's really how it works.”
+    <footer>
+      <cite>— Steve Jobs</cite>
+    </footer>
+  </TypographyBlockquote>
+  <div class="h-screen"></div>
 </PicoLayout>
