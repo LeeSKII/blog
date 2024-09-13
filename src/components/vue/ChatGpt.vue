@@ -60,7 +60,7 @@ import MarkdownRender from "./MarkdownRender.vue";
 import ChatHistory from "./ChatHistory.vue";
 import ChatSetting from "./ChatSetting.vue";
 import type { ChatCompletion, Message } from "./types.ts";
-import useModel from "@/utils/vue/useModel.ts";
+import useModel from "@/hooks/vue/useModel.ts";
 
 const props = defineProps<{
   completionId?: string;

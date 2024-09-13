@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import { ref, watch } from "vue";
-import useModel from "@/utils/vue/useModel";
+import useModel from "@/hooks/vue/useModel";
 
 type Model = {
   id: string;
