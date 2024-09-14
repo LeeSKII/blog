@@ -37,8 +37,6 @@ export default function Index() {
       </Accordion>
 
       <JsonPlaceHolder count={count} event={testEvent} />
-      <JsonPlaceHolder count={count} event={testEvent} />
-      <JsonPlaceHolder count={count} event={testEvent} />
     </>
   );
 }

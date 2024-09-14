@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import PicoSkeleton from "../pico/PicoSkeleton";
 import axios from "axios";
 
@@ -7,8 +7,11 @@ export default function JsonPlaceHolder({ count, event }) {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const a = Math.pow(10, 12); //simulate long running process
-  console.log(a);
+  const a = useMemo(() => {
+    console.log("memo run");
+    return Math.pow(10, 2);
+  }, [1]); //simulate long running process
+  console.log("a", a);
   useEffect(() => {
     async function fetchData() {
       try {
