@@ -3,15 +3,14 @@ import BlogLayout from "@layouts/BlogLayout.astro";
 import TypographyH2 from "@/components/typography/TypographyH2.astro";
 import TypographyList from "@/components/typography/TypographyList.astro";
 import TypographyP from "@/components/typography/TypographyP.astro";
-import TypographyBlockquote from "@/components/typography/TypographyBlockquote.astro";
 
 const pageTitle = "About";
 
 const identity = {
   name: "Lee Ski",
   birth: 1993,
-  job: "develper",
-  hobby: "exploring cuting-edge technologies",
+  job: "Developer",
+  hobby: "Exploring cuting-edge technologies",
 };
 
 const skills = [
@@ -42,14 +41,14 @@ const textCase = "uppercase";
 ---
 
 <BlogLayout pageTitle={pageTitle}>
-  <TypographyH2>Basis</TypographyH2>
+  <TypographyH2>Basis🫣</TypographyH2>
   <TypographyList>
     <li><span class="font-bold">name:</span>{identity.name}</li>
-    <li><span class="font-bold">birth:</span>{identity.birth}</li>
-    <li><span class="font-bold">career:</span>{identity.job}</li>
-    <li><span class="font-bold">hobby:</span>{identity.hobby}</li>
+    <li><span class="font-bold">birth:</span>{identity.birth}🤣</li>
+    <li><span class="font-bold">career:</span>{identity.job}👨‍💻</li>
+    <li><span class="font-bold">hobby:</span>{identity.hobby}🎢</li>
   </TypographyList>
-  <TypographyH2>Skills</TypographyH2>
+  <TypographyH2>Skills🧐</TypographyH2>
   <TypographyList>
     {
       skills.map((skill) => {
@@ -58,10 +57,16 @@ const textCase = "uppercase";
     }
   </TypographyList>
   {happy && <TypographyP>I'm happy to know you!</TypographyP>}
-  {!finished && <TypographyP>I'm still on road to explore new technologies.</TypographyP>}
+  {
+    !finished && (
+      <TypographyP>I'm still on road to explore new technologies.</TypographyP>
+    )
+  }
   <TypographyP>
     If you want to know more about me, please contact me via email:
-    <a class="text-blue-600 italic" href="mailto:leeskiikseel@outlook.com">leeskiikseel@outlook.com</a>
+    <a class="text-blue-600 italic" href="mailto:leeskiikseel@outlook.com"
+      >leeskiikseel@outlook.com</a
+    >
   </TypographyP>
 </BlogLayout>
 
