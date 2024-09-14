@@ -15,7 +15,11 @@ const { pageTitle } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle}</title>
     <ViewTransitions />
-    <LoadingIndicator color="#0077cc" threshold={600} />
+    <LoadingIndicator
+      color="hsl(var(--primary))"
+      height="5px"
+      threshold={600}
+    />
   </head>
   <body class="container mx-auto p-3 md:p-1">
     <slot />
