@@ -53,4 +53,6 @@ tags: ["astro", "blogging"]
 ## 3. Logging
 
 - 2024-08-12 upload the website.
-- 2024-09-14 update some styles.
+- 2024-09-12 update some styles.
+- 2024-09-13 change the base style from pico.css to tailwindcss.
+- 2024-09-14 use the css variables in load indicator progress bar to adapt the dark mode.
