@@ -1,7 +1,11 @@
 ---
-import type {IAnimateProps as Props} from '@/types'
-const {animate='fade'} = Astro.props
+import type { IAnimateProps as Props } from "@/types";
+const { animate = "fade" } = Astro.props;
 ---
-<h1 transition:animate={animate} class="scroll-m-20 text-2xl font-semibold tracking-tight">
+
+<h1
+  transition:animate={animate}
+  class="scroll-m-20 text-2xl font-semibold tracking-tight my-1 lg:my-2"
+>
   <slot />
 </h1>

@@ -120,17 +120,26 @@ const NavBar: React.FC = () => {
               Home
             </a>
             <a
-              href="/blog/pic/react"
+              href="/blog/pico/react"
               className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
             >
               React
             </a>
             <a
-              href="/blog/pic/vue"
+              href="/blog/pico/vue"
               className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
             >
               Vue
             </a>
+            <a
+              href="/blog/pico/openai"
+              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+            >
+              AI
+            </a>
+            <div className="grid place-content-center">
+              <ModeToggle />
+            </div>
           </div>
         </div>
       )}
