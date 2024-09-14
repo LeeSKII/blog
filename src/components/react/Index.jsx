@@ -1,6 +1,6 @@
 import JsonPlaceHolder from "./JsonPlaceHolder";
 import React from "react";
-import useMouse from "./useMouse";
+import useMouse from "../../hooks/react/useMouse";
 import {
   Accordion,
   AccordionContent,

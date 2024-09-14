@@ -2,7 +2,7 @@ import React from "react";
 
 export default function useMouse() {
   const [mouse, setMouse] = React.useState({ x: 0, y: 0 });
-  function update(event) {
+  function update(event: MouseEvent) {
     setMouse({ x: event.pageX, y: event.pageY });
   }
 
