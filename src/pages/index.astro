@@ -2,11 +2,18 @@
 import BlogLayout from "@layouts/BlogLayout.astro";
 import { Image } from "astro:assets";
 import TypographyH1 from "@/components/typography/TypographyH1.astro";
+import TypographyBlockquote from "@/components/typography/TypographyBlockquote.astro";
 import mountainImage from "@assets/images/index.jpg";
 ---
 
 <BlogLayout>
   <TypographyH1> Climb without fear </TypographyH1>
+  <TypographyBlockquote>
+    “He who has a why to live for can bear almost any how.”
+    <footer>
+      <cite>— Nietzsche</cite>
+    </footer>
+  </TypographyBlockquote>
   <Image
     transition:animate={"initial"}
     src={mountainImage}
