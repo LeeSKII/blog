@@ -22,11 +22,14 @@ const { frontmatter } = Astro.props;
     </TypographyP>
     <TypographyP>
       Written by
-      <a transition:animate="fade" href="/blog/about/">{frontmatter.author}</a>.
+      <a transition:animate="fade" class="italic" href="/blog/about/"
+        >{frontmatter.author}</a
+      >.
     </TypographyP>
     <Image
       src={frontmatter.image.url}
       alt={frontmatter.image.alt}
+      class="rounded-md mt-2"
       loading="eager"
     />
     <div

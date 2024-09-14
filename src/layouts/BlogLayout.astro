@@ -9,7 +9,7 @@ const { pageTitle } = Astro.props;
 
 <BaseLayout>
   <Header />
-  <TypographyH1 animate="slide">
+  <TypographyH1 className="capitalize" animate="slide">
     {pageTitle}
   </TypographyH1>
   <slot />
