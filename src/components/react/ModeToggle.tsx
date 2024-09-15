@@ -3,7 +3,9 @@ import { Moon, Sun } from "lucide-react";
 import { Button } from "@components/ui/button";
 
 export function ModeToggle() {
-  const [theme, setThemeState] = React.useState<"light" | "dark">("light");
+  const [theme, setThemeState] = React.useState<"light" | "dark">(
+    (window.localStorage.getItem("theme") as "light" | "dark" | null) || "light"
+  );
 
   React.useEffect(() => {
     const isDarkMode = window.localStorage.getItem("theme") === "dark";
