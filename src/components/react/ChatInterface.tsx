@@ -38,27 +38,34 @@ const ChatInterface: React.FC = () => {
   const [currentSessionId, setCurrentSessionId] = useState<string>("");
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // 当 currentSessionId 变化时，强制组件重新渲染
+  }, [currentSessionId]);
 
   useEffect(() => {
     const savedSessions = localStorage.getItem("chatSessions");
     if (savedSessions) {
       const sessions = JSON.parse(savedSessions);
       setChatSessions(sessions);
-      if (sessions.length > 0) {
-        setCurrentSessionId(sessions[sessions.length - 1].id);
-      }
-    } else {
-      createNewSession();
     }
+    const newSession = createNewSession();
+    setCurrentSessionId(newSession.id);
   }, []);
 
   useEffect(() => {
-    if (scrollAreaRef.current) {
+    const currentSession = chatSessions.find(
+      (session) => session.id === currentSessionId
+    );
+    if (scrollAreaRef.current && currentSession) {
       scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
     }
-    hljs.highlightAll();
-  }, [currentSessionId, chatSessions]);
+    setTimeout(() => {
+      hljs.highlightAll();
+    }, 0);
+  }, [chatSessions, currentSessionId]);
 
   const createNewSession = () => {
     const newSession: ChatSession = {
@@ -67,16 +74,17 @@ const ChatInterface: React.FC = () => {
       timestamp: Date.now(),
     };
     setChatSessions((prev) => {
-      const updatedSessions = [...prev, newSession].sort(
+      const updatedSessions = [newSession, ...prev].sort(
         (a, b) => b.timestamp - a.timestamp
       );
       if (updatedSessions.length > MAX_SESSIONS) {
         updatedSessions.pop(); // Remove the oldest session
       }
+      localStorage.setItem("chatSessions", JSON.stringify(updatedSessions));
       return updatedSessions;
     });
-    setCurrentSessionId(newSession.id);
-    updateLocalStorage();
+    setIsSheetOpen(false);
+    return newSession; // Return the new session
   };
 
   const getCurrentSession = () => {
@@ -94,7 +102,9 @@ const ChatInterface: React.FC = () => {
     const userMessage: Message = { role: "user", content: input };
     const updatedMessages = [...currentSession.messages, userMessage];
 
+    // 立即更新界面显示用户消息
     updateSession(currentSession.id, updatedMessages);
+
     setInput("");
     setIsLoading(true);
 
@@ -113,7 +123,7 @@ const ChatInterface: React.FC = () => {
         },
         body: JSON.stringify({
           model: "claude-3-5-sonnet-20240620",
-          messages: [{ role: "user", content: input }],
+          messages: [{ role: "user", content: userMessage.content }],
           max_tokens: 1000,
         }),
       });
@@ -136,20 +146,32 @@ const ChatInterface: React.FC = () => {
   };
 
   const updateSession = (sessionId: string, messages: Message[]) => {
-    setChatSessions((prev) =>
-      prev
+    setChatSessions((prev) => {
+      const updatedSessions = prev
         .map((session) =>
           session.id === sessionId
             ? { ...session, messages, timestamp: Date.now() }
             : session
         )
-        .sort((a, b) => b.timestamp - a.timestamp)
-    );
-    updateLocalStorage();
+        .filter((session) => session.messages.length > 0)
+        .sort((a, b) => b.timestamp - a.timestamp);
+
+      if (
+        messages.length === 0 &&
+        updatedSessions.length > 0 &&
+        sessionId === currentSessionId
+      ) {
+        setCurrentSessionId(updatedSessions[0].id);
+      }
+
+      localStorage.setItem("chatSessions", JSON.stringify(updatedSessions));
+      return updatedSessions;
+    });
   };
 
   const switchToSession = (sessionId: string) => {
     setCurrentSessionId(sessionId);
+    setIsSheetOpen(false);
   };
 
   const deleteSession = (sessionId: string) => {
@@ -157,10 +179,19 @@ const ChatInterface: React.FC = () => {
       const updatedSessions = prev.filter(
         (session) => session.id !== sessionId
       );
-      if (currentSessionId === sessionId && updatedSessions.length > 0) {
-        setCurrentSessionId(updatedSessions[0].id);
-      } else if (updatedSessions.length === 0) {
-        createNewSession();
+      if (currentSessionId === sessionId) {
+        if (updatedSessions.length > 0) {
+          setCurrentSessionId(updatedSessions[0].id);
+        } else {
+          // 如果删除了最后一个会话，创建一个新的空会话
+          const newSession = {
+            id: Date.now().toString(),
+            messages: [],
+            timestamp: Date.now(),
+          };
+          setCurrentSessionId(newSession.id);
+          return [newSession];
+        }
       }
       return updatedSessions;
     });
@@ -245,6 +276,7 @@ const ChatInterface: React.FC = () => {
                       li: ({ node, ...props }) => (
                         <li className="mb-1 text-sm sm:text-base" {...props} />
                       ),
+
                       code: ({ node, className, children, ...props }) => {
                         const match = /language-(\w+)/.exec(className || "");
                         return match ? (
@@ -310,9 +342,14 @@ const ChatInterface: React.FC = () => {
         </div>
       </form>
       <div className="absolute bottom-20 right-4">
-        <Sheet>
+        <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
           <SheetTrigger asChild>
-            <Button variant="secondary" size="icon" className="rounded-full">
+            <Button
+              variant="secondary"
+              size="icon"
+              className="rounded-full"
+              onClick={() => setIsSheetOpen(true)}
+            >
               <Clock className="h-4 w-4" />
             </Button>
           </SheetTrigger>
@@ -324,35 +361,43 @@ const ChatInterface: React.FC = () => {
               </SheetDescription>
             </SheetHeader>
             <div className="mt-4">
-              {chatSessions.map((session) => (
-                <div
-                  key={session.id}
-                  className="mb-2 p-2 bg-gray-100 dark:bg-gray-700 rounded flex justify-between items-center"
-                >
+              {chatSessions
+                .filter((session) => session.messages.length > 0)
+                .map((session) => (
                   <div
-                    className="flex-grow cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600"
-                    onClick={() => switchToSession(session.id)}
+                    key={session.id}
+                    className="mb-2 p-2 bg-gray-100 dark:bg-gray-700 rounded flex justify-between items-center"
                   >
-                    <p className="font-bold">
-                      {new Date(session.timestamp).toLocaleString()}
-                    </p>
-                    <p className="text-sm">
-                      {session.messages.length > 0
-                        ? `${session.messages[0].content.substring(0, 50)}...`
-                        : "Empty chat"}
-                    </p>
+                    <div
+                      className="flex-grow cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600"
+                      onClick={() => switchToSession(session.id)}
+                    >
+                      <p className="font-bold">
+                        {new Date(session.timestamp).toLocaleString()}
+                      </p>
+                      <p className="text-sm">
+                        {session.messages[0].content.substring(0, 50)}...
+                      </p>
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => deleteSession(session.id)}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
                   </div>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => deleteSession(session.id)}
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </div>
-              ))}
+                ))}
+              {chatSessions.filter((session) => session.messages.length > 0)
+                .length === 0 && <p>No saved chats yet.</p>}
             </div>
-            <Button onClick={createNewSession} className="mt-4">
+            <Button
+              onClick={() => {
+                const newSession = createNewSession();
+                setCurrentSessionId(newSession.id);
+              }}
+              className="mt-4"
+            >
               <Plus className="mr-2 h-4 w-4" /> New Chat
             </Button>
           </SheetContent>
