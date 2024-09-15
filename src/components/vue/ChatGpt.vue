@@ -40,6 +40,7 @@
       class="w-full max-w-7xl p-2 border-2 border-gray-300 rounded-md dark:bg-zinc-900 dark:text-white"
       type="text"
       required
+      :disabled="isLoading"
       v-model="prompt"
     />
     <button
@@ -162,7 +163,7 @@ async function sendPrompt() {
     .catch((error) => {
       if (error instanceof Error) {
         console.error("Error sending prompt", error.message);
-        //chatCompletion.value.messages.pop();
+        chatCompletion.value.messages.pop();
       } else {
         console.error(error);
       }
@@ -278,7 +279,7 @@ watch(
 
 .chat-form {
   position: fixed;
-  bottom: 0;
+  bottom: 10px;
   left: 0;
   right: 0;
   width: 100%;
