@@ -24,7 +24,7 @@
         </div>
       </article>
       <article
-        class="border border-gray-300 rounded-md p-2 my-2 prose dark:prose-invert max-w-none"
+        class="prose dark:prose-invert border border-gray-300 rounded-md p-2 my-2 max-w-none"
         v-if="message.role === 'assistant'"
       >
         <div class="assistant-message-header">
