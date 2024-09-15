@@ -18,7 +18,9 @@ const CodeBlock: React.FC<CodeBlockProps> = ({ language, value }) => {
 
   return (
     <div className="relative">
-      <code className={`language-${language}`}>{value}</code>
+      <code className={`language-${language}`} style={{ background: "none" }}>
+        {value}
+      </code>
       <button
         onClick={copyToClipboard}
         className="absolute top-1 right-1 sm:top-2 sm:right-2 p-1 rounded-md bg-gray-700 text-gray-300 hover:bg-gray-600"

@@ -212,7 +212,7 @@ const ChatInterface: React.FC = () => {
               } mb-4`}
             >
               <div
-                className={`flex items-start sm:max-w-[80%] max-w-full ${
+                className={`flex items-start max-w-full ${
                   message.role === "user" ? "flex-row-reverse" : "flex-row"
                 }`}
               >
