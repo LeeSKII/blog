@@ -244,7 +244,9 @@ const ChatInterface: React.FC = () => {
                             value={String(children).replace(/\n$/, "")}
                           />
                         ) : (
-                          <code>{children}</code>
+                          <span className="bg-zinc-800 text-white dark:bg-zinc-900 dark:text-gray-100 p-1 rounded">
+                            {children}
+                          </span>
                         );
                       },
                     }}
