@@ -56,3 +56,4 @@ tags: ["astro", "blogging"]
 - 2024-09-12 update some styles.
 - 2024-09-13 change the base style from pico.css to tailwindcss.
 - 2024-09-14 use the css variables in load indicator progress bar to adapt the dark mode.
+- 2024-09-15 fix the bug, in dark mode, the navbar of pico initial state is set from local storage, instead of light.  
