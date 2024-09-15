@@ -208,11 +208,68 @@ const ChatInterface: React.FC = () => {
                 >
                   <ReactMarkdown
                     rehypePlugins={[rehypeRaw, rehypeSanitize]}
-                    components={
-                      {
-                        // ... (ReactMarkdown components remain unchanged)
-                      }
-                    }
+                    components={{
+                      p: ({ node, ...props }) => (
+                        <p className="mb-2 text-sm sm:text-base" {...props} />
+                      ),
+                      h1: ({ node, ...props }) => (
+                        <h1
+                          className="text-xl sm:text-2xl font-bold mb-2"
+                          {...props}
+                        />
+                      ),
+                      h2: ({ node, ...props }) => (
+                        <h2
+                          className="text-lg sm:text-xl font-bold mb-2"
+                          {...props}
+                        />
+                      ),
+                      h3: ({ node, ...props }) => (
+                        <h3
+                          className="text-base sm:text-lg font-bold mb-2"
+                          {...props}
+                        />
+                      ),
+                      ul: ({ node, ...props }) => (
+                        <ul
+                          className="list-disc list-inside mb-2 text-sm sm:text-base"
+                          {...props}
+                        />
+                      ),
+                      ol: ({ node, ...props }) => (
+                        <ol
+                          className="list-decimal list-inside mb-2 text-sm sm:text-base"
+                          {...props}
+                        />
+                      ),
+                      li: ({ node, ...props }) => (
+                        <li className="mb-1 text-sm sm:text-base" {...props} />
+                      ),
+                      code: ({ node, className, children, ...props }) => {
+                        const match = /language-(\w+)/.exec(className || "");
+                        return match ? (
+                          <pre className="rounded mb-2">
+                            <CodeBlock
+                              language={match[1]}
+                              value={String(children).replace(/\n$/, "")}
+                            />
+                          </pre>
+                        ) : (
+                          <code
+                            className="bg-gray-200 dark:bg-gray-700 px-1 rounded"
+                            {...props}
+                          >
+                            {children}
+                          </code>
+                        );
+                      },
+                      pre: ({ node, ...props }) => (
+                        <pre
+                          className="p-2 rounded mb-2 overflow-x-auto"
+                          {...props}
+                        />
+                      ),
+                    }}
                   >
                     {message.content}
                   </ReactMarkdown>
