@@ -227,7 +227,7 @@ const ChatInterface: React.FC = () => {
                   </AvatarFallback>
                 </Avatar>
                 <div
-                  className={`prose dark:prose-invert p-3 rounded-lg overflow-hidden max-w-64 md:max-w-5xl break-words ${
+                  className={`prose-sm prose md:prose-base dark:prose-invert p-3 rounded-lg overflow-hidden max-w-full md:max-w-5xl break-words ${
                     message.role === "user"
                       ? "bg-blue-500 text-white"
                       : "bg-white dark:bg-gray-600 dark:text-white"
