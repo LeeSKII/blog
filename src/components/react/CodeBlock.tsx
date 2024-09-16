@@ -26,7 +26,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({ language, value }) => {
       </code>
       <button
         onClick={copyToClipboard}
-        className="absolute top-1 right-1 sm:top-2 sm:right-2 p-1 rounded-md bg-gray-700 text-gray-300 hover:bg-gray-600"
+        className="absolute top-0 right-0 translate-x-2 -translate-y-1  p-1 rounded-md bg-gray-700 text-gray-300 hover:bg-gray-600"
         aria-label="Copy code"
       >
         {copied ? <Check size={16} /> : <Copy size={16} />}
