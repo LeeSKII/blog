@@ -201,7 +201,7 @@ const ChatInterface: React.FC = () => {
   const currentSession = getCurrentSession();
 
   return (
-    <div className="flex flex-col h-[calc(100vh-4rem)] max-w-7xl mx-auto bg-gray-100 rounded-lg shadow-lg overflow-hidden dark:bg-zinc-900 relative">
+    <div className="flex flex-col h-[calc(100vh-4rem)] max-w-7xl mx-auto bg-gray-100 rounded-lg shadow-lg overflow-hidden dark:bg-black relative">
       <ScrollArea className="flex-grow p-4" ref={scrollAreaRef}>
         {currentSession &&
           currentSession.messages.map((message, index) => (
@@ -227,10 +227,10 @@ const ChatInterface: React.FC = () => {
                   </AvatarFallback>
                 </Avatar>
                 <div
-                  className={`prose-sm prose md:prose-base dark:prose-invert p-3 rounded-lg overflow-hidden max-w-full md:max-w-5xl break-words ${
+                  className={`prose prose-sm md:prose-base dark:prose-invert p-3 rounded-lg overflow-hidden max-w-full md:max-w-5xl break-words ${
                     message.role === "user"
                       ? "bg-blue-500 text-white"
-                      : "bg-white dark:bg-gray-600 dark:text-white"
+                      : "bg-white dark:bg-zinc-900 dark:text-white"
                   }`}
                 >
                   <ReactMarkdown
@@ -244,7 +244,7 @@ const ChatInterface: React.FC = () => {
                             value={String(children).replace(/\n$/, "")}
                           />
                         ) : (
-                          <span className="bg-zinc-800 text-white dark:bg-zinc-900 dark:text-gray-100 p-1 rounded">
+                          <span className="bg-zinc-800 text-white dark:bg-zinc-900 dark:text-gray-100 p-[2px] rounded">
                             {children}
                           </span>
                         );
