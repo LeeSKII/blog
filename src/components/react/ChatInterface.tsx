@@ -227,7 +227,7 @@ const ChatInterface: React.FC = () => {
                   </AvatarFallback>
                 </Avatar>
                 <div
-                  className={`prose prose-sm md:prose-base dark:prose-invert p-3 rounded-lg overflow-hidden max-w-full md:max-w-5xl break-words ${
+                  className={`prose prose-sm md:prose-base lg:prose-lg dark:prose-invert p-3 rounded-lg overflow-hidden max-w-full md:max-w-5xl break-words ${
                     message.role === "user"
                       ? "bg-blue-500 text-white"
                       : "bg-white dark:bg-zinc-900 dark:text-white"
@@ -244,7 +244,8 @@ const ChatInterface: React.FC = () => {
                             value={String(children).replace(/\n$/, "")}
                           />
                         ) : (
-                          <span className="bg-zinc-800 text-white dark:bg-zinc-900 dark:text-gray-100 p-[2px] rounded">
+                          // 单行代码块，没使用code标签防止prose样式影响
+                          <span className="bg-gray-300 text-black p-[1px] rounded">
                             {children}
                           </span>
                         );
