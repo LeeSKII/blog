@@ -120,7 +120,7 @@ const ChatInterface: React.FC = () => {
         body: JSON.stringify({
           model: "claude-3-5-sonnet-20240620",
           messages: [{ role: "user", content: userMessage.content }],
-          max_tokens: 1000,
+          max_tokens: 8192,
         }),
       });
 
