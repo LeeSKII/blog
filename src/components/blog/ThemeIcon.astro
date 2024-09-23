@@ -82,12 +82,22 @@
 </script>
 
 <script is:inline>
+  // prevent flash ligth dark mode on page load
   function applyTheme() {
-    localStorage.theme === "dark"
-      ? (document.documentElement.classList.add("dark"),
-        document.documentElement.setAttribute("data-theme", "dark"))
-      : (document.documentElement.classList.remove("dark"),
-        document.documentElement.setAttribute("data-theme", "light"));
+    switch (localStorage.theme) {
+      case "dark":
+        document.documentElement.classList.add("dark");
+        document.documentElement.setAttribute("data-theme", "dark");
+        break;
+      case "light":
+        document.documentElement.classList.remove("dark");
+        document.documentElement.setAttribute("data-theme", "light");
+        break;
+      default:
+        document.documentElement.classList.add("dark");
+        document.documentElement.setAttribute("data-theme", "dark");
+        break;
+    }
   }
 
   document.addEventListener("astro:after-swap", applyTheme);
