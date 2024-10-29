@@ -20,7 +20,9 @@ tags: ["ai", "learning"]
 
 > One of the features added to some models is 'function calling'. It's a bit of a confusing name. It's understandable if you think that means the model can call functions, but that's not what it means. Function calling simply means that the output of the model is formatted in JSON, using a preconfigured schema, and uses the expected types. Then your code can use the output of the model and call functions with it. Using the JSON format in Ollama, you can use any model for function calling.
 
-并且相关的案例代码阐述了如何使用 Ollama 的 function calling 能力。
+并且相关的案例代码阐述了如何使用 Ollama 的 function calling 能力，通过总结可以看出即使该大语言模型并未被训练成具有 function calling 的能力，但是在处理和调用函数工具上仍旧取得了成效。
+
+> Notice that both examples are using the model from Intel called `neural-chat`. This is not a model tuned for function calling, yet it performs very well at this task.
 
 - 根据A社的Github教程 [tool_use_overview](https://github.com/anthropics/courses/blob/master/tool_use/01_tool_use_overview.ipynb)
 
