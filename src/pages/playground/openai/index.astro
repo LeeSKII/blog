@@ -1,11 +1,11 @@
 ---
-import PicoLayout from "../../../components/playground/PicoLayout.astro";
-import StoreApiKey from "../../../components/vue/StoreApiKey.vue";
-import OpenaiModels from "../../../components/vue/OpenaiModels.vue";
-import Test from "../../../components/vue/Test.vue";
+import PlayLayout from "@/components/playground/PlayLayout.astro";
+import StoreApiKey from "@/components/vue/StoreApiKey.vue";
+import OpenaiModels from "@/components/vue/OpenaiModels.vue";
+import Test from "@/components/vue/Test.vue";
 ---
 
-<PicoLayout pageTitle="OpenAI">
+<PlayLayout pageTitle="OpenAI">
   <article class="flex flex-col gap-4">
     <header>Settings</header>
     <StoreApiKey client:only="vue" />
@@ -21,7 +21,7 @@ import Test from "../../../components/vue/Test.vue";
       </li>
     </ul>
   </article>
-</PicoLayout>
+</PlayLayout>
 
 <style>
   :global(.dark) p {

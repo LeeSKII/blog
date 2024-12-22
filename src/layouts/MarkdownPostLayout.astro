@@ -12,7 +12,7 @@ const { frontmatter } = Astro.props;
   <div class="post-container">
     <Tags tags={frontmatter.tags} />
     <TypographyP>
-      Pulished on {frontmatter.pubDate.toString().slice(0, 10)}
+      Published on {frontmatter.pubDate.toString().slice(0, 10)}
     </TypographyP>
     <TypographyP>
       Last modified: {frontmatter.lastModified}
