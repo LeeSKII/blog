@@ -12,7 +12,7 @@ export default defineConfig({
   base: "/blog",
   integrations: [
     react(),
-    vue(),
+    vue({ appEntrypoint: "/src/pages/_app" }),
     tailwind({
       applyBaseStyles: false,
     }),

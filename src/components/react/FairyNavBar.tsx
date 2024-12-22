@@ -76,14 +76,29 @@ const NavBar: React.FC = () => {
                       <li>
                         <NavigationMenuLink asChild>
                           <a
-                            href="/services/app-development"
+                            href="/blog/pico/next-ui"
                             className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                           >
                             <div className="text-sm font-medium leading-none">
-                              App Development
+                              Next UI
                             </div>
                             <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              Build mobile apps for iOS and Android
+                              Build modern and beautiful websites with Next UI
+                            </p>
+                          </a>
+                        </NavigationMenuLink>
+                      </li>
+                      <li>
+                        <NavigationMenuLink asChild>
+                          <a
+                            href="/blog/pico/prime-ui"
+                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                          >
+                            <div className="text-sm font-medium leading-none">
+                              Prime UI
+                            </div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                              Build modern and beautiful websites with Prime UI
                             </p>
                           </a>
                         </NavigationMenuLink>
