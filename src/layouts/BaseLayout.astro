@@ -1,6 +1,6 @@
 ---
 import "@/styles/global.css";
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 import LoadingIndicator from "astro-loading-indicator/component";
 
 const { pageTitle } = Astro.props;
@@ -14,7 +14,7 @@ const { pageTitle } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle}</title>
-    <ViewTransitions />
+    <ClientRouter />
     <LoadingIndicator
       color="hsl(var(--primary))"
       height="5px"

@@ -5,7 +5,6 @@ import { getAllPublishedPosts } from "../utils/posts";
 const allPosts = (await getAllPublishedPosts()).sort(
   (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
 );
-console.log(allPosts);
 const pageTitle = "Posts";
 ---
 
