@@ -55,6 +55,9 @@ export default (app: App) => {
   app.use(PrimeVue, {
     theme: {
       preset: Noir,
+      options: {
+        darkModeSelector: ".dark",
+      },
     },
   });
 };
