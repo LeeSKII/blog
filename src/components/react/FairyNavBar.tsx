@@ -76,7 +76,7 @@ const NavBar: React.FC = () => {
                       <li>
                         <NavigationMenuLink asChild>
                           <a
-                            href="/blog/playground/next_ui"
+                            href="/blog/playground/nextui"
                             className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                           >
                             <div className="text-sm font-medium leading-none">
@@ -91,7 +91,7 @@ const NavBar: React.FC = () => {
                       <li>
                         <NavigationMenuLink asChild>
                           <a
-                            href="/blog/playground/prime_ui"
+                            href="/blog/playground/primeui"
                             className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                           >
                             <div className="text-sm font-medium leading-none">
