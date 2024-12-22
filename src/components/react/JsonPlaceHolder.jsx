@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import PicoSkeleton from "../pico/PicoSkeleton";
+import PicoSkeleton from "../playground/PlaySkeleton";
 import axios from "axios";
 
 export default function JsonPlaceHolder({ count, event }) {

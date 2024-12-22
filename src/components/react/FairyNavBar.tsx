@@ -35,7 +35,7 @@ const NavBar: React.FC = () => {
                     className={navigationMenuTriggerStyle()}
                     asChild
                   >
-                    <a href="/blog/pico">Home</a>
+                    <a href="/blog/playground">Home</a>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
@@ -43,7 +43,7 @@ const NavBar: React.FC = () => {
                     className={navigationMenuTriggerStyle()}
                     asChild
                   >
-                    <a href="/blog/pico/react">React</a>
+                    <a href="/blog/playground/react">React</a>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
@@ -51,7 +51,7 @@ const NavBar: React.FC = () => {
                     className={navigationMenuTriggerStyle()}
                     asChild
                   >
-                    <a href="/blog/pico/vue">Vue</a>
+                    <a href="/blog/playground/vue">Vue</a>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
@@ -61,7 +61,7 @@ const NavBar: React.FC = () => {
                       <li>
                         <NavigationMenuLink asChild>
                           <a
-                            href="/blog/pico/openai"
+                            href="/blog/playground/openai"
                             className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                           >
                             <div className="text-sm font-medium leading-none">
@@ -76,7 +76,7 @@ const NavBar: React.FC = () => {
                       <li>
                         <NavigationMenuLink asChild>
                           <a
-                            href="/blog/pico/next-ui"
+                            href="/blog/playground/next_ui"
                             className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                           >
                             <div className="text-sm font-medium leading-none">
@@ -91,7 +91,7 @@ const NavBar: React.FC = () => {
                       <li>
                         <NavigationMenuLink asChild>
                           <a
-                            href="/blog/pico/prime-ui"
+                            href="/blog/playground/prime_ui"
                             className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                           >
                             <div className="text-sm font-medium leading-none">
@@ -129,25 +129,25 @@ const NavBar: React.FC = () => {
               Blog
             </a>
             <a
-              href="/blog/pico"
+              href="/blog/playground"
               className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
             >
               Home
             </a>
             <a
-              href="/blog/pico/react"
+              href="/blog/playground/react"
               className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
             >
               React
             </a>
             <a
-              href="/blog/pico/vue"
+              href="/blog/playground/vue"
               className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
             >
               Vue
             </a>
             <a
-              href="/blog/pico/openai"
+              href="/blog/playground/openai"
               className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
             >
               AI

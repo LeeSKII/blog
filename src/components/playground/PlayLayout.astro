@@ -1,20 +1,19 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import PicoNavigation from "./PicoNavigation.astro";
 import NavBar from "@/components/react/FairyNavBar";
 
 const { pageTitle } = Astro.props;
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-  <div class="pico-layout">
+  <div class="layout">
     <NavBar client:only="react" />
     <slot />
   </div>
 </BaseLayout>
 
 <style>
-  .pico-layout {
+  .layout {
     relative: relative;
     min-height: 100vh;
   }

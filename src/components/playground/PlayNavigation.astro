@@ -2,7 +2,7 @@
 import ThemeIcon from "@components/blog/ThemeIcon.astro";
 ---
 
-<nav class="pico-navigation">
+<nav class="playground-navigation">
   <ul class="nav-toggle">
     <li aria-label="Toggle Navigation">
       <svg
@@ -40,10 +40,10 @@ import ThemeIcon from "@components/blog/ThemeIcon.astro";
   </ul>
   <ul class="nav-menu">
     <li><a href="/blog">Blog</a></li>
-    <li><a href="/blog/pico">Home</a></li>
-    <li><a href="/blog/pico/react">React</a></li>
-    <li><a href="/blog/pico/vue">Vue</a></li>
-    <li><a href="/blog/pico/openai">AI</a></li>
+    <li><a href="/blog/playground">Home</a></li>
+    <li><a href="/blog/playground/react">React</a></li>
+    <li><a href="/blog/playground/vue">Vue</a></li>
+    <li><a href="/blog/playground/openai">AI</a></li>
   </ul>
   <ul>
     <li class="nav-toggle-theme"><ThemeIcon /></li>
@@ -52,7 +52,9 @@ import ThemeIcon from "@components/blog/ThemeIcon.astro";
 <script>
   document.addEventListener("astro:page-load", () => {
     document.querySelector(".nav-toggle")?.addEventListener("click", () => {
-      document.querySelector(".pico-navigation")?.classList.toggle("expanded");
+      document
+        .querySelector(".playground-navigation")
+        ?.classList.toggle("expanded");
     });
   });
 </script>
@@ -69,10 +71,10 @@ import ThemeIcon from "@components/blog/ThemeIcon.astro";
     align-items: center;
     gap: 20px;
   }
-  .pico-navigation ul li a {
+  .playground-navigation ul li a {
     color: black;
   }
-  :global(.dark) .pico-navigation ul li a {
+  :global(.dark) .playground-navigation ul li a {
     color: white;
   }
   .nav-toggle {

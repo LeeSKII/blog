@@ -10,7 +10,7 @@
 import Button from "primevue/button";
 import DatePicker from "primevue/datepicker";
 import Checkbox from "primevue/checkbox";
-import Drawer from "./Drawer.vue";
+import Drawer from "./Dialog.vue";
 import { ref } from "vue";
 const checked = ref(false);
 const date = ref(new Date());
