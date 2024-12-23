@@ -345,6 +345,26 @@ asyncio.run(run('qwen2.5:7b'))
 
 大模型根据其自我推理，纠错了函数调用的结果，返回了正确的答案。
 
+#### 2.2.3 多tool调用的参数传递问题
+
+```json
+{'model': 'qwen2.5:7b', 'created_at': '2024-11-25T00:42:08.8285035Z', 'message': {'role': 'assistant', 'content': '', 
+'tool_calls': 
+[
+    {'function': {'name': 'divide', 'arguments': {'first': 6, 'second': 2}}}, 
+    {'function': {'name': 'add', 'arguments': {'first': 3, 'second': 100}}}, 
+    {'function': {'name': 'sqrt', 'arguments': {'number': 103}}}
+]}, 'done_reason': 'stop', 'done': True, 'total_duration': 20170180200, 'load_duration': 15871877600, 'prompt_eval_count': 290, 'prompt_eval_duration': 666000000, 'eval_count': 73, 'eval_duration': 3338000000}
+```
+
+这个是LLM返回的结果，可以看到这里按顺序调用了三个工具函数，并且分别传递了对应的参数，但是要注意的是：**这里的参数，除了第一个工具函数的参数是从用户的输入中获取的，后面的两个参数，都分别包含了推理值**，这里实际和我们所预想的逻辑是有出入的。
+
+我们的本意是希望模型根据用户的输入，然后指示需要使用的哪些工具，工具参数中能根据用户输入推理出来的就推理，涉及到工具链式调用的应该由前置function计算出结果，然后再传递给后续的function。
+
+但是，由于我们这里计算的问题比较简单，LLM本身的推理能力可以覆盖，直接将后续的function需要的参数也推理出来了，这就可能会误导function calling的结果。
+
+Tips：这个问题是在使用GLM模型发现询问了相同的问题，但是模型的tool use列表始终只返回了一个工具的调用，一开始以为是平台模型的问题，后来当我查询了通义千问之后，发现千问在function calling时，也只会返回一个函数的调用，并不会返回多个函数的调用。由此这个问题引发了我的关于function calling在链式调用的思考。确实仔细思考之后就会发现，Ollama这里的function calling的逻辑是正确的，但是如果使用模型推理的参数是有问题的，应该是每个function只返回一个结果，然后由大模型根据这个结果，指示后续的function调用，而不是由大模型去推理链式调用中间function使用的参数。
+
 ### 2.3 web_request
 
 使用模型:qwen2.5:7b
