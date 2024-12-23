@@ -1,5 +1,5 @@
 ---
-title: Whitespace-pre-wrap and break-all
+title: Whitespace pre wrap and break all
 author: Lee Ski
 description: "How to add last modify time in post."
 image:
@@ -11,4 +11,3 @@ tags: ["css", "programming"]
 ---
 
 ## Introduction
-
