@@ -7,7 +7,7 @@ import TypographyH1 from "@/components/typography/TypographyH1.astro";
 const { pageTitle } = Astro.props;
 ---
 
-<BaseLayout>
+<BaseLayout pageTitle={pageTitle}>
   <Header />
   <TypographyH1 className="capitalize" animate="slide">
     {pageTitle}
