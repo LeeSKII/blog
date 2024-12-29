@@ -2,6 +2,7 @@ import type { App } from "vue";
 import PrimeVue from "primevue/config";
 import { definePreset } from "@primevue/themes";
 import Aura from "@primevue/themes/aura";
+import "primeicons/primeicons.css";
 
 const Noir = definePreset(Aura, {
   semantic: {
@@ -58,23 +59,50 @@ export default (app: App) => {
       options: {
         darkModeSelector: ".dark",
       },
-      locale: {
-        dateFormat: "YYYY-MM-DD",
-        monthNames: [
-          "1月",
-          "2月",
-          "3月",
-          "4月",
-          "5月",
-          "6月",
-          "7月",
-          "8月",
-          "9月",
-          "10月",
-          "11月",
-          "12月",
-        ],
-      },
+    },
+    locale: {
+      firstDayOfWeek: 1,
+      dayNames: [
+        "星期日",
+        "星期一",
+        "星期二",
+        "星期三",
+        "星期四",
+        "星期五",
+        "星期六",
+      ],
+      dayNamesShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"],
+      dayNamesMin: ["日", "一", "二", "三", "四", "五", "六"],
+      monthNames: [
+        "一月",
+        "二月",
+        "三月",
+        "四月",
+        "五月",
+        "六月",
+        "七月",
+        "八月",
+        "九月",
+        "十月",
+        "十一月",
+        "十二月",
+      ],
+      monthNamesShort: [
+        "1月",
+        "2月",
+        "3月",
+        "4月",
+        "5月",
+        "6月",
+        "7月",
+        "8月",
+        "9月",
+        "10月",
+        "11月",
+        "12月",
+      ],
+      today: "今天",
+      clear: "清除",
     },
   });
 };
