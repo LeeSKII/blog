@@ -3,8 +3,8 @@ title: 程序人生
 author: Lee Ski
 description: "雷军-我十年的程序员生涯，博客读后感."
 image:
-    url: "@postImages/daniel-sessler.jpg"
-    alt: "A small island in the middle of the ocean."
+  url: "@postImages/daniel-sessler.jpg"
+  alt: "A small island in the middle of the ocean."
 pubDate: 2024-12-30
 isPublished: true
 tags: ["blogging", "programming"]
@@ -248,15 +248,8 @@ Java在我看来，冗余大于便利，相比较C#，Java的语法要求似乎�
 
 而且最重要的是在我看来，Java更像是一门纯服务端的语言，从限定范围的角度来说，这和我一直做的桌面端软件并没有多大区别，让我感觉到有一些局限性，又再者说，当时的我，更像是微软的脑残粉，这个理由足以让我对Java带来更多的偏见了。
 
-
+Javascript，或者说是Node.js真正打开了我对全栈工程化探索的大门，现在回想起来，这真是一个庞大又充满魅力的生态。
 
 **让人左思右想，辗转反侧，最让人在意的莫过于这些事情：别人能做到，为什么我不能做到，这句话时常激励我，不要提下脚步，在懈怠困顿之际，请再坚持一下**
 
 **当理想与现实冲突后，睡眠的时间就会开始急剧减少**
-
-
-
-
-
-
-
