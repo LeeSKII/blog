@@ -30,4 +30,6 @@ $$
 \vec{a} \cdot \vec{b} = \sum_{i=1}^{n} a_ib_i
 $$
 
+$$E = MC^2$$
+
 End.
