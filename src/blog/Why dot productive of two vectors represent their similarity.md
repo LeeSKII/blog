@@ -30,4 +30,6 @@ $$
 \vec{a} \cdot \vec{b} = \sum_{i=1}^{n} a_ib_i
 $$
 
+具体形式表现为两个向量的对应元素相乘，然后求和，这意味着两个vector的shape必须一致。
+
 End.
