@@ -3,6 +3,7 @@ import BlogLayout from "@layouts/BlogLayout.astro";
 import { Image } from "astro:assets";
 import TypographyH1 from "@/components/typography/TypographyH1.astro";
 import TypographyBlockquote from "@/components/typography/TypographyBlockquote.astro";
+import TypographyP from "@/components/typography/TypographyP.astro";
 import mountainImage from "@assets/images/index.jpg";
 ---
 
@@ -19,6 +20,11 @@ import mountainImage from "@assets/images/index.jpg";
     src={mountainImage}
     alt="mountain with snow"
   />
+  <TypographyP>Easy choice, Hard life, Hard choice, Easy life.</TypographyP>
+  <TypographyP
+    >The road to heaven often feels like hell. And the road to hell often feels
+    like heaven.</TypographyP
+  >
   <!-- <Greeting client:load messages={["Hi", "Hello", "Howdy", "Hey there"]} /> -->
 </BlogLayout>
 
