@@ -12,25 +12,25 @@ tags: ["ai", "learning",'blogging']
 
 ## Introduction
 
-当你在ChatGPT的对话框中输入信息，并且点击“Send”按钮后，得到了ChatGPT的回答。
+当你在 ChatGPT 的对话框中输入信息，并且点击 “Send” 按钮后，得到了 ChatGPT 的回答。
 
 这个充满着神奇的工具背后的原理究竟是什么呢？
 
-越来越多的人类将接触知识的媒介从搜索引擎的Input text转换到了聊天工具的Input Text，并且这个趋势还在持续增长。
+越来越多的人类将接触知识的媒介从搜索引擎的 Input text 转换到了聊天工具的 Input Text，并且这个趋势还在持续增长。
 
 但是在这个对话框中，你应该输入什么，AI给你的回答又是如何生成的？
 
-希望通过这篇文章，你能了解ChatGPT背后的概念和原理，以及这样的工具是通过何种方式构建的。
+希望通过这篇文章，你能了解 ChatGPT 背后的概念和原理，以及这样的工具是通过何种方式构建的。
 
 并且你能知道这类工具究竟擅长什么领域，又不适合哪些任务，认识到这类工具在哪些特别情况可能成为双刃剑。
 
 最后对AI的理解能有一个自己的独特认识。
 
-*文章内容根据Andrej Karpathy的视频[Deep dive into LLMs like ChatGPT](https://www.youtube.com/watch?v=7xTGNNLPyMI) 进行整理。*
+*文章内容根据 Andrej Karpathy 的视频[Deep dive into LLMs like ChatGPT](https://www.youtube.com/watch?v=7xTGNNLPyMI) 进行整理。*
 
 ## How to build a ChatGPT
 
-构建一个Chat GPT是一个按固定顺序的多步骤过程，下面是这些步骤的简要介绍。
+构建一个 Chat GPT 是一个按固定顺序的多步骤过程，下面是这些步骤的简要介绍。
 
 ## 1. Pre-training
 
@@ -42,23 +42,23 @@ tags: ["ai", "learning",'blogging']
 
 [FineWeb](https://huggingface.co/spaces/HuggingFaceFW/blogpost-fineweb-v1)的首页介绍了这个项目的整体情况，以及它是如何构建的。
 
-所有主流的大语言模型如ChatGPT,Llama,Claude的母公司OpenAI,Anthropic,Meta，它们内部都有一个类似的数据集。
+所有主流的大语言模型如 ChatGPT,Llama,Claude 的母公司 OpenAI,Anthropic,Meta，它们内部都有一个类似的数据集。
 
 所以，概括的说，这个步骤是想要取得什么样的目标？
 
 **大量的文本**，从公开领域搜集非常多非常多高质量的文本，同时，我们希望这些文本内容是极具多样性的，因为我们希望内部包含了很多方面的知识。
 
-FineWeb是一个我们可以接触到的生产级别就绪的数据集的典型示例。
+FineWeb 是一个我们可以接触到的生产级别就绪的数据集的典型示例。
 
 > a new, large-scale (15-trillion tokens, 44TB disk space) dataset for LLM pretraining.
 
 但是以今天的互联网数据来说，这实际上并不是一个非常大的数据集。
 
-FineWeb并不是一个从0开始的项目，它起源于 [Common crawl](https://commoncrawl.org/)
+FineWeb 并不是一个从0开始的项目，它起源于 [Common crawl](https://commoncrawl.org/)
 
 > The Common Crawl non–profit organization has been crawling the web since 2007 and releases a new crawl containing 200 to 400 TiB of textual content obtained via automatic web crawling usually every 1 or 2 months.
 
-可以看到截至到2024年，Common crawl相关的网页搜索数据。
+可以看到截至到2024年，Common crawl 相关的网页搜索数据。
 
 > the latest CC crawl (April 2024) contains 2.7 billion web pages, totaling 386 TiB of uncompressed HTML text content.
 
@@ -77,23 +77,23 @@ The FineWeb pipeline
 ![The FineWeb pipeline](../assets/images/posts/used/ai/fineweb-recipe.png)
 
 1. URL Filtering: 使用 [blocklist](https://dsi.ut-capitole.fr/blacklists/)过滤掉那些不适合作为训练数据集的网页(例如暴力，歧视等网站)。
-2. Text Extraction: 从网页中提取文本(原始的网页为HTML格式，可能还包含了CSS，JavaScript等代码，需要进行纯文本提取)。
+2. Text Extraction: 从网页中提取文本(原始的网页为 HTML 格式，可能还包含了 CSS，JavaScript 等代码，需要进行纯文本提取)。
 3. Language Filtering: 使用 [fastText language classifier](https://fasttext.cc/docs/en/language-identification.html) 提取英语为主的文本。
 
     > The hottest new programming language is English.
     > --- [Andrej Karpathy](https://x.com/karpathy/status/1617979122625712128)
 
-4. Gopher Filtering: Gopher过滤器。
+4. Gopher Filtering: Gopher 过滤器。
 5. MinHash Filtering: 过滤掉那些相似的网页。
-6. C4 Filters: C4过滤器。
+6. C4 Filters: C4 过滤器。
 7. Custom Filters: 自定义过滤器，比如，过滤掉那些包含特定词汇的网页。
-8. PⅡ Filtering: 删除可识别个人身份的信息ID Card。
+8. PⅡ Filtering: 删除可识别个人身份的信息 ID Card。
 
 [Final dataset](https://huggingface.co/datasets/HuggingFaceFW/fineweb) looks like
 
-神经网络的输入的就是这个数据集中所有text的序列。
+神经网络的输入的就是这个数据集中所有 text 的序列。
 
-最终的目标是学习text之间的patterns，并生成符合语言规律的文本。
+最终的目标是学习 text 之间的 patterns，并生成符合语言规律的文本。
 
 ### 1.2 Tokenization
 
@@ -107,27 +107,27 @@ BPE 是一种基于统计的文本分割算法，它可以将相邻出现频率�
 
 每配对一次，就会在词汇表中增加一个新token。
 
-GPT-4的词汇表大小为100,277，目前实践表明大约10W次的词汇表性能最优，GPT-4o的词汇表大小为20W。
+GPT-4 的词汇表大小为100,277，目前实践表明大约 10W 次的词汇表性能最优，GPT-4o 的词汇表大小为20W。
 
-Tokenization 就是将文本转换成token或者symbol的过程。
+Tokenization 就是将文本转换成 token 或者 symbol 的过程。
 
 [Tiktokenizer](https://tiktokenizer.vercel.app/) 是可视化 tokenization 的网站。
 
-可以查看 cl100k_base， 这是gpt-4的base模型的tokenizer。
+可以查看 cl100k_base， 这是 gpt-4 的 base 模型的 tokenizer。
 
-[Tiktokenizer](https://tiktokenizer.vercel.app/)展示了像GPT-4这样的模型是如何看待Text的，也就是模型眼中的word，but actually is token。
+[Tiktokenizer](https://tiktokenizer.vercel.app/)展示了像 GPT-4 这样的模型是如何看待 Text 的，也就是模型眼中的 word，but actually is token。
 
 ### 1.3 Neural Network training
 
-在这个步骤中，我们希望模型能statistical relationship of how these tokens follow each other in the sequence.
+在这个步骤中，我们希望模型能 statistical relationship of how these tokens follow each other in the sequence.
 
-也就学习token之间的关系。
+也就学习 token 之间的关系。
 
-在将数据输入到神经网络之前，我们需要决定输入多少个token给网络，并且要限定一个最大的序列长度。
+在将数据输入到神经网络之前，我们需要决定输入多少个 token 给网络，并且要限定一个最大的序列长度。
 
-也就是context length，GPT-3的最大序列长度为1024, Deepseek v3的最大序列长度为128k，即128倍的GPT-3的context length。
+也就是 context length，GPT-3 的最大序列长度为1024, Deepseek v3 的最大序列长度为 128k，即 128 倍的 GPT-3 的 context length。
 
-越大的context length意味着模型可以学习到更长的文本序列的关系，但是同时也意味着模型的计算量也会增加。
+越大的 context length 意味着模型可以学习到更长的文本序列的关系，但是同时也意味着模型的计算量也会增加。
 
 ### 1.3.1 Train target
 
@@ -147,7 +147,7 @@ Predict the next token with the given context.
 
 ### 1.3.2 Calculate in parallel
 
-上述的过程是单个sequence的训练，但是实际上，我们需要同时训练多个sequence，也就是batch，以批次为单位进行训练，从而发挥硬件并行计算的优势，提高训练效率。
+上述的过程是单个sequence的训练，但是实际上，我们需要同时训练多个 sequence，也就是 batch，以批次为单位进行训练，从而发挥硬件并行计算的优势，提高训练效率。
 
 ### 1.3.3 Internal of the neural network
 
@@ -165,7 +165,7 @@ Predict the next token with the given context.
 
 在最后输出 token 的采样阶段，实际是一个相对随机的过程，每次推理并不一定会得出完全相同的 sequence，就是因为采样时的随机性，在推理结果的候选 tokens 中，概率高的 token 只是相对于低概率的 token 而言更倾向于被选中，并不一定能够百分百选中，但是通过参数 temperature 以及 top-k/top-p 等参数的调节，可以控制模型的生成结果的多样性。
 
-Demo
+Demo:
 
 GPT-2 由 OpenAI 在2019年发布，是一种基于 transformer 的语言模型， 是现代模型中第一个具有相当规模的预训练模型，并且效果优异，现代模型的核心架构并没有发生任何改变，除了更多的训练数据和更大的模型参数规模。
 
@@ -256,17 +256,17 @@ Conversations。
 
 ### 2.2 Align with human
 
-Base model 是基于互联网语料文本进行训练的，由Pre-training得来
+Base model 是基于互联网语料文本进行训练的，由 Pre-training 得来
 
-Post-training需要构建新的对话数据集，再训练模型。
+Post-training 需要构建新的对话数据集，再训练模型。
 
-在Post-training阶段，模型会迅速调整到与人类对话的能力相匹配的状态。
+在 Post-training 阶段，模型会迅速调整到与人类对话的能力相匹配的状态。
 
-Pre-training通常在数千个GPUs上训练几个月，而Post-training通常在少数GPU上训练几个小时。
+Pre-training 通常在数千个 GPUs 上训练几个月，而 Post-training 通常在少数GPU上训练几个小时。
 
-这是因为在Post-training阶段，模型的训练集数据规模相比Pre-training阶段所使用的互联网documents是极其小的，训练速度很快；
+这是因为在 Post-training 阶段，模型的训练集数据规模相比 Pre-training 阶段所使用的互联网 documents 是极其小的，训练速度很快；
 
-总结来说，Post-training与Pre-training对比，除了训练数据集的改变，模型的架构，算法都不做任何修改。
+总结来说，Post-training 与 Pre-training 对比，除了训练数据集的改变，模型的架构，算法都不做任何修改。
 
 ### 2.3 Conversation protocol/format
 
@@ -337,7 +337,7 @@ OpenAI 未发布用于指令微调的相关数据集，但是社区已经提供�
 
 [Open assistant dataset](https://huggingface.co/datasets/OpenAssistant/oasst1/viewer/default/train?row=0)
 
-其它数据集：从deepseek r1中提取用于蒸馏(distillation)非推理模型的对话数据集。
+其它数据集：从 deepseek r1 中提取用于蒸馏(distillation)非推理模型的对话数据集。
 
 [Chinese-DeepSeek-R1-Distill-data-110k](https://huggingface.co/datasets/Congliu/Chinese-DeepSeek-R1-Distill-data-110k)
 
