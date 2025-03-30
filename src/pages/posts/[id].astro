@@ -21,8 +21,9 @@ const { Content, remarkPluginFrontmatter } = await render(post);
 const lastModified = dayjs(remarkPluginFrontmatter.lastModified)
   .utc()
   .format("HH:mm:ss DD MMMM YYYY UTC");
+const minutesRead = remarkPluginFrontmatter.minutesRead;
 ---
 
-<MarkdownPostLayout frontmatter={{ ...post.data, lastModified }}>
+<MarkdownPostLayout frontmatter={{ ...post.data, lastModified, minutesRead }}>
   <Content />
 </MarkdownPostLayout>

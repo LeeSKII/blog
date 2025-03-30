@@ -42,7 +42,7 @@ tags: ["ai", "learning",'blogging']
 
 [FineWeb](https://huggingface.co/spaces/HuggingFaceFW/blogpost-fineweb-v1)的首页介绍了这个项目的整体情况，以及它是如何构建的。
 
-所有主流的大语言模型如ChatGPT,Llama,Claude的母公司Openai,Anthropic,Meta，它们内部都有一个类似的数据集。
+所有主流的大语言模型如ChatGPT,Llama,Claude的母公司OpenAI,Anthropic,Meta，它们内部都有一个类似的数据集。
 
 所以，概括的说，这个步骤是想要取得什么样的目标？
 
@@ -157,8 +157,155 @@ Predict the next token with the given context.
 
 [Visualize the model like GPT](https://bbycroft.net/llm) 是可视化神经网络的网站。
 
-### 1.3.4 Inference
+### 1.3.4 Inference（Training）
 
+生成 token，一次推理输出一个 token，然后将生成的 token 附加到 context 上，继续推理，直到达到最大长度。
 
+![Inference](../assets/images/posts/used/ai/inference.png)
 
-## 3. Post-training
+在最后输出 token 的采样阶段，实际是一个相对随机的过程，每次推理并不一定会得出完全相同的 sequence，就是因为采样时的随机性，在推理结果的候选 tokens 中，概率高的 token 只是相对于低概率的 token 而言更倾向于被选中，并不一定能够百分百选中，但是通过参数 temperature 以及 top-k/top-p 等参数的调节，可以控制模型的生成结果的多样性。
+
+Demo
+
+GPT-2 由 OpenAI 在2019年发布，是一种基于 transformer 的语言模型， 是现代模型中第一个具有相当规模的预训练模型，并且效果优异，现代模型的核心架构并没有发生任何改变，除了更多的训练数据和更大的模型参数规模。
+
+Transformer neural network with:
+
+- 1.6 billion parameters
+- maximum 1024 context length
+- trained on about 100 billion tokens of text
+
+[Reproducing OpenAI's GPT2](https://github.com/LeeSKII/shakesepare-simulator/blob/main/src/gpt2/train_gpt2.py)
+
+Paper 《Language Models are Unsupervised Multitask Learners》
+
+### 1.3.4 Training with multiple GPUs
+
+llm.c 项目展示了现在可以使用 8*H100 在 24h 内训练 GPT-2，这得益于现代硬件能力的提升和软件算法的优化。
+
+[llm.c](https://github.com/karpathy/llm.c/discussions/677)
+
+```bash
+num_parameters: 1557686400 => bytes: 3115372800
+allocated 2971 MiB for model parameters
+batch_size B=16 * seq_len T=1024 * num_processes=8 and total_batch_size=1048576
+=> setting grad_accum_steps=8
+created directory: log_gpt2_1558M
+allocating 40409 MiB for activations
+val loss 11.129390
+allocating 2971 MiB for parameter gradients
+allocating 742 MiB for AdamW optimizer state m
+allocating 742 MiB for AdamW optimizer state v
+allocating 742 MiB for master copy of params
+step    1/32000 | loss 11.133732 (+nanz)| norm 52.9732 (+nanz)| lr 8.57e-07 | 3056.36 ms | 42.6% bf16 MFU | 343080 tok/s
+step    2/32000 | loss 10.539388 (+nanz)| norm 43.5996 (+nanz)| lr 1.71e-06 | 2747.19 ms | 47.4% bf16 MFU | 381690 tok/s
+step    3/32000 | loss 9.894109 (+nanz)| norm 23.2229 (+nanz)| lr 2.57e-06 | 2753.25 ms | 47.3% bf16 MFU | 381259 tok/s
+step    4/32000 | loss 9.566241 (+nanz)| norm 28.4920 (+nanz)| lr 3.43e-06 | 2741.47 ms | 47.5% bf16 MFU | 381690 tok/s
+step    5/32000 | loss 9.482848 (+nanz)| norm 23.7817 (+nanz)| lr 4.29e-06 | 2752.07 ms | 47.3% bf16 MFU | 381507 tok/s
+step    6/32000 | loss 9.332832 (+nanz)| norm 15.9113 (+nanz)| lr 5.14e-06 | 2751.01 ms | 47.3% bf16 MFU | 381431 tok/s
+step    7/32000 | loss 9.165650 (+nanz)| norm 10.5941 (+nanz)| lr 6.00e-06 | 2753.03 ms | 47.3% bf16 MFU | 381327 tok/s
+step    8/32000 | loss 9.132234 (+nanz)| norm 16.2733 (+nanz)| lr 6.86e-06 | 2748.91 ms | 47.3% bf16 MFU | 381348 tok/s
+step    9/32000 | loss 9.097384 (+nanz)| norm 12.1342 (+nanz)| lr 7.71e-06 | 2748.73 ms | 47.3% bf16 MFU | 381367 tok/s
+step   10/32000 | loss 9.072879 (+nanz)| norm 10.5923 (+nanz)| lr 8.57e-06 | 2749.40 ms | 47.3% bf16 MFU | 381369 tok/s
+...
+```
+
+> We can see that each step is about 2.75 seconds and there are 32,000 of them, so now we wait ~24 hours. At every step, this training run takes a chunk of ~1 million tokens of FineWeb-EDU (these are educational web pages from the internet), and updates the 1558 million weights of the model to be slightly better at predicting the next token in a sequence.
+
+---
+
+After Training, We got a **base model**!
+
+### 1.3.5 The psychology of base model
+
+- 以token为基本单位的互联网文本生成模拟器；
+- 每次可能生成不一样的随机概率系统；
+- 生成类似互联网文档的内容，但这些内容可能是虚构的或不基于具体事实。这被称为“幻觉”（hallucinations）或“梦境”（dreaming）现象；
+- 可以完整的复现曾训练过的文档，就像'memory'一样；
+- 整个模型就像是对互联网文档的有损压缩文件，信息存储在模型的参数中；
+- 可以将模型进行实际应用任务，例如：通过一些 prompt 技巧来控制生成的文本，例如通过 few shot 进行文本翻译；
+- But we can do better...
+
+## 2. Post-training
+
+一个 AI 系统该如何与人类进行交互？
+
+Conversations。
+
+![Conversations](../assets/images/posts/used/ai/conversations.png)
+
+第一个例子展示了对话的规则，一问一答；
+
+第二个例子展示了如何赋予 AI 系统个性化；
+
+第三个例子是对齐伦理道德。
+
+### 2.1 How to 'program' an AI system?
+
+由于 AI 系统是基于神经网络进行构建的，我们无法像对一般程序那样显示的进行 code 级别的指令编码
+
+神经网络是基于数据进行训练，从而指定其输出的
+
+因此可以构建对话数据集，进行隐式'编码'，训练模型。
+
+对话数据集的构建方式：
+
+- human labeled
+- 人工设定问题，再人工回答
+- 覆盖各种领域和场景，以此来促使 AI 对齐人类
+
+### 2.2 Align with human
+
+Base model 是基于互联网语料文本进行训练的，由Pre-training得来
+
+Post-training需要构建新的对话数据集，再训练模型。
+
+在Post-training阶段，模型会迅速调整到与人类对话的能力相匹配的状态。
+
+Pre-training通常在数千个GPUs上训练几个月，而Post-training通常在少数GPU上训练几个小时。
+
+这是因为在Post-training阶段，模型的训练集数据规模相比Pre-training阶段所使用的互联网documents是极其小的，训练速度很快；
+
+总结来说，Post-training与Pre-training对比，除了训练数据集的改变，模型的架构，算法都不做任何修改。
+
+### 2.3 Conversation protocol/format
+
+如何将对话数据集转换成 token 序列？
+
+你必须要设计某种 end coding，来表示对话结束。
+
+类似于 TCP/IP 协议，统一了数据传输的格式。
+
+以及现在随着 Agent 被提出来之后，讨论的比较多的 MCP（Model Context Protocol） 协议，统一了模型交换数据的格式。
+
+*协议（protocol）*：就是一套规则，规定了双方的交流方式，以及交流内容的格式，使得各方对同一件事情的理解都能达成一致。
+
+下面是 GPT-4 的对话数据集 token 形式：
+
+[GPT-4 Tokenizer](https://tiktokenizer.vercel.app/?model=gpt-4)
+
+可以看到特殊的 token，例如：`<|im_start|>`，`<|im_sep|>`，`<|im_end|>`等（ im 代表 input message，sep 代表 separator）。
+
+注意这些特殊 token 在 pre-training 阶段是模型从未见过的 token ，是在 post-training 阶段加入到词汇表中的新 token。
+
+```bash
+<|im_start|>system<|im_sep|>You are a helpful assistant<|im_end|>
+<|im_start|>user<|im_sep|>Who are you?<|im_end|>
+<|im_start|>assistant<|im_sep|>I am a helpful assistant.<|im_end|>
+```
+
+可以看到 conversation protocol 将对话文本组织成了类似 xml 格式的结构化数据。
+
+```xml
+<dialogue>
+  <turn speaker="system">
+    <message>You are a helpful assistant</message>
+  </turn>
+  <turn speaker="user">
+    <message>Who are you?</message>
+  </turn>
+  <turn speaker="assistant">
+    <message>I am a helpful assistant.</message>
+  </turn>
+</dialogue>
+```

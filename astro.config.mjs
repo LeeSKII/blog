@@ -1,5 +1,6 @@
 import { defineConfig } from "astro/config";
 import { remarkModifiedTime } from "./src/utils/remark-modified-time.mjs";
+import { remarkReadingTime } from "./src/utils//remark-reading-time.mjs";
 import rehypeExternalLinks from "rehype-external-links";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
@@ -20,7 +21,7 @@ export default defineConfig({
     }),
   ],
   markdown: {
-    remarkPlugins: [remarkMath, remarkModifiedTime],
+    remarkPlugins: [remarkMath, remarkModifiedTime, remarkReadingTime],
     rehypePlugins: [
       rehypeKatex,
       [
