@@ -309,3 +309,58 @@ Pre-training通常在数千个GPUs上训练几个月，而Post-training通常在
   </turn>
 </dialogue>
 ```
+
+在实际对话中，发送给 LLM provider like OpenAI 就像如下格式：
+
+```bash
+<|im_start|>system<|im_sep|>You are a helpful assistant<|im_end|>
+<|im_start|>user<|im_sep|>Who are you?<|im_end|>
+<|im_start|>assistant<|im_sep|>
+```
+
+然后模型根据以上 sequence 进行推理，并采样，直到采样到 `<|im_end|>` 结束再返回给用户。
+
+这就是简要的根据 conversation protocol 的工作方式。
+
+### 2.4 Conversation datasets
+
+Paper [《Training language models to follow instructions with human feedback》](https://ar5iv.labs.arxiv.org/html/2203.02155) released in 2022
+
+OpenAI 第一次展示了如何制作对话数据集并微调（Fine-tune）模型。
+
+1. Human data collection
+    > hired a team of about 40 contractors on Upwork。
+2. Labeling instructions
+    > very human heavy process.
+
+OpenAI 未发布用于指令微调的相关数据集，但是社区已经提供了一些开源的数据集。
+
+[Open assistant dataset](https://huggingface.co/datasets/OpenAssistant/oasst1/viewer/default/train?row=0)
+
+其它数据集：从deepseek r1中提取用于蒸馏(distillation)非推理模型的对话数据集。
+
+[Chinese-DeepSeek-R1-Distill-data-110k](https://huggingface.co/datasets/Congliu/Chinese-DeepSeek-R1-Distill-data-110k)
+
+通过蒸馏，可以将非推理模型的性能提升到与推理模型相当，本质上来说，是给了模型更多的思考空间，从而提升模型的逻辑能力，是 long context length 和 accuracy 的 trade-off。
+
+通过大量数据的指令微调，相当于给了模型看很多示例，从而在 user 提出下一个 prompt 的时候，模仿之前看到的对话示例，以相同的风格或者逻辑方式进行回复。
+
+### 2.4.1 Synthetic datasets
+
+从这篇 paper [《Training language models to follow instructions with human feedback》](https://ar5iv.labs.arxiv.org/html/2203.02155) 发布的最近几年，主要的方向是，通过人工标注的数据占的比例越来越少，因为大量的 LLM 被用来生成合成数据，例如：知识蒸馏的数据来源。
+
+Diversity: 指令微调的数据集覆盖的话题可能几乎包含了人类所有符合道德伦理标准的领域。
+
+### 2.5 No magic
+
+当你和 ChatGPT 这样的 Generative Language Model 进行对话时，这个过程实际上是一个 Statistical Alignment。
+
+目前来说，底层的原理都是符合概率分布的采样。
+
+What we have build?
+
+1. Pre-training: a simulation of a internet text.
+2. Post-training: a simulation of a human labeler（expert）.
+
+所以你会有一种感觉，现代 AI 的对话比以往出现的任何智能系统的回答更精确和成逻辑体系，因为它不仅模仿的人类，还是模仿的人类在这个领域的专家所做出的回答。
+
