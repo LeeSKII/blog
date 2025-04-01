@@ -6,7 +6,7 @@ image:
   url: "@postImages/daniel-sessler.jpg"
   alt: "A small island in the middle of the ocean."
 pubDate: 2024-12-30
-isPublished: true
+isPublished: false
 tags: ["blogging", "programming"]
 ---
 
