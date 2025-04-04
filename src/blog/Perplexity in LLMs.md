@@ -32,7 +32,7 @@ Perplexity 的值介于 1 和 vocabulary_size 之间，当值为 1 时，说明�
 
 Perplexity 目前在学术界实际指标评价中应用较少了，主要的原因是会受到两个因素的影响：
 
-1. Tokenizer 分词器的选择；
+1. Tokenizer 分词器的选择（例如Gemini的词表大小为1e6，而GPT-3的词表大小为1e5，那么GPT-3的Perplexity值会比Gemini的低很多）；
 2. 训练数据的分布；
 
 现在对 LLMs 的评价更多依赖于各种 benchmark 数据。
