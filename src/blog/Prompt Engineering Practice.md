@@ -3,11 +3,11 @@ title: Prompt Engineering Practice
 author: Lee Ski
 description: ""
 image:
-    url: "@postImages/daniel-sessler.jpg"
-    alt: "A small island in the middle of the ocean."
+  url: "@postImages/daniel-sessler.jpg"
+  alt: "A small island in the middle of the ocean."
 pubDate: 2025-04-25
 isPublished: true
-tags: ["ai",'prompt engineering']
+tags: ["ai", "prompt engineering"]
 ---
 
 ## Introduction
@@ -58,6 +58,100 @@ think it step by step.
 - putting the answer after the reasoning is required
 - final answer, separated from the reasoning
 - set the temperature to 0
+
+## Reflective Prompting
+
+也被称为 Self-Reflection Prompting, 是让模型进行自我反思的技术
+
+1. Chain-of-Thought (CoT) Reflection
+
+在复杂问题中让模型分步思考后，通过追加提示（如*"请检查你的回答是否有逻辑错误？"*）触发自我反思。
+
+2. Self-Consistency Checking
+
+要求模型验证自身答案的一致性（例如："你之前的回答是否与已知事实冲突？请反思。"）
+
+3. Meta-Reasoning Prompts
+
+通过元认知指令让模型评估自己的推理过程（如*"请分析你的思考过程中可能存在的偏见。"*）
+
+4. Critique-and-Refine Frameworks
+
+分阶段提示模型先输出答案，再以批评者角色自我修正（例如："假设你是专家，请批判以下回答…"）
+
+5. 递归式反思（Recursive Reflection）
+
+在多轮对话中要求模型迭代改进回答（如*"基于你刚才的回答，现在请提出三个优化建议。"*）
+
+学术文献中常用的术语包括：
+
+- "Self-Reflection in LLMs" (Shinn et al., 2023)
+- "Iterative Reflection" (Madaan et al., 2023)
+
+实际应用时，典型prompt结构可能是：
+
+```
+"请先解决问题，然后从以下角度反思你的答案：
+1. 逻辑漏洞
+2. 数据可靠性
+3. 潜在偏见
+最后生成修订版回答。"
+```
+
+## Cross-Examination | Third-Party Verification
+
+### 技术分类
+
+1. 模型间验证（Inter-Model Verification）
+
+   - 技术名：Model-of-Models (MoM) 或 Cross-Model Checking
+   - 原理：用一个或多个辅助模型（如更小/更专精的模型）对主模型的输出进行逻辑、事实或安全性的二次验证。
+   - 示例Prompt：
+
+   ```text
+   主模型生成回答后，第三方模型收到指令：
+   "请检查以下回答是否存在事实错误或逻辑矛盾：[主模型输出]。若有问题，请指出并修正。"
+   ```
+
+2. 辩论式验证（Debate-Based Verification）
+
+   - 技术名：AI Debate 或 Adversarial Prompting
+   - 原理：让多个模型（或同一模型的不同实例）针对主模型的输出进行辩论，通过对抗性讨论暴露潜在问题。
+   - 示例场景：
+     - 模型A生成回答 → 模型B扮演反对者提出质疑 → 模型A或模型C最终裁决。
+
+3. 分阶段验证（Staged Verification）
+
+   - 技术名：Two-Stage Verification 或 Critic-Refiner Framework
+   - 原理：主模型生成内容后，由另一个专用“批评者模型”进行优化（如安全性、合规性检查）。
+   - 示例Prompt：
+
+   ```
+   批评者模型的指令：
+   "你是一个安全审核员，请从隐私和伦理角度评估以下文本，标记高风险内容：[主模型输出]"
+   ```
+
+4. 人类对齐验证（Human-Aligned Verification）
+
+   - 技术名：Human-in-the-Loop (HITL) Verification
+   - 原理：通过Prompt让第三方模型模拟人类专家的视角进行审核（如法律、医疗领域）。
+   - 示例Prompt：
+
+   ```
+   "假设你是一名医生，请验证以下诊断建议是否合理：[主模型输出]"
+   ```
+
+### 关键技术要点
+
+- 动态反馈循环：主模型和验证模型之间可通过多轮交互迭代改进输出。
+- 角色分离：明确分配验证模型的角色（如“事实检查员”“伦理顾问”），避免验证偏差。
+- 验证维度：通常包括逻辑一致性、事实准确性、安全性、伦理合规性等。
+
+### 典型应用场景
+
+1. 事实核查：用检索增强的模型（如RAG）验证主模型的生成结果。
+2. 安全过滤：通过专用安全模型（如Moderation API）检测有害内容。
+3. 复杂任务分解：主模型处理核心任务，辅助模型负责错误检查（如代码生成+静态分析）。
 
 ## Tree of Thoughts (ToT)
 
@@ -133,4 +227,3 @@ Try using verbs that describe the action. Here’s a set of examples:
 ### Working with Schemas
 
 输入数据范式使用xml或json，个人建议使用xml。
-
