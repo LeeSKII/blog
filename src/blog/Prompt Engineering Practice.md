@@ -26,6 +26,8 @@ Combining some complex prompts to indicate the AI's response more relate and acc
 
 ## Role prompting
 
+Role and Persona
+
 角色扮演，让AI知道自己在这个任务中的角色，确定其背景知识，语气，回复风格。
 
 ## Contextual prompting
